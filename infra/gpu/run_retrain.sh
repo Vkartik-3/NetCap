@@ -16,6 +16,10 @@ step() {   # step <name> <command...>: run, tee output, record exit code and dur
   return $rc
 }
 PY=${PYTHON:-python3.12}
+# TF 2.21 does not find the pip CUDA libs on its own (libcusolver.so.11 "cannot open"): put every nvidia/*/lib on the path.
+if [ -d .venv-tf/lib/python3.12/site-packages/nvidia ]; then
+  export LD_LIBRARY_PATH=$(ls -d "$PWD"/.venv-tf/lib/python3.12/site-packages/nvidia/*/lib | paste -sd:)${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+fi
 env_setup() {
   step host     bash -c 'uname -a; cat /etc/os-release | head -3; nproc; free -g; df -h .; nvidia-smi; '"$PY"' --version'
   step venv     $PY -m venv .venv-tf || return 1
