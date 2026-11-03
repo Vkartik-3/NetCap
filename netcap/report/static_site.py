@@ -5,7 +5,7 @@
 Every file is produced by calling the API in-process (FastAPI TestClient), so the static numbers are exactly
 what the live API returns. Scenarios are precomputed for no failure, every link pair and every router, at growth
 factors 1, 1.5 and 2 (threshold 0.5); forecasts for the 10 busiest flows (and flow 86) at 5, 30 and 60 minutes
-for the main methods, first 1,008 test steps (3.5 days). Anything else needs the live API.
+for the main methods (and the GPU-retrained CNN-LSTMs at 60 minutes), first 1,008 test steps (3.5 days). Anything else needs the live API.
 """
 import argparse
 import json
@@ -16,6 +16,7 @@ from .. import config
 
 GROWTH = (1, 1.5, 2)
 METHODS = ("persistence", "gbm", "gbm_rule", "blend_rule", "blend_gate", "ets", "arima_dhr_sel")
+NEURAL_METHODS = ("cnn_lstm_base", "cnn_lstm_seasonal", "cnn_lstm_seasonal_rule")   # panel=abilene_neural, h=12
 HORIZONS = (1, 6, 12)
 FORECAST_POINTS = 1008
 
@@ -58,6 +59,11 @@ def main(argv=None):
                 if r.status_code == 200:
                     save(f"forecast_{f}_{h}_{m}.json", r.json())
                     n_fc += 1
+        for m in NEURAL_METHODS:                      # GPU retrain: 60 minutes only
+            r = c.get(f"/api/forecast?flow={f}&horizon=12&method={m}&panel=abilene_neural&limit={FORECAST_POINTS}")
+            if r.status_code == 200:
+                save(f"forecast_{f}_12_{m}.json", r.json())
+                n_fc += 1
     pairs = [[l["link_id"], next(m["link_id"] for m in topo["links"] if m["src"] == l["dst"] and m["dst"] == l["src"])]
              for l in topo["links"] if l["src"] < l["dst"]]
     cases = [([], None)] + [(p, None) for p in pairs] + [([], n["name"]) for n in topo["nodes"]]
@@ -76,7 +82,7 @@ def main(argv=None):
     (out / "data" / "limitations.md").write_text(c.get("/api/limitations").text)
     html = (Path(__file__).resolve().parents[2] / "netcap_app" / "static" / "index.html").read_text()
     html = html.replace("<head>", "<head>\n<script>window.NETCAP_STATIC = " + json.dumps(
-        {"flows": flows, "methods": METHODS, "growth": GROWTH}) + ";</script>", 1)
+        {"flows": flows, "methods": METHODS + NEURAL_METHODS, "growth": GROWTH}) + ";</script>", 1)
     (out / "index.html").write_text(html)
     (out / ".nojekyll").write_text("")
     size = sum(p.stat().st_size for p in out.rglob("*") if p.is_file())

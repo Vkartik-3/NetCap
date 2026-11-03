@@ -140,8 +140,34 @@ def forecast_summary(panel: str = "abilene"):
                 rows.append({"fold": fold, "horizon": h, "method": m, "test_mae": v["test"]["mae"],
                              "test_gain_vs_persistence_pct": v["test_gain_vs_persistence_pct"],
                              "coverage90": v["conformal"]["coverage_two_sided"]})
+    if panel == "abilene":
+        rows += neural_summary_rows()
     return {"unit": r["unit"], "rows": rows, "selected_on_validation":
             {f"{f}/{h}": c["selected_on_validation"]["method"] for f, hs in r["results"].items() for h, c in hs.items()}}
+
+
+NEURAL = {"base": "cnn_lstm_base", "seasonal": "cnn_lstm_seasonal", "rule": "cnn_lstm_seasonal_rule"}
+
+
+@lru_cache(maxsize=1)
+def neural_summary_rows():
+    """GPU-retrained CNN-LSTMs (60 min, original fold, 3-seed mean forecast), if the retrain was run and exported."""
+    f = config.RESULTS / "phase_neural_retrain.json"
+    root = config.DATA / "forecasts" / "panel=abilene_neural" / "h=12"
+    if not f.exists() or not root.exists():
+        return []
+    res = json.loads(f.read_text()).get("results") or {}
+    rows = []
+    for key, method in NEURAL.items():
+        pq = root / f"{method}.parquet"
+        if key not in res or not pq.exists():
+            continue
+        cov = pl.scan_parquet(pq).select(((pl.col("actual") >= pl.col("lo")) & (pl.col("actual") <= pl.col("hi")))
+                                         .mean()).collect().item()
+        rows.append({"fold": "original", "horizon": "h12", "method": method, "test_mae": None,
+                     "test_gain_vs_persistence_pct": res[key]["test_gain_3seed_mean_forecast_pct"],
+                     "coverage90": float(cov), "source": "phase_neural_retrain.json (GPU, 3 seeds)"})
+    return rows
 
 
 @app.get("/api/forecast")

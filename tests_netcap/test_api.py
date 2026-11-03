@@ -76,3 +76,12 @@ def test_neural_forecasts_use_abilene_units(client):
     n = client.get("/api/forecast?flow=86&horizon=12&method=cnn_lstm_seasonal_rule&panel=abilene_neural&limit=50").json()
     assert a["step"] == n["step"]
     assert n["actual"] == pytest.approx(a["actual"], rel=1e-5)
+
+
+def test_forecast_summary_lists_neural_methods(client):
+    if not (config.RESULTS / "phase_neural_retrain.json").exists() or \
+            not (config.DATA / "forecasts" / "panel=abilene_neural" / "h=12").exists():
+        pytest.skip("neural forecasts not exported (GPU retrain)")
+    rows = [r for r in client.get("/api/forecast/summary").json()["rows"] if r["method"].startswith("cnn_lstm")]
+    assert {r["method"] for r in rows} == {"cnn_lstm_base", "cnn_lstm_seasonal", "cnn_lstm_seasonal_rule"}
+    assert all(r["horizon"] == "h12" and r["fold"] == "original" and 0 < r["coverage90"] <= 1 for r in rows)
