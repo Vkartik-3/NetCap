@@ -116,8 +116,8 @@ def run():
            "tensorflow": tf.__version__,
            "note": ("GPU retrain" if tf.config.list_physical_devices("GPU") else "CPU retrain")
                    + "; the reference numbers use GPU models (section 20.1: GPU and CPU differ slightly)"}
-    export(base, mean, rule)
     print(save_result("phase_neural_retrain", run_record({"abilene": "processed/h12 (common.prepare_abilene)"}, **out)))
+    export(base, mean, rule)          # after saving: an export failure must not lose the metrics
     print({k: (round(v["test_gain_3seed_mean_forecast_pct"], 2), v["reproduced"]) for k, v in res.items()})
 
 
@@ -133,7 +133,8 @@ def export(base, mean, rule):
     a = int(n * 0.6)
     b = a + int(n * 0.2)
     va, te = t_all[a:b], t_all[b:]
-    if len(te) != len(base["y_raw"][2]) or not np.allclose(p.values[te], base["y_raw"][2], rtol=1e-5):
+    # atol: true zeros come back from common's scaler round trip as ~5.5e-7 raw units (16 cells, flow 45, GPU run 2026-11-03)
+    if len(te) != len(base["y_raw"][2]) or not np.allclose(p.values[te], base["y_raw"][2], rtol=1e-5, atol=1e-6):
         raise RuntimeError("test targets do not line up with netcap.forecast.panel")
     from netcap import config
     w = TableWriter(config.DATA / "forecasts" / "panel=abilene_neural")     # own directory: Phase 2 files untouched
