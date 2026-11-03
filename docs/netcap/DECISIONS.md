@@ -158,3 +158,11 @@ Uncertainty and significance
 - Routing depends only on OSPF weights, so each case's routing is computed once (checked: a capacity change leaves the
   routing matrix identical). Greedy plan: apply the best upgrade per Gbit/s until the worst case is below 0.8.
 - Size-free figures for the binding link: the capacity at which it stops binding, and the capacity for < 0.8.
+
+## Peak-to-average sensitivity (2026-11-03)
+- Factors 1.0 / 1.2 / 1.5 / 2.0 are ASSUMED (sub-5-minute peak / 5-minute average; not measured on Abilene). Every
+  case's per-link peak load is multiplied by the factor (loads are linear in demand); routing is unchanged.
+- The greedy plan's objective was changed after seeing results from "worst case reduction per Gbit/s" to "total
+  overload above 0.8 (sum over core links of max(0, worst-case utilisation − 0.8)) per Gbit/s": at factor 1.2 two
+  mirror links tie at 92.8%, so no single upgrade lowers the maximum and the max-only plan stopped early. A link exactly
+  at 0.8 counts as overloaded (a test caught the zero-overload stall). At factor 1.0 both objectives give the same plan.

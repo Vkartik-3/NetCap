@@ -49,3 +49,4 @@ What NetCap's results do and do not show. Numbers are in docs/netcap/RESULTS.md 
 - Docker Compose and Kubernetes were run on one laptop (kind, single node); there is no hosted or multi-node deployment.
 - Neural models: one limited GPU retrain (Abilene, 60 min, original fold, 3 seeds). The rule result reproduced cleanly;
   the seasonal model's match is weak (seeds disagree). Other horizons and folds were not retrained.
+- Peak-to-average factors in the sensitivity table are assumed; the data has no sub-5-minute resolution to measure them.

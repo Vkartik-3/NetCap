@@ -107,3 +107,19 @@ def test_upgrade_search_finds_the_binding_link_and_sizes_it():
     assert s["binding_link"]["min_capacity_mbps_below_0.8"] == pytest.approx(50.0)
     assert s["greedy_plan"]["reached"] and s["greedy_plan"]["worst_case_util_final"] < 0.8
     assert all(c["capacity_mbps_after_ASSUMED"] > c["capacity_mbps_before"] for c in s["ranking"])
+
+
+def test_upgrade_plan_scales_with_peak_factor_and_handles_ties():
+    from netcap.scenario.run import upgrade_search
+    net = square(cap=100.0)                        # symmetric square: two mirror paths tie for the worst case
+    R0, _ = E.routing_matrix(net)
+    dem = np.zeros((2, len(net.nodes) ** 2))
+    dem[:, flow(net, "A", "D")] = [60.0, 80.0]     # 40 per path; 80 on the surviving path when one link fails
+    names = {l[0]: f"{l[1]}->{l[2]}" for l in net.links}
+    s = upgrade_search(net, R0, dem, names)
+    assert s["worst_case_util_before"] == pytest.approx(0.8)
+    rows = {r["peak_factor_ASSUMED"]: r for r in s["peak_factor_sensitivity"]["rows"]}
+    assert rows[2.0]["worst_case_util_before"] == pytest.approx(2 * rows[1.0]["worst_case_util_before"])
+    assert rows[2.0]["binding_link_min_capacity_mbps_below_0.8"] == pytest.approx(2 * rows[1.0]["binding_link_min_capacity_mbps_below_0.8"])
+    assert s["greedy_plan"]["reached"]             # ties between mirror links must not stall the plan
+    assert rows[2.0]["greedy_plan"]["reached"]

@@ -68,6 +68,19 @@ the original).
   get below 80% is ATLA–IPLS 2.48 → 9.92 Gbit/s (+7.44 Gbit/s per direction) → **77.3%**, the same answer as the added rule.
 - Size-free: ATLA–IPLS carries up to 7.37 Gbit/s in its worst N-1 case, so it needs **at least 9.22 Gbit/s** to stay
   below 80%; above 9.54 Gbit/s it stops being the bottleneck and WASH→NYCM (77.3% when CHIN–IPLS fails) takes over.
+- Peak-to-average sensitivity (`upgrade_search.peak_factor_sensitivity`; factors ASSUMED, loads scale linearly):
+
+  | Peak factor | No-failure max | Worst N-1 now | After ATLA–IPLS → 9.92 | Cases ≥ 80% after | ATLA–IPLS for < 80% | Greedy plan |
+  |---|---|---|---|---|---|---|
+  | 1.0 | 75.4% | 297% | 77.3% | 0 / 28 | 9.22 Gbit/s | 2 upgrades, +7.44 Gbit/s |
+  | 1.2 | 90.4% | 357% | 92.8% | 26 / 28 | 11.06 Gbit/s | 14 upgrades, +126.48 Gbit/s |
+  | 1.5 | 113.0% | 446% | 116.0% | 26 / 28 | 13.83 Gbit/s | 14 upgrades, +126.48 Gbit/s |
+  | 2.0 | 150.7% | 595% | 154.6% | 26 / 28 | 18.44 Gbit/s | 14 upgrades, +126.48 Gbit/s |
+
+  The chosen upgrade holds only up to a peak factor of **1.035** (0.8 / 0.773). Beyond that the network is uniformly
+  tight under failures (26 of 28 cases over 80% at 1.2), so the plan becomes doubling most core links. Plans at
+  1.2-2.0 coincide because candidate sizes are coarse (2x / 4x); the greedy objective is total overload above 80% per
+  Gbit/s, because a max-only greedy stalled on a tie between mirror links (IPLS→CHIN and WASH→NYCM, both 92.8% at 1.2).
 - TE bound (LP / OSPF max utilisation), hourly over all data: mean 0.704 [0.696, 0.712] normally, 0.493 [0.483,
   0.504] under the worst failure (95% day-block bootstrap); 0.51 on the 20 busiest steps.
 - Better forecasts, not better warnings: the GBM has 14% lower link-load error than persistence at 60 min but a

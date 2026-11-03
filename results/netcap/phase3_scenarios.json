@@ -1,18 +1,18 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 2.865234375,
+  "load_average_1min": 3.634765625,
   "cpu_count": 8,
   "timing_label": "measured on an otherwise idle machine"
  },
  "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/scenario/run.py",
- "date": "2026-11-03T17:51:14+00:00",
+ "date": "2026-11-03T18:28:15+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "4301e369cd2f1ef63293a90d85586e8096114ac6",
+  "netcap_commit": "eb08fa0acfa982ccc1f1322b4c2642db2110be72",
   "dirty": true,
-  "netcap_source_sha256": "b1b4cf88fc12df0e5e7fb8f0b10c09f89440dc3615337cbaf1fd2884a48d2817",
+  "netcap_source_sha256": "b6a92581221c691f463648160d5959cf17501ea01c73ad37d8480f81ce6e1116",
   "project_release": "1.0"
  },
  "data_version": {
@@ -816,9 +816,11 @@
   },
   "greedy_plan": {
    "target_worst_case_util": 0.8,
+   "objective": "total overload above target per Gbit/s",
    "reached": true,
    "worst_case_util_final": 0.7731501236559137,
    "gbps_added_per_direction_total": 7.4399999999999995,
+   "upgrades": 2,
    "steps": [
     {
      "step": 1,
@@ -829,7 +831,8 @@
      "worst_case_util_after": 1.4867241865591396,
      "worst_case_after": "link IPLSng-KSCYng",
      "worst_link_after": "ATLAng->IPLSng",
-     "reduction_pp_per_gbps": 59.94855590964273,
+     "overload_reduction_pp_per_gbps": 113.43306399583767,
+     "total_overload_pp_after": 121.31419870967738,
      "cumulative_gbps_added": 2.48
     },
     {
@@ -841,8 +844,140 @@
      "worst_case_util_after": 0.7731501236559137,
      "worst_case_after": "link CHINng-IPLSng",
      "worst_link_after": "WASHng->NYCMng",
-     "reduction_pp_per_gbps": 14.38657384885536,
+     "overload_reduction_pp_per_gbps": 24.45850780437044,
+     "total_overload_pp_after": 0.0,
      "cumulative_gbps_added": 7.4399999999999995
+    }
+   ]
+  },
+  "peak_factor_sensitivity": {
+   "note": "peak factors are ASSUMED (sub-5-minute peak / 5-minute average, not measured on Abilene); chosen upgrade = greedy plan at factor 1",
+   "chosen_upgrade": [
+    "ATLAng-IPLSng to 4960 Mbit/s",
+    "ATLAng-IPLSng to 9920 Mbit/s"
+   ],
+   "max_peak_factor_chosen_upgrade_stays_below_threshold": 1.0347278950394836,
+   "caveat": "candidate sizes are coarse (2x / 4x), so plans at different factors can coincide and overshoot; the per-link minimum capacities are size-free",
+   "rows": [
+    {
+     "peak_factor_ASSUMED": 1.0,
+     "no_failure_max_util": 0.7535501016129031,
+     "worst_case_util_before": 2.9734483731182793,
+     "worst_case_before": "link IPLSng-KSCYng",
+     "worst_case_util_after_chosen_upgrade": 0.7731501236559137,
+     "worst_case_after_chosen_upgrade": "link CHINng-IPLSng",
+     "worst_link_after_chosen_upgrade": "WASHng->NYCMng",
+     "cases_at_or_over_threshold_after_chosen_upgrade": 0,
+     "cases_over_100pct_after_chosen_upgrade": 0,
+     "binding_link_min_capacity_mbps_below_0.8": 9217.689956666665,
+     "greedy_plan": {
+      "reached": true,
+      "worst_case_util_final": 0.7731501236559137,
+      "gbps_added_per_direction_total": 7.4399999999999995,
+      "upgrades": [
+       "ATLAng-IPLSng 2480->4960",
+       "ATLAng-IPLSng 4960->9920"
+      ]
+     }
+    },
+    {
+     "peak_factor_ASSUMED": 1.2,
+     "no_failure_max_util": 0.9042601219354838,
+     "worst_case_util_before": 3.568138047741935,
+     "worst_case_before": "link IPLSng-KSCYng",
+     "worst_case_util_after_chosen_upgrade": 0.9277801483870964,
+     "worst_case_after_chosen_upgrade": "link CHINng-IPLSng",
+     "worst_link_after_chosen_upgrade": "WASHng->NYCMng",
+     "cases_at_or_over_threshold_after_chosen_upgrade": 26,
+     "cases_over_100pct_after_chosen_upgrade": 0,
+     "binding_link_min_capacity_mbps_below_0.8": 11061.227947999998,
+     "greedy_plan": {
+      "reached": true,
+      "worst_case_util_final": 0.4638900741935482,
+      "gbps_added_per_direction_total": 126.48000000000002,
+      "upgrades": [
+       "ATLAng-IPLSng 2480->4960",
+       "ATLAng-IPLSng 4960->9920",
+       "CHINng-IPLSng 9920->19840",
+       "ATLAng-WASHng 9920->19840",
+       "NYCMng-WASHng 9920->19840",
+       "ATLAng-HSTNng 9920->19840",
+       "IPLSng-KSCYng 9920->19840",
+       "DNVRng-KSCYng 9920->19840",
+       "HSTNng-LOSAng 9920->19840",
+       "LOSAng-SNVAng 9920->19840",
+       "CHINng-NYCMng 9920->19840",
+       "DNVRng-SNVAng 9920->19840",
+       "ATLAng-IPLSng 9920->19840",
+       "HSTNng-KSCYng 9920->19840"
+      ]
+     }
+    },
+    {
+     "peak_factor_ASSUMED": 1.5,
+     "no_failure_max_util": 1.1303251524193547,
+     "worst_case_util_before": 4.460172559677419,
+     "worst_case_before": "link IPLSng-KSCYng",
+     "worst_case_util_after_chosen_upgrade": 1.1597251854838706,
+     "worst_case_after_chosen_upgrade": "link CHINng-IPLSng",
+     "worst_link_after_chosen_upgrade": "WASHng->NYCMng",
+     "cases_at_or_over_threshold_after_chosen_upgrade": 26,
+     "cases_over_100pct_after_chosen_upgrade": 26,
+     "binding_link_min_capacity_mbps_below_0.8": 13826.534935,
+     "greedy_plan": {
+      "reached": true,
+      "worst_case_util_final": 0.5798625927419353,
+      "gbps_added_per_direction_total": 126.48000000000002,
+      "upgrades": [
+       "ATLAng-IPLSng 2480->4960",
+       "ATLAng-IPLSng 4960->9920",
+       "CHINng-IPLSng 9920->19840",
+       "ATLAng-WASHng 9920->19840",
+       "NYCMng-WASHng 9920->19840",
+       "ATLAng-HSTNng 9920->19840",
+       "IPLSng-KSCYng 9920->19840",
+       "DNVRng-KSCYng 9920->19840",
+       "HSTNng-LOSAng 9920->19840",
+       "LOSAng-SNVAng 9920->19840",
+       "CHINng-NYCMng 9920->19840",
+       "DNVRng-SNVAng 9920->19840",
+       "ATLAng-IPLSng 9920->19840",
+       "HSTNng-KSCYng 9920->19840"
+      ]
+     }
+    },
+    {
+     "peak_factor_ASSUMED": 2.0,
+     "no_failure_max_util": 1.5071002032258063,
+     "worst_case_util_before": 5.9468967462365585,
+     "worst_case_before": "link IPLSng-KSCYng",
+     "worst_case_util_after_chosen_upgrade": 1.5463002473118275,
+     "worst_case_after_chosen_upgrade": "link CHINng-IPLSng",
+     "worst_link_after_chosen_upgrade": "WASHng->NYCMng",
+     "cases_at_or_over_threshold_after_chosen_upgrade": 26,
+     "cases_over_100pct_after_chosen_upgrade": 26,
+     "binding_link_min_capacity_mbps_below_0.8": 18435.37991333333,
+     "greedy_plan": {
+      "reached": true,
+      "worst_case_util_final": 0.7731501236559137,
+      "gbps_added_per_direction_total": 126.48000000000002,
+      "upgrades": [
+       "ATLAng-IPLSng 2480->4960",
+       "ATLAng-IPLSng 4960->9920",
+       "CHINng-IPLSng 9920->19840",
+       "ATLAng-WASHng 9920->19840",
+       "NYCMng-WASHng 9920->19840",
+       "ATLAng-HSTNng 9920->19840",
+       "IPLSng-KSCYng 9920->19840",
+       "DNVRng-KSCYng 9920->19840",
+       "HSTNng-LOSAng 9920->19840",
+       "LOSAng-SNVAng 9920->19840",
+       "CHINng-NYCMng 9920->19840",
+       "DNVRng-SNVAng 9920->19840",
+       "ATLAng-IPLSng 9920->19840",
+       "HSTNng-KSCYng 9920->19840"
+      ]
+     }
     }
    ]
   },
@@ -1568,7 +1703,7 @@
   "hourly_sweep": {
    "normal": {
     "steps_solved": 3405,
-    "lp_solve_s_total": 10.467741374999605,
+    "lp_solve_s_total": 10.418656875000124,
     "ratio_mean": 0.7038837912219416,
     "ratio_mean_ci95": [
      0.6957788944197184,
@@ -1587,7 +1722,7 @@
    },
    "worst_failure": {
     "steps_solved": 3405,
-    "lp_solve_s_total": 9.719544083000073,
+    "lp_solve_s_total": 9.63921979099996,
     "ratio_mean": 0.49333480333790247,
     "ratio_mean_ci95": [
      0.4834638184432046,
@@ -2391,5 +2526,5 @@
   },
   "warning_f1_bootstrap": "paired day-block bootstrap over test rows: 2000 resamples, blocks of 288 5-minute rows (one day), seed 42; same resampled rows for every method; difference = method - persistence; point forecasts"
  },
- "wall_s": 29.75745704200017
+ "wall_s": 29.292287207999834
 }
