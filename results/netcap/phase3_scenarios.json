@@ -1,18 +1,18 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 3.90185546875,
+  "load_average_1min": 3.08251953125,
   "cpu_count": 8,
   "timing_label": "measured on an otherwise idle machine"
  },
- "command": "python <repo>/netcap/scenario/run.py",
- "date": "2026-11-03T04:22:55+00:00",
+ "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/scenario/run.py",
+ "date": "2026-11-03T17:31:20+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "project-release-1.0",
-  "dirty": true,
-  "netcap_source_sha256": "0f76ce1db93f01d836c4b8d09a9997f789c9bb218b3a34bc5ef00db94cdc127f",
+  "netcap_commit": "e365bfb30197cf38f1dab6f609fd29b42e194aef",
+  "dirty": false,
+  "netcap_source_sha256": "178a24d1b1f1ba1803142fc7a09a31cbef74df36a13038243492e9f9ef2f68ad",
   "project_release": "1.0"
  },
  "data_version": {
@@ -1033,7 +1033,7 @@
   "hourly_sweep": {
    "normal": {
     "steps_solved": 3405,
-    "lp_solve_s_total": 10.426670542015927,
+    "lp_solve_s_total": 10.45950370799983,
     "ratio_mean": 0.7038837912219416,
     "ratio_mean_ci95": [
      0.6957788944197184,
@@ -1052,7 +1052,7 @@
    },
    "worst_failure": {
     "steps_solved": 3405,
-    "lp_solve_s_total": 9.675125582987675,
+    "lp_solve_s_total": 9.79103537500032,
     "ratio_mean": 0.49333480333790247,
     "ratio_mean_ci95": [
      0.4834638184432046,
@@ -1490,8 +1490,86 @@
      "warning_recall": 0.01466544454628781,
      "warning_events_actual": 1091
     }
+   },
+   "cnn_lstm_base": {
+    "point": {
+     "mean_abs_error_pp": 0.39216095292951686,
+     "max_abs_error_pp": 1.0110183385756588,
+     "links_under_planned": 30,
+     "worst_link_planned_p95": 0.13027635952608,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5090725276700588,
+     "warning_f1": 0.9079069767441861,
+     "warning_precision": 0.9216241737488197,
+     "warning_recall": 0.8945921173235564,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.6951761797874143,
+     "max_abs_error_pp": 1.5627425827363846,
+     "links_under_planned": 1,
+     "worst_link_planned_p95": 0.15256182954406305,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.128846814218488,
+     "warning_f1": 0.9037037037037037,
+     "warning_precision": 0.9130028063610851,
+     "warning_recall": 0.8945921173235564,
+     "warning_events_actual": 1091
+    }
+   },
+   "cnn_lstm_seasonal": {
+    "point": {
+     "mean_abs_error_pp": 0.6040197000747676,
+     "max_abs_error_pp": 1.9380246926126,
+     "links_under_planned": 30,
+     "worst_link_planned_p95": 0.11920907153274335,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5816345325381044,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.5518219511671071,
+     "max_abs_error_pp": 1.4932979121353607,
+     "links_under_planned": 7,
+     "worst_link_planned_p95": 0.13863599966080914,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.1519582318786428,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    }
+   },
+   "cnn_lstm_seasonal_rule": {
+    "point": {
+     "mean_abs_error_pp": 0.6018373531985605,
+     "max_abs_error_pp": 1.9380246926126,
+     "links_under_planned": 30,
+     "worst_link_planned_p95": 0.11920907153274335,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.4461063894383042,
+     "warning_f1": 0.888673765730881,
+     "warning_precision": 0.9415384615384615,
+     "warning_recall": 0.8414298808432631,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.549920746537337,
+     "max_abs_error_pp": 1.4933201292860188,
+     "links_under_planned": 7,
+     "worst_link_planned_p95": 0.1386391150610004,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.0266139479761174,
+     "warning_f1": 0.888673765730881,
+     "warning_precision": 0.9415384615384615,
+     "warning_recall": 0.8414298808432631,
+     "warning_events_actual": 1091
+    }
    }
   }
  },
- "wall_s": 25.26978208302171
+ "wall_s": 25.728481290999753
 }

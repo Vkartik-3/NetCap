@@ -27,6 +27,7 @@ command, code version, seed, date and data version.
 | What is the biggest failure risk? | Losing the IPLS–KSCY link pushes the 2.48 Gbit/s ATLA→IPLS link to **297%** of capacity | [`phase3_scenarios.json`](results/netcap/phase3_scenarios.json) |
 | Which upgrade removes it? | ATLA–IPLS to 9.92 Gbit/s (assumed size): worst single failure drops to **77%** | same |
 | How much could traffic engineering help? | The min-max-utilisation LP bound is **0.70×** OSPF's peak on a typical hour (95% CI 0.696 to 0.712) and **0.49×** under the worst failure | same (3,405 LPs per case) |
+| Do neural networks beat it? | **No.** Retrained on a GPU (3 seeds), the best CNN-LSTM (seasonal + fallback rule) gains **+11.2%** over persistence, reproducing the published +10.8%, but below the GBM's +18.0% on the same test rows | [`phase_neural_retrain.json`](results/netcap/phase_neural_retrain.json) |
 | Do better forecasts give better congestion warnings? | **No.** The most accurate model has 14% lower link-load error than persistence but a warning F1 of 0.890 vs 0.896 | same, `forecast_driven` |
 | Does the packet pipeline lose data? | **207,302,561** packets reconciled exactly across an independent pcap walk, the flow meter and 56,523,852 flow records | [`phase1_mawi_…_chunked_lowmem.json`](results/netcap/phase1_mawi_202510011400_chunked_lowmem.json) |
 | Does it run as a service? | Docker Compose and Kubernetes (kind) stacks pass an end-to-end check: every endpoint 200, Postgres reachable, Prometheus scraping | [`phase6_stack_kind.json`](results/netcap/phase6_stack_kind.json) |
@@ -177,7 +178,7 @@ More detail: [docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md).
 
 One link-level network (Abilene, 2004 traffic on 2003 OSPF weights; times of day are inferred); 5-minute averages
 hide sub-minute bursts; growth rates and upgrade sizes are assumptions; the LP is a bound, not a deployable routing;
-injected anomalies are synthetic. The neural-network retrain has not been run yet (it needs an NVIDIA GPU). Full list:
+injected anomalies are synthetic. The neural retrain covers one horizon and fold (3 seeds). Full list:
 [docs/netcap/LIMITATIONS.md](docs/netcap/LIMITATIONS.md). Decisions, including every change made after seeing a
 result: [docs/netcap/DECISIONS.md](docs/netcap/DECISIONS.md).
 

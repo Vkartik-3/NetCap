@@ -66,3 +66,13 @@ def test_api_never_imports_tensorflow():
     out = subprocess.run([sys.executable, "-c", "import sys, netcap_app.api; print('tensorflow' in sys.modules)"],
                          capture_output=True, text=True, cwd=config.ROOT)
     assert out.stdout.strip() == "False", out.stderr
+
+
+def test_neural_forecasts_use_abilene_units(client):
+    """panel=abilene_neural must be converted like panel=abilene (100 B / 5 min), not like CESNET."""
+    if not (config.DATA / "forecasts" / "panel=abilene_neural" / "h=12").exists():
+        pytest.skip("neural forecasts not exported (GPU retrain)")
+    a = client.get("/api/forecast?flow=86&horizon=12&method=persistence&limit=50").json()
+    n = client.get("/api/forecast?flow=86&horizon=12&method=cnn_lstm_seasonal_rule&panel=abilene_neural&limit=50").json()
+    assert a["step"] == n["step"]
+    assert n["actual"] == pytest.approx(a["actual"], rel=1e-5)

@@ -16,7 +16,7 @@ the original).
 | 2 Forecasting | done | GBM included; SARIMA-type and frozen ridge failed (kept); 2 labelled post-hoc variants |
 | 3 Scenarios + TE | done | gate passed 144/144; N-1 sweep; LP with bootstrap intervals |
 | 4 Anomaly detection | done (weak results) | detectors catch dropouts, rarely spikes or shifts |
-| Neural retrain | **not run: needs GPU (no NVIDIA GPU on this machine)** | user decision; no neural claims |
+| Neural retrain | done (GPU, A100, 2026-11-03) | 3 of 3 reference numbers inside the 3-seed band; the seasonal match is weak (wide band) |
 | 5 API + dashboard | done | FastAPI + static Plotly page; TF-free (tested) |
 | 6 Engineering | done | CI written (runs on first push); Compose and kind stacks run and checked end to end |
 | 7 Results and docs | done | this file, summary.json, RESUME_FACTS.md, INTERVIEW_NOTES.md |
@@ -73,8 +73,26 @@ the original).
   0.0095); STL absorbs day-long outages into its trend (0.007).
 
 ## Neural retrain (`phase_neural_retrain.json`)
-Not run: needs GPU (no NVIDIA GPU on this machine). User decision. NetCap claims nothing from the forecasting module's neural
-results. To run on a GPU machine: see the hand-off section below.
+Run on 1x NVIDIA A100-SXM4-80GB (Thunder Compute, TensorFlow 2.21.0, commit `bb79b11`), 2026-11-03. Abilene, 60 min
+(12 steps), original fold, seeds 42/43/44, 6 models trained in 7.7 min (early stopping; timing gate 8.2 s per epoch).
+Test MAE gain vs persistence (3-seed mean forecast; "reproduced" = reference inside the 3-seed mean ± 2 sd):
+
+| Model | Test gain | Per seed | Band (mean ± 2 sd) | Reference (section 21.3) | Reproduced |
+|---|---|---|---|---|---|
+| base CNN-LSTM | +0.79% | +0.05 / +0.91 / +0.69 | [−0.34, +1.45] | +1.1% | yes |
+| seasonal CNN-LSTM | +2.18% | −1.62 / +3.14 / +3.32 | [−4.00, +7.22] | +2.9% | yes (weak: wide band) |
+| seasonal + fallback rule (k = 5) | **+11.22%** | +10.18 / +10.84 / +10.93 | [+9.83, +11.47] | +10.8% | **yes** |
+
+- The rule is the clean reproduction. The seasonal band is so wide that it would contain almost any value; the base model
+  barely beats persistence (band includes 0). The rule falls back to persistence on 0.29% of test points.
+- On the same test rows the GBM is better: +18.0% vs +11.2% (Phase 2), and 0.426 vs 0.446 pp link-load MAE (Phase 3).
+- Warnings (Phase 3 `forecast_driven`, 60 min, point forecasts): base 0.908, rule 0.889, **seasonal 0.000**. The seasonal
+  model never predicts any link at or above 50% (its highest planned load is 0.44 while actual reaches 0.75): it smooths
+  away the bursts that cause warnings. The fallback rule recovers them. Same pattern as the other smooth methods
+  (seasonal_day, mean7, ridge: F1 0).
+- Two fixes were needed on the GPU host (both committed): TensorFlow did not find pip's `libcusolver.so.11` (fixed with
+  `LD_LIBRARY_PATH` in `infra/gpu/run_retrain.sh`), and the export alignment check had no absolute tolerance at zero
+  (16 of 1,170,864 cells: 0 vs 5.5e-7 after the scaler round trip). Metrics are now saved before the export.
 
 ## Phase 5: API and dashboard
 FastAPI service (`netcap_app/api.py`): health, Prometheus `/metrics`, topology with measured utilisation, link
@@ -140,12 +158,12 @@ What you still need to do by hand:
    `docker build -f infra/Dockerfile -t netcap:1.0 . && kind load docker-image netcap:1.0 --name netcap`,
    `kubectl apply -k infra/k8s && kubectl apply -f infra/k8s/job-ingest.yaml`, then http://localhost:8080/.
    Change the Postgres password in `infra/k8s/postgres.yaml` before any shared use.
-3. **Neural retrain on a GPU machine** (NVIDIA, Linux/WSL2):
-   `python -m venv .venv-tf && .venv-tf/bin/pip install -r research/requirements-gpu.txt polars==2.1.0 pyarrow==26.0.0 && .venv-tf/bin/python -m netcap.neural.retrain --time-one-epoch && .venv-tf/bin/python -m netcap.neural.retrain`
+3. (Done 2026-11-03; to repeat) **Neural retrain on a GPU machine** (NVIDIA, Linux, Python 3.12): copy the repo and `raw/`,
+   then `bash infra/gpu/run_retrain.sh all` (venv, pip, GPU check, timing gate, full run; every step logged to `logs/`).
 4. **Git**: the repository uses `https://github.com/Vkartik-3/NetCap.git` as `origin`.
 5. Hosted deployment: not done.
 6. Re-enable normal sleep if you disabled it: `sudo pmset -a disablesleep 0`.
 
 ## Not done
-- Neural retrain (needs GPU). GÉANT (optional, skipped). MAWI traces 2 and 3 (user instruction).
+- GÉANT (optional, skipped). MAWI traces 2 and 3 (user instruction).
 - Per-kind anomaly thresholds or a combined detector (not tried).

@@ -151,7 +151,7 @@ def forecast(flow: int = Query(86, ge=0), horizon: int = Query(12), method: str 
     if not f.exists() or "/" in method or ".." in method:
         raise HTTPException(404, "no forecasts for that panel / horizon / method")
     df = pl.scan_parquet(f).filter(pl.col("flow") == flow).sort("row").head(limit).collect()
-    to = 1e-6 * 8 / 300 * 100 if panel == "abilene" else 8 / 3600 / 1e6
+    to = 1e-6 * 8 / 300 * 100 if panel.startswith("abilene") else 8 / 3600 / 1e6   # abilene, abilene_neural: 100 B / 5 min
     return {"flow": flow, "method": method, "horizon_steps": horizon, "unit": "Mbit/s",
             "interval": "split-conformal 90% (per-flow margin from validation errors)",
             "step": df["step"].to_list(), **{c: (df[c] * to).to_list() for c in ("point", "lo", "hi", "actual")}}

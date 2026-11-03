@@ -1,18 +1,18 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 3.3212890625,
+  "load_average_1min": 2.8505859375,
   "cpu_count": 8,
   "timing_label": "measured on an otherwise idle machine"
  },
- "command": "python <repo>/netcap/report/summary.py",
- "date": "2026-11-03T04:57:52+00:00",
+ "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/report/summary.py",
+ "date": "2026-11-03T17:33:15+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "project-release-1.0",
-  "dirty": true,
-  "netcap_source_sha256": "26c84c6e2c849c1ff261475be575575cc6b476094a0b60b6f5a9cb42e4433c92",
+  "netcap_commit": "e365bfb30197cf38f1dab6f609fd29b42e194aef",
+  "dirty": false,
+  "netcap_source_sha256": "178a24d1b1f1ba1803142fc7a09a31cbef74df36a13038243492e9f9ef2f68ad",
   "project_release": "1.0"
  },
  "data_version": {
@@ -1877,6 +1877,84 @@
        "warning_recall": 0.01466544454628781,
        "warning_events_actual": 1091
       }
+     },
+     "cnn_lstm_base": {
+      "point": {
+       "mean_abs_error_pp": 0.39216095292951686,
+       "max_abs_error_pp": 1.0110183385756588,
+       "links_under_planned": 30,
+       "worst_link_planned_p95": 0.13027635952608,
+       "worst_link_actual_p95": 0.13812520856079044,
+       "link_load_mae_pp": 0.5090725276700588,
+       "warning_f1": 0.9079069767441861,
+       "warning_precision": 0.9216241737488197,
+       "warning_recall": 0.8945921173235564,
+       "warning_events_actual": 1091
+      },
+      "hi": {
+       "mean_abs_error_pp": 0.6951761797874143,
+       "max_abs_error_pp": 1.5627425827363846,
+       "links_under_planned": 1,
+       "worst_link_planned_p95": 0.15256182954406305,
+       "worst_link_actual_p95": 0.13812520856079044,
+       "link_load_mae_pp": 1.128846814218488,
+       "warning_f1": 0.9037037037037037,
+       "warning_precision": 0.9130028063610851,
+       "warning_recall": 0.8945921173235564,
+       "warning_events_actual": 1091
+      }
+     },
+     "cnn_lstm_seasonal": {
+      "point": {
+       "mean_abs_error_pp": 0.6040197000747676,
+       "max_abs_error_pp": 1.9380246926126,
+       "links_under_planned": 30,
+       "worst_link_planned_p95": 0.11920907153274335,
+       "worst_link_actual_p95": 0.13812520856079044,
+       "link_load_mae_pp": 0.5816345325381044,
+       "warning_f1": 0.0,
+       "warning_precision": 0.0,
+       "warning_recall": 0.0,
+       "warning_events_actual": 1091
+      },
+      "hi": {
+       "mean_abs_error_pp": 0.5518219511671071,
+       "max_abs_error_pp": 1.4932979121353607,
+       "links_under_planned": 7,
+       "worst_link_planned_p95": 0.13863599966080914,
+       "worst_link_actual_p95": 0.13812520856079044,
+       "link_load_mae_pp": 1.1519582318786428,
+       "warning_f1": 0.0,
+       "warning_precision": 0.0,
+       "warning_recall": 0.0,
+       "warning_events_actual": 1091
+      }
+     },
+     "cnn_lstm_seasonal_rule": {
+      "point": {
+       "mean_abs_error_pp": 0.6018373531985605,
+       "max_abs_error_pp": 1.9380246926126,
+       "links_under_planned": 30,
+       "worst_link_planned_p95": 0.11920907153274335,
+       "worst_link_actual_p95": 0.13812520856079044,
+       "link_load_mae_pp": 0.4461063894383042,
+       "warning_f1": 0.888673765730881,
+       "warning_precision": 0.9415384615384615,
+       "warning_recall": 0.8414298808432631,
+       "warning_events_actual": 1091
+      },
+      "hi": {
+       "mean_abs_error_pp": 0.549920746537337,
+       "max_abs_error_pp": 1.4933201292860188,
+       "links_under_planned": 7,
+       "worst_link_planned_p95": 0.1386391150610004,
+       "worst_link_actual_p95": 0.13812520856079044,
+       "link_load_mae_pp": 1.0266139479761174,
+       "warning_f1": 0.888673765730881,
+       "warning_precision": 0.9415384615384615,
+       "warning_recall": 0.8414298808432631,
+       "warning_events_actual": 1091
+      }
      }
     }
    },
@@ -2115,12 +2193,90 @@
  },
  "neural": {
   "timing": {
-   "value": null,
-   "source": "phase_neural_timing.json (not produced)"
+   "value": {
+    "cpu_at_save": {
+     "load_average_1min": 77.36474609375,
+     "cpu_count": 8,
+     "timing_label": "upper bound, measured under CPU contention"
+    },
+    "command": "python /home/ubuntu/netcap/netcap/neural/retrain.py --time-one-epoch",
+    "date": "2026-11-03T17:12:29+00:00",
+    "seed": 42,
+    "python": "3.12.13",
+    "platform": "Linux-6.8.0-134-generic-x86_64-with-glibc2.35",
+    "code": {
+     "netcap_commit": "e6b58a5dceb23a40b7e434a760ffff583a469ee1",
+     "dirty": false,
+     "netcap_source_sha256": "abd564c922bfd1342664fda41fb4d09a22b098fe2bbf8a18458f3679627028b9",
+     "project_release": "1.0"
+    },
+    "data_version": {
+     "abilene": "processed/h12 (common.prepare_abilene)"
+    },
+    "seconds_one_epoch_incl_compile": 8.171784698963165,
+    "train_samples": 24388,
+    "max_epochs": 200,
+    "models": 6,
+    "projected_upper_bound_s": 9806.141638755798,
+    "budget_s": 10800,
+    "gate_passed": true,
+    "device": [
+     "CPU",
+     "GPU"
+    ],
+    "tensorflow": "2.21.0"
+   },
+   "source": "phase_neural_timing.json: "
   },
   "retrain": {
-   "value": null,
-   "source": "phase_neural_retrain.json: results (missing)"
+   "value": {
+    "base": {
+     "test_gain_3seed_mean_forecast_pct": 0.7926043297172836,
+     "val_gain_pct": 2.344672034748607,
+     "test_gain_per_seed_pct": [
+      0.05251838621104232,
+      0.9143479322206272,
+      0.6895141287121098
+     ],
+     "seed_band_mean_pm_2sd": [
+      -0.3419514737506639,
+      1.4462051051798501
+     ],
+     "reference_pct": 1.1,
+     "reproduced": true
+    },
+    "seasonal": {
+     "test_gain_3seed_mean_forecast_pct": 2.179178569835749,
+     "val_gain_pct": 13.462448423588015,
+     "test_gain_per_seed_pct": [
+      -1.6246454428894275,
+      3.136880809846454,
+      3.3241831549563505
+     ],
+     "seed_band_mean_pm_2sd": [
+      -3.997264436956338,
+      7.221543451565256
+     ],
+     "reference_pct": 2.9,
+     "reproduced": true
+    },
+    "rule": {
+     "test_gain_3seed_mean_forecast_pct": 11.21919967816586,
+     "val_gain_pct": 13.471296350063355,
+     "test_gain_per_seed_pct": [
+      10.182943749113814,
+      10.841245707525292,
+      10.934493344938279
+     ],
+     "seed_band_mean_pm_2sd": [
+      9.833592375207418,
+      11.472196159177505
+     ],
+     "reference_pct": 10.8,
+     "reproduced": true
+    }
+   },
+   "source": "phase_neural_retrain.json: results"
   }
  },
  "phase6": {
@@ -2333,5 +2489,5 @@
    "source": "phase3_scenarios.json: te/lp_over_ospf_ratio"
   }
  ],
- "warnings_finding_html": "<p>Link-load error and congestion-warning F1 (link at or above 50% utilisation) in the original test period, 60-minute forecasts. Source: phase3_scenarios.json, forecast_driven.</p><table><tr><th>method</th><th>link-load MAE (pp)</th><th>warning F1 (point)</th><th>warning F1 (90% upper)</th></tr><tr><td>arima_dhr</td><td>0.835</td><td>0.000</td><td>0.000</td></tr><tr><td>arima_dhr_sel</td><td>0.502</td><td>0.898</td><td>0.892</td></tr><tr><td>blend</td><td>0.594</td><td>0.342</td><td>0.649</td></tr><tr><td>blend_gate</td><td>0.519</td><td>0.906</td><td>0.904</td></tr><tr><td>blend_rule</td><td>0.532</td><td>0.903</td><td>0.907</td></tr><tr><td>ets</td><td>0.570</td><td>0.781</td><td>0.783</td></tr><tr><td>ets_rule</td><td>0.570</td><td>0.781</td><td>0.783</td></tr><tr><td>gbm</td><td>0.426</td><td>0.890</td><td>0.889</td></tr><tr><td>gbm_rule</td><td>0.425</td><td>0.890</td><td>0.889</td></tr><tr><td>mean7</td><td>1.108</td><td>0.000</td><td>0.000</td></tr><tr><td>persistence</td><td>0.494</td><td>0.896</td><td>0.891</td></tr><tr><td>ridge</td><td>1.451</td><td>0.000</td><td>0.000</td></tr><tr><td>ridge_basedef</td><td>0.635</td><td>0.000</td><td>0.000</td></tr><tr><td>ridge_clip</td><td>1.354</td><td>0.000</td><td>0.000</td></tr><tr><td>seasonal_day</td><td>1.213</td><td>0.000</td><td>0.000</td></tr><tr><td>seasonal_week</td><td>1.205</td><td>0.009</td><td>0.014</td></tr></table>"
+ "warnings_finding_html": "<p>Link-load error and congestion-warning F1 (link at or above 50% utilisation) in the original test period, 60-minute forecasts. Source: phase3_scenarios.json, forecast_driven.</p><table><tr><th>method</th><th>link-load MAE (pp)</th><th>warning F1 (point)</th><th>warning F1 (90% upper)</th></tr><tr><td>arima_dhr</td><td>0.835</td><td>0.000</td><td>0.000</td></tr><tr><td>arima_dhr_sel</td><td>0.502</td><td>0.898</td><td>0.892</td></tr><tr><td>blend</td><td>0.594</td><td>0.342</td><td>0.649</td></tr><tr><td>blend_gate</td><td>0.519</td><td>0.906</td><td>0.904</td></tr><tr><td>blend_rule</td><td>0.532</td><td>0.903</td><td>0.907</td></tr><tr><td>cnn_lstm_base</td><td>0.509</td><td>0.908</td><td>0.904</td></tr><tr><td>cnn_lstm_seasonal</td><td>0.582</td><td>0.000</td><td>0.000</td></tr><tr><td>cnn_lstm_seasonal_rule</td><td>0.446</td><td>0.889</td><td>0.889</td></tr><tr><td>ets</td><td>0.570</td><td>0.781</td><td>0.783</td></tr><tr><td>ets_rule</td><td>0.570</td><td>0.781</td><td>0.783</td></tr><tr><td>gbm</td><td>0.426</td><td>0.890</td><td>0.889</td></tr><tr><td>gbm_rule</td><td>0.425</td><td>0.890</td><td>0.889</td></tr><tr><td>mean7</td><td>1.108</td><td>0.000</td><td>0.000</td></tr><tr><td>persistence</td><td>0.494</td><td>0.896</td><td>0.891</td></tr><tr><td>ridge</td><td>1.451</td><td>0.000</td><td>0.000</td></tr><tr><td>ridge_basedef</td><td>0.635</td><td>0.000</td><td>0.000</td></tr><tr><td>ridge_clip</td><td>1.354</td><td>0.000</td><td>0.000</td></tr><tr><td>seasonal_day</td><td>1.213</td><td>0.000</td><td>0.000</td></tr><tr><td>seasonal_week</td><td>1.205</td><td>0.009</td><td>0.014</td></tr></table>"
 }

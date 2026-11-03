@@ -130,3 +130,14 @@ Uncertainty and significance
 - Provenance no longer needs `git` (the image has none): it records `NETCAP_COMMIT` or "unknown (git not available)".
 - `POST /api/te` takes a JSON body model (it rejected `{}` with 422); test extended.
 - `phase6_quality_run1_no_docker.json` is the quality run before Docker was available (superseded for the container status only).
+
+## Neural retrain on a GPU (2026-11-03, user decision)
+- Run on a rented NVIDIA A100 (Thunder Compute) instead of this machine's CPU; the timing gate was measured on that GPU
+  (8.17 s per epoch, projection 2.72 h, under the 3-hour limit). Scope, settings and the "reproduced" rule unchanged.
+- Fixes needed on the host, made before any metric was seen: (1) `LD_LIBRARY_PATH` set to pip's CUDA libraries, because
+  TensorFlow 2.21 did not load `libcusolver.so.11`; (2) the export alignment check gained `atol=1e-6` because 16 true zeros
+  come back from `common.py`'s scaler as 5.5e-7 (raw units) and failed `rtol` alone; (3) `save_result` now runs before the
+  export, because the first full run computed the metrics and lost them when the export check raised. The 6 trained models
+  were kept and reloaded for the re-run (no retraining).
+- The run itself is labelled "upper bound, measured under CPU contention" by `cpu_at_save` (shared host); no CPU timing is
+  claimed from it.
