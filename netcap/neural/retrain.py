@@ -110,7 +110,12 @@ def run():
                   "reproduced": bool(lo <= REFERENCE_RESULTS[k] <= hi)}
     out = {"results": res, "rule_k": k_rule, "rule_val_gain_by_k": sc_k, "rule_share_test": float((z[2] > k_rule).mean()),
            "persistence_test_mae_raw": pers[2], "fits": fits, "reference_results": REFERENCE_RESULTS,
-           "note": "CPU retrain; the reference numbers use GPU models (section 20.1: GPU and CPU differ slightly)"}
+           "devices": [d.device_type for d in tf.config.list_physical_devices()],
+           "gpu_names": [tf.config.experimental.get_device_details(d).get("device_name", "?")
+                         for d in tf.config.list_physical_devices("GPU")],
+           "tensorflow": tf.__version__,
+           "note": ("GPU retrain" if tf.config.list_physical_devices("GPU") else "CPU retrain")
+                   + "; the reference numbers use GPU models (section 20.1: GPU and CPU differ slightly)"}
     export(base, mean, rule)
     print(save_result("phase_neural_retrain", run_record({"abilene": "processed/h12 (common.prepare_abilene)"}, **out)))
     print({k: (round(v["test_gain_3seed_mean_forecast_pct"], 2), v["reproduced"]) for k, v in res.items()})
