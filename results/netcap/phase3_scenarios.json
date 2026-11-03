@@ -1,0 +1,1497 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 3.90185546875,
+  "cpu_count": 8,
+  "timing_label": "measured on an otherwise idle machine"
+ },
+ "command": "python <repo>/netcap/scenario/run.py",
+ "date": "2026-11-03T04:22:55+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "0f76ce1db93f01d836c4b8d09a9997f789c9bb218b3a34bc5ef00db94cdc127f",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "abilene": "raw/X01..X24 realOD, cleaned (R1-R4)",
+  "topology": "raw/topo-2003-04-10.txt"
+ },
+ "gate": {
+  "routing_equals_A": true,
+  "flows_matching": 144,
+  "flows": 144,
+  "max_abs_diff": 0.0,
+  "unroutable": [],
+  "ecmp_flows": 0
+ },
+ "demand": {
+  "steps": 40855,
+  "flows": 144,
+  "unit": "Mbit/s",
+  "total_mean_mbps": 3280.7949207753595,
+  "total_max_mbps": 12863.763378666663
+ },
+ "thresholds": [
+  0.5,
+  0.8
+ ],
+ "assumptions": "Demand is the measured Abilene realOD matrix (2004) on the 2003-04-10 topology and OSPF weights; utilisation is a 5-minute average; access links have no capacity and are excluded.",
+ "baseline": {
+  "max_util": 0.7535501016129031,
+  "worst_link": 19,
+  "worst_link_name": "KSCYng->IPLSng",
+  "p95_util_worst": 0.09295317209677416,
+  "links_over_threshold_max": 10,
+  "links_over_threshold_p95": 0,
+  "threshold": 0.5,
+  "steps_any_link_over_threshold": 572,
+  "unroutable_flows": 0,
+  "dropped_traffic_share_max": 0.0,
+  "per_link_named": {
+   "ATLA-M5->ATLAng": {
+    "max": 0.00998986317204301,
+    "p95": 0.0010922831182795696
+   },
+   "ATLAng->ATLA-M5": {
+    "max": 0.005552601612903226,
+    "p95": 0.0021039795161290316
+   },
+   "ATLAng->HSTNng": {
+    "max": 0.12573445537634406,
+    "p95": 0.024710399543010745
+   },
+   "ATLAng->IPLSng": {
+    "max": 0.07827076989247311,
+    "p95": 0.03850953086021504
+   },
+   "ATLAng->WASHng": {
+    "max": 0.12464904112903225,
+    "p95": 0.023540065026881715
+   },
+   "CHINng->IPLSng": {
+    "max": 0.7024297838709676,
+    "p95": 0.08435409155913977
+   },
+   "CHINng->NYCMng": {
+    "max": 0.07801345645161291,
+    "p95": 0.04479899986559138
+   },
+   "DNVRng->KSCYng": {
+    "max": 0.7511838456989247,
+    "p95": 0.08991150755376331
+   },
+   "DNVRng->SNVAng": {
+    "max": 0.6669735723118277,
+    "p95": 0.03413781044354836
+   },
+   "DNVRng->STTLng": {
+    "max": 0.03732179005376344,
+    "p95": 0.020035725672043002
+   },
+   "HSTNng->ATLAng": {
+    "max": 0.12368627419354837,
+    "p95": 0.020431193091397844
+   },
+   "HSTNng->KSCYng": {
+    "max": 0.02342547204301075,
+    "p95": 0.005695745779569891
+   },
+   "HSTNng->LOSAng": {
+    "max": 0.12298934946236557,
+    "p95": 0.020762043897849455
+   },
+   "IPLSng->ATLAng": {
+    "max": 0.27220650645161276,
+    "p95": 0.05152360569892472
+   },
+   "IPLSng->CHINng": {
+    "max": 0.7523208413978493,
+    "p95": 0.09295317209677416
+   },
+   "IPLSng->KSCYng": {
+    "max": 0.695270788172043,
+    "p95": 0.07228155979838709
+   },
+   "KSCYng->DNVRng": {
+    "max": 0.6893496748655912,
+    "p95": 0.06187678432795696
+   },
+   "KSCYng->HSTNng": {
+    "max": 0.015463940322580645,
+    "p95": 0.007465369327956989
+   },
+   "KSCYng->IPLSng": {
+    "max": 0.7535501016129031,
+    "p95": 0.09128725744623654
+   },
+   "LOSAng->HSTNng": {
+    "max": 0.12218181263440861,
+    "p95": 0.020673177715053743
+   },
+   "LOSAng->SNVAng": {
+    "max": 0.7348869698924732,
+    "p95": 0.045567380940860186
+   },
+   "NYCMng->CHINng": {
+    "max": 0.15946006720430106,
+    "p95": 0.0708661406989247
+   },
+   "NYCMng->WASHng": {
+    "max": 0.10033211424731182,
+    "p95": 0.045783718548387094
+   },
+   "SNVAng->DNVRng": {
+    "max": 0.7269497228494625,
+    "p95": 0.04212193825268817
+   },
+   "SNVAng->LOSAng": {
+    "max": 0.6700018059139784,
+    "p95": 0.04501490604838707
+   },
+   "SNVAng->STTLng": {
+    "max": 0.018669110215053762,
+    "p95": 0.010775556935483868
+   },
+   "STTLng->DNVRng": {
+    "max": 0.13789261263440858,
+    "p95": 0.02835016303763438
+   },
+   "STTLng->SNVAng": {
+    "max": 0.06195216989247312,
+    "p95": 0.009520052123655913
+   },
+   "WASHng->ATLAng": {
+    "max": 0.08692928091397849,
+    "p95": 0.03869650526881717
+   },
+   "WASHng->NYCMng": {
+    "max": 0.10334941586021505,
+    "p95": 0.061845722661290306
+   }
+  },
+  "headroom": {
+   "0.5": {
+    "factor_to_threshold_p95": 5.379052577995367,
+    "factor_to_threshold_max": 0.6635258875684537
+   },
+   "0.8": {
+    "factor_to_threshold_p95": 8.606484124792587,
+    "factor_to_threshold_max": 1.061641420109526
+   }
+  },
+  "months_to_threshold_ASSUMED_growth": {
+   "0.5": {
+    "20%/yr": 110.73922058420482,
+    "40%/yr": 60.005387956542265,
+    "60%/yr": 42.957428068082436
+   },
+   "0.8": {
+    "20%/yr": 141.67381575839343,
+    "40%/yr": 76.76767303416119,
+    "60%/yr": 54.957428068082436
+   }
+  }
+ },
+ "n_minus_1": {
+  "cases": [
+   {
+    "failure": "link ATLA-M5-ATLAng",
+    "link_ids": [
+     1,
+     2
+    ],
+    "max_util": 0.7533341534946236,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.09284403991935468,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 572,
+    "unroutable_flows": 22,
+    "dropped_traffic_share_max": 0.025291700872531006,
+    "flows_rerouted": 22
+   },
+   {
+    "failure": "link ATLAng-HSTNng",
+    "link_ids": [
+     3,
+     11
+    ],
+    "max_util": 0.7616221567204301,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.10993009669354814,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 589,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 14
+   },
+   {
+    "failure": "link ATLAng-IPLSng",
+    "link_ids": [
+     4,
+     14
+    ],
+    "max_util": 0.7515105260752687,
+    "worst_link": 15,
+    "worst_link_name": "IPLSng->CHINng",
+    "p95_util_worst": 0.09285115419354835,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 572,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 24
+   },
+   {
+    "failure": "link ATLAng-WASHng",
+    "link_ids": [
+     5,
+     29
+    ],
+    "max_util": 0.7630274594086021,
+    "worst_link": 15,
+    "worst_link_name": "IPLSng->CHINng",
+    "p95_util_worst": 0.13048982129032252,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 598,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 14
+   },
+   {
+    "failure": "link CHINng-IPLSng",
+    "link_ids": [
+     6,
+     15
+    ],
+    "max_util": 0.7731501236559137,
+    "worst_link": 30,
+    "worst_link_name": "WASHng->NYCMng",
+    "p95_util_worst": 0.2602078837634407,
+    "links_over_threshold_max": 11,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 601,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 40
+   },
+   {
+    "failure": "link CHINng-NYCMng",
+    "link_ids": [
+     7,
+     22
+    ],
+    "max_util": 0.748923386827957,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.28416870494623653,
+    "links_over_threshold_max": 11,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 575,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 26
+   },
+   {
+    "failure": "link DNVRng-KSCYng",
+    "link_ids": [
+     8,
+     17
+    ],
+    "max_util": 0.7585425430107527,
+    "worst_link": 20,
+    "worst_link_name": "LOSAng->HSTNng",
+    "p95_util_worst": 0.11110981096774186,
+    "links_over_threshold_max": 8,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 573,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 52
+   },
+   {
+    "failure": "link DNVRng-SNVAng",
+    "link_ids": [
+     9,
+     24
+    ],
+    "max_util": 0.7488813034946236,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.08584036137096769,
+    "links_over_threshold_max": 8,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 559,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 26
+   },
+   {
+    "failure": "link DNVRng-STTLng",
+    "link_ids": [
+     10,
+     27
+    ],
+    "max_util": 0.7535501016129031,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.09295317209677416,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 572,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 16
+   },
+   {
+    "failure": "link HSTNng-KSCYng",
+    "link_ids": [
+     12,
+     18
+    ],
+    "max_util": 0.7538163983870967,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.09295317209677416,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 572,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 8
+   },
+   {
+    "failure": "link HSTNng-LOSAng",
+    "link_ids": [
+     13,
+     20
+    ],
+    "max_util": 0.7597137446236559,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.11110981096774186,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 582,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 12
+   },
+   {
+    "failure": "link IPLSng-KSCYng",
+    "link_ids": [
+     16,
+     19
+    ],
+    "max_util": 2.9734483731182793,
+    "worst_link": 4,
+    "worst_link_name": "ATLAng->IPLSng",
+    "p95_util_worst": 0.26059706387096754,
+    "links_over_threshold_max": 8,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 1777,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 58
+   },
+   {
+    "failure": "link LOSAng-SNVAng",
+    "link_ids": [
+     21,
+     25
+    ],
+    "max_util": 0.748923386827957,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.08641363766129032,
+    "links_over_threshold_max": 8,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 564,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 18
+   },
+   {
+    "failure": "link NYCMng-WASHng",
+    "link_ids": [
+     23,
+     30
+    ],
+    "max_util": 0.7731501236559137,
+    "worst_link": 15,
+    "worst_link_name": "IPLSng->CHINng",
+    "p95_util_worst": 0.27982740354838703,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 580,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 20
+   },
+   {
+    "failure": "link SNVAng-STTLng",
+    "link_ids": [
+     26,
+     28
+    ],
+    "max_util": 0.7535501016129031,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.09352309814516113,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 572,
+    "unroutable_flows": 0,
+    "dropped_traffic_share_max": 0.0,
+    "flows_rerouted": 6
+   },
+   {
+    "failure": "router ATLA-M5",
+    "node": "ATLA-M5",
+    "max_util": 0.7533341534946236,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.09284403991935468,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 572,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.025291700872531006,
+    "flows_rerouted": 0
+   },
+   {
+    "failure": "router ATLAng",
+    "node": "ATLAng",
+    "max_util": 0.7563109338709677,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.10385085069892465,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 583,
+    "unroutable_flows": 43,
+    "dropped_traffic_share_max": 0.4263201175070603,
+    "flows_rerouted": 6
+   },
+   {
+    "failure": "router CHINng",
+    "node": "CHINng",
+    "max_util": 0.27809666182795706,
+    "worst_link": 4,
+    "worst_link_name": "ATLAng->IPLSng",
+    "p95_util_worst": 0.19686815204301075,
+    "links_over_threshold_max": 0,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 0,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.7903390071240354,
+    "flows_rerouted": 22
+   },
+   {
+    "failure": "router DNVRng",
+    "node": "DNVRng",
+    "max_util": 0.7407615771505377,
+    "worst_link": 20,
+    "worst_link_name": "LOSAng->HSTNng",
+    "p95_util_worst": 0.09201203446236556,
+    "links_over_threshold_max": 8,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 556,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.22065388491092763,
+    "flows_rerouted": 36
+   },
+   {
+    "failure": "router HSTNng",
+    "node": "HSTNng",
+    "max_util": 0.7581937029569892,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.1042449255645158,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 580,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.13823969019100002,
+    "flows_rerouted": 6
+   },
+   {
+    "failure": "router IPLSng",
+    "node": "IPLSng",
+    "max_util": 0.7673867862903223,
+    "worst_link": 30,
+    "worst_link_name": "WASHng->NYCMng",
+    "p95_util_worst": 0.09932646443548383,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 583,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.2708745287964468,
+    "flows_rerouted": 50
+   },
+   {
+    "failure": "router KSCYng",
+    "node": "KSCYng",
+    "max_util": 2.9587459860215053,
+    "worst_link": 4,
+    "worst_link_name": "ATLAng->IPLSng",
+    "p95_util_worst": 0.23628106720430092,
+    "links_over_threshold_max": 8,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 1733,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.188557675668177,
+    "flows_rerouted": 48
+   },
+   {
+    "failure": "router LOSAng",
+    "node": "LOSAng",
+    "max_util": 0.27220650645161276,
+    "worst_link": 14,
+    "worst_link_name": "IPLSng->ATLAng",
+    "p95_util_worst": 0.06371076569892473,
+    "links_over_threshold_max": 0,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 0,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.7857939735634659,
+    "flows_rerouted": 4
+   },
+   {
+    "failure": "router NYCMng",
+    "node": "NYCMng",
+    "max_util": 0.7464425819892473,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.1859055933333333,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 544,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.46341070217768776,
+    "flows_rerouted": 12
+   },
+   {
+    "failure": "router SNVAng",
+    "node": "SNVAng",
+    "max_util": 0.7488457274193547,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.08575180879032257,
+    "links_over_threshold_max": 8,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 560,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.19951531422369712,
+    "flows_rerouted": 14
+   },
+   {
+    "failure": "router STTLng",
+    "node": "STTLng",
+    "max_util": 0.7460621064516127,
+    "worst_link": 15,
+    "worst_link_name": "IPLSng->CHINng",
+    "p95_util_worst": 0.08057090938172042,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 559,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.39549256001312816,
+    "flows_rerouted": 0
+   },
+   {
+    "failure": "router WASHng",
+    "node": "WASHng",
+    "max_util": 0.7490064349462364,
+    "worst_link": 19,
+    "worst_link_name": "KSCYng->IPLSng",
+    "p95_util_worst": 0.07891682198924728,
+    "links_over_threshold_max": 10,
+    "links_over_threshold_p95": 0,
+    "threshold": 0.5,
+    "steps_any_link_over_threshold": 556,
+    "unroutable_flows": 23,
+    "dropped_traffic_share_max": 0.5839062621741558,
+    "flows_rerouted": 6
+   }
+  ],
+  "worst": "link IPLSng-KSCYng",
+  "worst_max_util": 2.9734483731182793,
+  "cases_with_unroutable_flows": [
+   "link ATLA-M5-ATLAng",
+   "router ATLA-M5",
+   "router ATLAng",
+   "router CHINng",
+   "router DNVRng",
+   "router HSTNng",
+   "router IPLSng",
+   "router KSCYng",
+   "router LOSAng",
+   "router NYCMng",
+   "router SNVAng",
+   "router STTLng",
+   "router WASHng"
+  ],
+  "cases_over_threshold": {
+   "0.5": [
+    "link ATLA-M5-ATLAng",
+    "link ATLAng-HSTNng",
+    "link ATLAng-IPLSng",
+    "link ATLAng-WASHng",
+    "link CHINng-IPLSng",
+    "link CHINng-NYCMng",
+    "link DNVRng-KSCYng",
+    "link DNVRng-SNVAng",
+    "link DNVRng-STTLng",
+    "link HSTNng-KSCYng",
+    "link HSTNng-LOSAng",
+    "link IPLSng-KSCYng",
+    "link LOSAng-SNVAng",
+    "link NYCMng-WASHng",
+    "link SNVAng-STTLng",
+    "router ATLA-M5",
+    "router ATLAng",
+    "router DNVRng",
+    "router HSTNng",
+    "router IPLSng",
+    "router KSCYng",
+    "router NYCMng",
+    "router SNVAng",
+    "router STTLng",
+    "router WASHng"
+   ],
+   "0.8": [
+    "link IPLSng-KSCYng",
+    "router KSCYng"
+   ]
+  }
+ },
+ "upgrade": {
+  "rule": "upgrade (both directions of) the core link that is the worst link in the most N-1 link-failure cases",
+  "link": "KSCYng->IPLSng",
+  "link_ids": [
+   16,
+   19
+  ],
+  "capacity_mbps_before": 9920.0,
+  "capacity_mbps_after_ASSUMED": 19840.0,
+  "worst_link_counts": {
+   "KSCYng->IPLSng": 9,
+   "IPLSng->CHINng": 3,
+   "WASHng->NYCMng": 1,
+   "LOSAng->HSTNng": 1,
+   "ATLAng->IPLSng": 1
+  },
+  "baseline_max_util_after": 0.7523208413978493,
+  "n_minus_1_worst_after": "link IPLSng-KSCYng",
+  "n_minus_1_worst_max_util_after": 2.9734483731182793,
+  "n_minus_1_worst_max_util_before": 2.9734483731182793
+ },
+ "upgrade_alt": {
+  "rule": "upgrade (both directions of) the most loaded link in the worst N-1 case",
+  "label": "added after seeing results",
+  "link": "ATLAng->IPLSng",
+  "link_ids": [
+   4,
+   14
+  ],
+  "capacity_mbps_before": 2480.0,
+  "capacity_mbps_after_ASSUMED": 9920.0,
+  "n_minus_1_worst_after": "link CHINng-IPLSng",
+  "n_minus_1_worst_max_util_after": 0.7731501236559137,
+  "n_minus_1_worst_link_after": "WASHng->NYCMng",
+  "cases_over_threshold_after": {
+   "0.5": [
+    "link ATLA-M5-ATLAng",
+    "link ATLAng-HSTNng",
+    "link ATLAng-IPLSng",
+    "link ATLAng-WASHng",
+    "link CHINng-IPLSng",
+    "link CHINng-NYCMng",
+    "link DNVRng-KSCYng",
+    "link DNVRng-SNVAng",
+    "link DNVRng-STTLng",
+    "link HSTNng-KSCYng",
+    "link HSTNng-LOSAng",
+    "link IPLSng-KSCYng",
+    "link LOSAng-SNVAng",
+    "link NYCMng-WASHng",
+    "link SNVAng-STTLng",
+    "router ATLA-M5",
+    "router ATLAng",
+    "router DNVRng",
+    "router HSTNng",
+    "router IPLSng",
+    "router KSCYng",
+    "router NYCMng",
+    "router SNVAng",
+    "router STTLng",
+    "router WASHng"
+   ],
+   "0.8": []
+  }
+ },
+ "combined": {
+  "growth_factor_ASSUMED": 2.0,
+  "failure": "link IPLSng-KSCYng",
+  "upgrade": "KSCYng->IPLSng",
+  "before_upgrade": {
+   "max_util": 5.9468967462365585,
+   "worst_link": 4,
+   "worst_link_name": "ATLAng->IPLSng",
+   "p95_util_worst": 0.5211941277419351,
+   "links_over_threshold_max": 8,
+   "links_over_threshold_p95": 1,
+   "threshold": 0.5,
+   "steps_any_link_over_threshold": 3231,
+   "unroutable_flows": 0,
+   "dropped_traffic_share_max": 0.0
+  },
+  "after_upgrade": {
+   "max_util": 5.9468967462365585,
+   "worst_link": 4,
+   "worst_link_name": "ATLAng->IPLSng",
+   "p95_util_worst": 0.5211941277419351,
+   "links_over_threshold_max": 8,
+   "links_over_threshold_p95": 1,
+   "threshold": 0.5,
+   "steps_any_link_over_threshold": 3231,
+   "unroutable_flows": 0,
+   "dropped_traffic_share_max": 0.0
+  },
+  "after_upgrade_alt": {
+   "max_util": 1.5232443134408602,
+   "worst_link": 11,
+   "worst_link_name": "HSTNng->ATLAng",
+   "p95_util_worst": 0.21986019338709628,
+   "links_over_threshold_max": 8,
+   "links_over_threshold_p95": 0,
+   "threshold": 0.5,
+   "steps_any_link_over_threshold": 1153,
+   "unroutable_flows": 0,
+   "dropped_traffic_share_max": 0.0
+  }
+ },
+ "te": {
+  "busiest_steps": [
+   {
+    "step": 45573,
+    "ospf_max_util": 0.7535501016129031,
+    "lp_min_max_util": 0.3865750618279569
+   },
+   {
+    "step": 45549,
+    "ospf_max_util": 0.7464737005376343,
+    "lp_min_max_util": 0.37990988844086027
+   },
+   {
+    "step": 45427,
+    "ospf_max_util": 0.7286795690860217,
+    "lp_min_max_util": 0.3732597415322581
+   },
+   {
+    "step": 45430,
+    "ospf_max_util": 0.7272769690860215,
+    "lp_min_max_util": 0.37321959422043005
+   },
+   {
+    "step": 45443,
+    "ospf_max_util": 0.7259899419354839,
+    "lp_min_max_util": 0.3705026573924731
+   },
+   {
+    "step": 45445,
+    "ospf_max_util": 0.7247903879032257,
+    "lp_min_max_util": 0.3702613213709677
+   },
+   {
+    "step": 45428,
+    "ospf_max_util": 0.7239206077956988,
+    "lp_min_max_util": 0.370082638844086
+   },
+   {
+    "step": 45433,
+    "ospf_max_util": 0.7237038483870966,
+    "lp_min_max_util": 0.37088497096774187
+   },
+   {
+    "step": 45438,
+    "ospf_max_util": 0.7234052268817204,
+    "lp_min_max_util": 0.36967604798387094
+   },
+   {
+    "step": 45424,
+    "ospf_max_util": 0.7232704336021505,
+    "lp_min_max_util": 0.37047185
+   },
+   {
+    "step": 45422,
+    "ospf_max_util": 0.7225549325268817,
+    "lp_min_max_util": 0.370102678360215
+   },
+   {
+    "step": 45440,
+    "ospf_max_util": 0.7218379481182794,
+    "lp_min_max_util": 0.36915289959677416
+   },
+   {
+    "step": 45447,
+    "ospf_max_util": 0.7215823954301074,
+    "lp_min_max_util": 0.36867691102150535
+   },
+   {
+    "step": 45425,
+    "ospf_max_util": 0.721515815860215,
+    "lp_min_max_util": 0.3683383190860215
+   },
+   {
+    "step": 45462,
+    "ospf_max_util": 0.7210304991935482,
+    "lp_min_max_util": 0.367128336424731
+   },
+   {
+    "step": 45463,
+    "ospf_max_util": 0.7208374610215054,
+    "lp_min_max_util": 0.36884755537634406
+   },
+   {
+    "step": 45448,
+    "ospf_max_util": 0.7205649647849462,
+    "lp_min_max_util": 0.36854263413978494
+   },
+   {
+    "step": 45446,
+    "ospf_max_util": 0.7203996704301074,
+    "lp_min_max_util": 0.3680785357526881
+   },
+   {
+    "step": 45451,
+    "ospf_max_util": 0.7195862104838708,
+    "lp_min_max_util": 0.3676021173387097
+   },
+   {
+    "step": 45442,
+    "ospf_max_util": 0.719510244892473,
+    "lp_min_max_util": 0.36651118413978484
+   }
+  ],
+  "under_worst_failure": {
+   "failure": "link IPLSng-KSCYng",
+   "steps": [
+    {
+     "step": 45573,
+     "ospf_max_util": 2.9734483731182793,
+     "lp_min_max_util": 0.7616221567204302
+    },
+    {
+     "step": 45549,
+     "ospf_max_util": 2.931792360215054,
+     "lp_min_max_util": 0.754418860483871
+    },
+    {
+     "step": 45445,
+     "ospf_max_util": 2.7896594967741932,
+     "lp_min_max_util": 0.7382414016129033
+    },
+    {
+     "step": 45443,
+     "ospf_max_util": 2.7890293978494625,
+     "lp_min_max_util": 0.7394059325268817
+    },
+    {
+     "step": 45433,
+     "ospf_max_util": 2.786416973118279,
+     "lp_min_max_util": 0.7408112282258065
+    },
+    {
+     "step": 45427,
+     "ospf_max_util": 2.782067559139785,
+     "lp_min_max_util": 0.739871961827957
+    },
+    {
+     "step": 45422,
+     "ospf_max_util": 2.7777928397849463,
+     "lp_min_max_util": 0.7370959362903226
+    },
+    {
+     "step": 45424,
+     "ospf_max_util": 2.777484278494623,
+     "lp_min_max_util": 0.7386423529569892
+    },
+    {
+     "step": 45455,
+     "ospf_max_util": 2.7746596591397843,
+     "lp_min_max_util": 0.7319965524193549
+    },
+    {
+     "step": 45425,
+     "ospf_max_util": 2.774658220430107,
+     "lp_min_max_util": 0.7366766381720431
+    },
+    {
+     "step": 45438,
+     "ospf_max_util": 2.7731714516129027,
+     "lp_min_max_util": 0.7383149190860213
+    },
+    {
+     "step": 45463,
+     "ospf_max_util": 2.7731427784946234,
+     "lp_min_max_util": 0.734464011827957
+    },
+    {
+     "step": 45471,
+     "ospf_max_util": 2.7720420752688173,
+     "lp_min_max_util": 0.7316368672043011
+    },
+    {
+     "step": 45462,
+     "ospf_max_util": 2.7716819086021505,
+     "lp_min_max_util": 0.7342566728494623
+    },
+    {
+     "step": 45440,
+     "ospf_max_util": 2.7707851139784943,
+     "lp_min_max_util": 0.7336867018817204
+    },
+    {
+     "step": 45606,
+     "ospf_max_util": 2.7671934161290324,
+     "lp_min_max_util": 0.7080759126344088
+    },
+    {
+     "step": 45426,
+     "ospf_max_util": 2.766301227956989,
+     "lp_min_max_util": 0.7338852314516129
+    },
+    {
+     "step": 45604,
+     "ospf_max_util": 2.76544138172043,
+     "lp_min_max_util": 0.707934064516129
+    },
+    {
+     "step": 45428,
+     "ospf_max_util": 2.764098804301075,
+     "lp_min_max_util": 0.7341928032258063
+    },
+    {
+     "step": 45451,
+     "ospf_max_util": 2.764087611827957,
+     "lp_min_max_util": 0.7334683639784946
+    }
+   ]
+  },
+  "lp_over_ospf_ratio": {
+   "normal": {
+    "min": 0.5089394149683197,
+    "median": 0.5111210054587164,
+    "max": 0.5131739489694828
+   },
+   "worst_failure": {
+    "min": 0.25588233497061474,
+    "median": 0.26501301762899276,
+    "max": 0.26623486213108477
+   }
+  },
+  "lp_size": {
+   "variables": 337,
+   "equalities": 144,
+   "inequalities": 28
+  },
+  "hourly_sweep": {
+   "normal": {
+    "steps_solved": 3405,
+    "lp_solve_s_total": 10.426670542015927,
+    "ratio_mean": 0.7038837912219416,
+    "ratio_mean_ci95": [
+     0.6957788944197184,
+     0.7122133894250703
+    ],
+    "ratio_median": 0.7097745330357349,
+    "ratio_median_ci95": [
+     0.7024059379813357,
+     0.716626322628486
+    ],
+    "ratio_min": 0.40799172510687176,
+    "ratio_max": 0.9974956831250146,
+    "ospf_max_util_mean": 0.07398437312045061,
+    "lp_max_util_mean": 0.04887396326718704,
+    "bootstrap": "2000 resamples, blocks of one day (24 hourly points), seed 42"
+   },
+   "worst_failure": {
+    "steps_solved": 3405,
+    "lp_solve_s_total": 9.675125582987675,
+    "ratio_mean": 0.49333480333790247,
+    "ratio_mean_ci95": [
+     0.4834638184432046,
+     0.5043242463917758
+    ],
+    "ratio_median": 0.478310711889396,
+    "ratio_median_ci95": [
+     0.4687776222114207,
+     0.48995469684406434
+    ],
+    "ratio_min": 0.255993155087493,
+    "ratio_max": 1.0000000000000007,
+    "ospf_max_util_mean": 0.20287268577968828,
+    "lp_max_util_mean": 0.08485096097507619,
+    "bootstrap": "2000 resamples, blocks of one day (24 hourly points), seed 42"
+   }
+  }
+ },
+ "forecast_driven": {
+  "horizon_minutes": 60,
+  "period": "original fold test period",
+  "methods": {
+   "arima_dhr": {
+    "point": {
+     "mean_abs_error_pp": 0.5918957589075885,
+     "max_abs_error_pp": 4.193897900779943,
+     "links_under_planned": 12,
+     "worst_link_planned_p95": 0.12605108249511932,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.8353326706464368,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 1.7044658240716986,
+     "max_abs_error_pp": 5.446763325843115,
+     "links_under_planned": 2,
+     "worst_link_planned_p95": 0.1614743656193417,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 2.288886309972943,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    }
+   },
+   "arima_dhr_sel": {
+    "point": {
+     "mean_abs_error_pp": 0.047314283541298484,
+     "max_abs_error_pp": 0.2543201406238482,
+     "links_under_planned": 11,
+     "worst_link_planned_p95": 0.13672093418145162,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5021875504314496,
+     "warning_f1": 0.8976594768242313,
+     "warning_precision": 0.8988970588235294,
+     "warning_recall": 0.8964252978918423,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 1.1555899402285645,
+     "max_abs_error_pp": 2.864122528943322,
+     "links_under_planned": 0,
+     "worst_link_planned_p95": 0.1607908994049555,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.367250604765515,
+     "warning_f1": 0.8923357664233577,
+     "warning_precision": 0.888283378746594,
+     "warning_recall": 0.8964252978918423,
+     "warning_events_actual": 1091
+    }
+   },
+   "blend": {
+    "point": {
+     "mean_abs_error_pp": 0.34926371748840584,
+     "max_abs_error_pp": 1.1140224576628222,
+     "links_under_planned": 29,
+     "worst_link_planned_p95": 0.1314538521469536,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5941994696770924,
+     "warning_f1": 0.3424242424242424,
+     "warning_precision": 0.9868995633187773,
+     "warning_recall": 0.2071494042163153,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.7291455243996431,
+     "max_abs_error_pp": 1.8941582342790002,
+     "links_under_planned": 3,
+     "worst_link_planned_p95": 0.15240344526349464,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.3220350526828528,
+     "warning_f1": 0.6490384615384616,
+     "warning_precision": 0.9424083769633508,
+     "warning_recall": 0.49495875343721357,
+     "warning_events_actual": 1091
+    }
+   },
+   "blend_gate": {
+    "point": {
+     "mean_abs_error_pp": 0.2929751565289315,
+     "max_abs_error_pp": 0.8057584699183218,
+     "links_under_planned": 29,
+     "worst_link_planned_p95": 0.1330161776214863,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5190202673140527,
+     "warning_f1": 0.905625290562529,
+     "warning_precision": 0.9188679245283019,
+     "warning_recall": 0.8927589367552704,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.7434534429164443,
+     "max_abs_error_pp": 2.032217124811253,
+     "links_under_planned": 1,
+     "worst_link_planned_p95": 0.1540769795291952,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.2382825004088345,
+     "warning_f1": 0.9040333796940194,
+     "warning_precision": 0.9146341463414634,
+     "warning_recall": 0.8936755270394133,
+     "warning_events_actual": 1091
+    }
+   },
+   "blend_rule": {
+    "point": {
+     "mean_abs_error_pp": 0.34881348851337846,
+     "max_abs_error_pp": 1.108220694934002,
+     "links_under_planned": 29,
+     "worst_link_planned_p95": 0.1314538521469536,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5318677985476877,
+     "warning_f1": 0.903010033444816,
+     "warning_precision": 0.9431137724550899,
+     "warning_recall": 0.8661778185151238,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.7285326527596218,
+     "max_abs_error_pp": 1.8917583433851108,
+     "links_under_planned": 3,
+     "worst_link_planned_p95": 0.1524240716611178,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.2688021437460923,
+     "warning_f1": 0.9068441064638784,
+     "warning_precision": 0.9417571569595261,
+     "warning_recall": 0.8744271310724107,
+     "warning_events_actual": 1091
+    }
+   },
+   "ets": {
+    "point": {
+     "mean_abs_error_pp": 0.25079910360176244,
+     "max_abs_error_pp": 0.9937832513523676,
+     "links_under_planned": 25,
+     "worst_link_planned_p95": 0.13145916113712552,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5700706743876459,
+     "warning_f1": 0.7810473815461346,
+     "warning_precision": 0.8566739606126915,
+     "warning_recall": 0.7176901924839597,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.8423754096116313,
+     "max_abs_error_pp": 2.2843743897711626,
+     "links_under_planned": 0,
+     "worst_link_planned_p95": 0.1507981139238954,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.2807277118643094,
+     "warning_f1": 0.7826515524889108,
+     "warning_precision": 0.8464818763326226,
+     "warning_recall": 0.7277726856095326,
+     "warning_events_actual": 1091
+    }
+   },
+   "ets_rule": {
+    "point": {
+     "mean_abs_error_pp": 0.25076495951424305,
+     "max_abs_error_pp": 0.9927589287267863,
+     "links_under_planned": 25,
+     "worst_link_planned_p95": 0.13145916113712552,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.5698670704078088,
+     "warning_f1": 0.7810473815461346,
+     "warning_precision": 0.8566739606126915,
+     "warning_recall": 0.7176901924839597,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.8425990346623884,
+     "max_abs_error_pp": 2.284863279144758,
+     "links_under_planned": 0,
+     "worst_link_planned_p95": 0.15080572858550434,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.2810042076995378,
+     "warning_f1": 0.7826515524889108,
+     "warning_precision": 0.8464818763326226,
+     "warning_recall": 0.7277726856095326,
+     "warning_events_actual": 1091
+    }
+   },
+   "gbm": {
+    "point": {
+     "mean_abs_error_pp": 0.9760342075100008,
+     "max_abs_error_pp": 4.377459413653631,
+     "links_under_planned": 30,
+     "worst_link_planned_p95": 0.11036941848447426,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.42562169189348503,
+     "warning_f1": 0.8896385542168674,
+     "warning_precision": 0.9380081300813008,
+     "warning_recall": 0.846012832263978,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.7643968913301088,
+     "max_abs_error_pp": 3.7387884540047747,
+     "links_under_planned": 10,
+     "worst_link_planned_p95": 0.12731315770877466,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.9044971002720312,
+     "warning_f1": 0.8892100192678227,
+     "warning_precision": 0.9370558375634518,
+     "warning_recall": 0.846012832263978,
+     "warning_events_actual": 1091
+    }
+   },
+   "gbm_rule": {
+    "point": {
+     "mean_abs_error_pp": 0.9746444462840419,
+     "max_abs_error_pp": 4.377459413653631,
+     "links_under_planned": 30,
+     "worst_link_planned_p95": 0.11036941848447426,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.42515152176141013,
+     "warning_f1": 0.8896385542168674,
+     "warning_precision": 0.9380081300813008,
+     "warning_recall": 0.846012832263978,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 0.7629880977362141,
+     "max_abs_error_pp": 3.7387884540047747,
+     "links_under_planned": 10,
+     "worst_link_planned_p95": 0.12731425241537153,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.9047437055836544,
+     "warning_f1": 0.8892100192678227,
+     "warning_precision": 0.9370558375634518,
+     "warning_recall": 0.846012832263978,
+     "warning_events_actual": 1091
+    }
+   },
+   "mean7": {
+    "point": {
+     "mean_abs_error_pp": 1.0432917720446382,
+     "max_abs_error_pp": 3.376853784223298,
+     "links_under_planned": 24,
+     "worst_link_planned_p95": 0.16162168636111612,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.108245855870032,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 1.436010381324381,
+     "max_abs_error_pp": 6.1524066963841415,
+     "links_under_planned": 2,
+     "worst_link_planned_p95": 0.1897810675238537,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.9296990588958691,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    }
+   },
+   "persistence": {
+    "point": {
+     "mean_abs_error_pp": 0.0010482483175433775,
+     "max_abs_error_pp": 0.008895111593207328,
+     "links_under_planned": 8,
+     "worst_link_planned_p95": 0.13812520856079044,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.4943384715369906,
+     "warning_f1": 0.8964252978918423,
+     "warning_precision": 0.8964252978918423,
+     "warning_recall": 0.8964252978918423,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 1.1068315018626853,
+     "max_abs_error_pp": 2.4622386609834996,
+     "links_under_planned": 0,
+     "worst_link_planned_p95": 0.1608869498850958,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.298311106736902,
+     "warning_f1": 0.8907103825136612,
+     "warning_precision": 0.8850678733031674,
+     "warning_recall": 0.8964252978918423,
+     "warning_events_actual": 1091
+    }
+   },
+   "ridge": {
+    "point": {
+     "mean_abs_error_pp": 3.9024377307521,
+     "max_abs_error_pp": 18.41031322544891,
+     "links_under_planned": 16,
+     "worst_link_planned_p95": 0.261092345158179,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.4506203994805977,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 4.422582529400731,
+     "max_abs_error_pp": 22.787770989478656,
+     "links_under_planned": 8,
+     "worst_link_planned_p95": 0.3066528337617074,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 2.6020130367671506,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    }
+   },
+   "ridge_basedef": {
+    "point": {
+     "mean_abs_error_pp": 0.9831588145810947,
+     "max_abs_error_pp": 3.929872061211598,
+     "links_under_planned": 23,
+     "worst_link_planned_p95": 0.09997692482892684,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 0.6352654567209415,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 1.0665197552004095,
+     "max_abs_error_pp": 2.6461405298217575,
+     "links_under_planned": 9,
+     "worst_link_planned_p95": 0.12126774330618853,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.289737867848724,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    }
+   },
+   "ridge_clip": {
+    "point": {
+     "mean_abs_error_pp": 3.340008561342944,
+     "max_abs_error_pp": 14.434612562256536,
+     "links_under_planned": 19,
+     "worst_link_planned_p95": 0.22024798320996908,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.3540090763197998,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 3.8044475805563907,
+     "max_abs_error_pp": 18.776000586165598,
+     "links_under_planned": 9,
+     "worst_link_planned_p95": 0.2654523554528433,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 2.473803111167825,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    }
+   },
+   "seasonal_day": {
+    "point": {
+     "mean_abs_error_pp": 0.08975770484977803,
+     "max_abs_error_pp": 0.5575869224905488,
+     "links_under_planned": 25,
+     "worst_link_planned_p95": 0.13812520856079044,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.213258859087477,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 1.4813725242525173,
+     "max_abs_error_pp": 3.306990949711161,
+     "links_under_planned": 0,
+     "worst_link_planned_p95": 0.16986501760360215,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 2.241411520663845,
+     "warning_f1": 0.0,
+     "warning_precision": 0.0,
+     "warning_recall": 0.0,
+     "warning_events_actual": 1091
+    }
+   },
+   "seasonal_week": {
+    "point": {
+     "mean_abs_error_pp": 0.8365801839756914,
+     "max_abs_error_pp": 3.854888438776647,
+     "links_under_planned": 28,
+     "worst_link_planned_p95": 0.110338785109343,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 1.2050592863238738,
+     "warning_f1": 0.009103322712790168,
+     "warning_precision": 0.009041591320072333,
+     "warning_recall": 0.00916590284142988,
+     "warning_events_actual": 1091
+    },
+    "hi": {
+     "mean_abs_error_pp": 1.1961435112853098,
+     "max_abs_error_pp": 2.9398303674609076,
+     "links_under_planned": 3,
+     "worst_link_planned_p95": 0.1420230907665926,
+     "worst_link_actual_p95": 0.13812520856079044,
+     "link_load_mae_pp": 2.2122136853819736,
+     "warning_f1": 0.014446952595936794,
+     "warning_precision": 0.014234875444839857,
+     "warning_recall": 0.01466544454628781,
+     "warning_events_actual": 1091
+    }
+   }
+  }
+ },
+ "wall_s": 25.26978208302171
+}

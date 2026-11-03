@@ -1,0 +1,202 @@
+{
+ "command": "python <repo>/netcap/pipeline/ingest.py parquet abilene",
+ "date": "2026-11-02T22:32:53+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "uncommitted (repo has no commits yet)",
+  "dirty": null,
+  "netcap_source_sha256": "e98dcad5b8b3ff27a31c2da3bd35b5f21d3e9cb0b58526b79a2cc7490f5d3944",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "Abilene TM (Zhang), 24 weeks",
+  "files": 27,
+  "combined_sha256": "37e2a5b33667a98afcffe61d52fb130f7195ab4a37c46839223253f901c25451"
+ },
+ "target": "parquet",
+ "runs": [
+  {
+   "tables": {
+    "nodes": {
+     "rows": 12,
+     "bytes": 2291,
+     "files": 1,
+     "created": 1,
+     "replaced": 0,
+     "unchanged": 0,
+     "removed_stale": []
+    },
+    "links": {
+     "rows": 54,
+     "bytes": 3313,
+     "files": 1,
+     "created": 1,
+     "replaced": 0,
+     "unchanged": 0,
+     "removed_stale": []
+    },
+    "flows": {
+     "rows": 144,
+     "bytes": 1780,
+     "files": 1,
+     "created": 1,
+     "replaced": 0,
+     "unchanged": 0,
+     "removed_stale": []
+    },
+    "routing": {
+     "rows": 644,
+     "bytes": 2342,
+     "files": 1,
+     "created": 1,
+     "replaced": 0,
+     "unchanged": 0,
+     "removed_stale": []
+    },
+    "time_steps": {
+     "rows": 48384,
+     "bytes": 282494,
+     "files": 1,
+     "created": 1,
+     "replaced": 0,
+     "unchanged": 0,
+     "removed_stale": []
+    },
+    "traffic_matrix": {
+     "rows": 6967296,
+     "bytes": 28256404,
+     "files": 24,
+     "created": 24,
+     "replaced": 0,
+     "unchanged": 0,
+     "removed_stale": []
+    },
+    "link_load": {
+     "rows": 2612736,
+     "bytes": 40985155,
+     "files": 24,
+     "created": 24,
+     "replaced": 0,
+     "unchanged": 0,
+     "removed_stale": []
+    }
+   },
+   "rows_total": 9629270,
+   "wall_s": 2.6196744159969967,
+   "parse_s": 2.1812595410010545,
+   "rows_per_s": 3675750.673900172,
+   "peak_rss_bytes": 755744768,
+   "removed_steps": {
+    "duplicate": 1152,
+    "flow": 6336,
+    "router": 40,
+    "impossible": 1
+   },
+   "kept_steps": 40855,
+   "segments": 9
+  },
+  {
+   "tables": {
+    "nodes": {
+     "rows": 12,
+     "bytes": 2291,
+     "files": 1,
+     "created": 0,
+     "replaced": 0,
+     "unchanged": 1,
+     "removed_stale": []
+    },
+    "links": {
+     "rows": 54,
+     "bytes": 3313,
+     "files": 1,
+     "created": 0,
+     "replaced": 0,
+     "unchanged": 1,
+     "removed_stale": []
+    },
+    "flows": {
+     "rows": 144,
+     "bytes": 1780,
+     "files": 1,
+     "created": 0,
+     "replaced": 0,
+     "unchanged": 1,
+     "removed_stale": []
+    },
+    "routing": {
+     "rows": 644,
+     "bytes": 2342,
+     "files": 1,
+     "created": 0,
+     "replaced": 0,
+     "unchanged": 1,
+     "removed_stale": []
+    },
+    "time_steps": {
+     "rows": 48384,
+     "bytes": 282494,
+     "files": 1,
+     "created": 0,
+     "replaced": 0,
+     "unchanged": 1,
+     "removed_stale": []
+    },
+    "traffic_matrix": {
+     "rows": 6967296,
+     "bytes": 28256404,
+     "files": 24,
+     "created": 0,
+     "replaced": 0,
+     "unchanged": 24,
+     "removed_stale": []
+    },
+    "link_load": {
+     "rows": 2612736,
+     "bytes": 40985155,
+     "files": 24,
+     "created": 0,
+     "replaced": 0,
+     "unchanged": 24,
+     "removed_stale": []
+    }
+   },
+   "rows_total": 9629270,
+   "wall_s": 2.6886368749983376,
+   "parse_s": 2.263028999994276,
+   "rows_per_s": 3581469.141311972,
+   "peak_rss_bytes": 1039843328,
+   "removed_steps": {
+    "duplicate": 1152,
+    "flow": 6336,
+    "router": 40,
+    "impossible": 1
+   },
+   "kept_steps": 40855,
+   "segments": 9
+  }
+ ],
+ "fingerprints": [
+  {
+   "files": 0,
+   "bytes": 0,
+   "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "mtime_ns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "files": 53,
+   "bytes": 69533779,
+   "content_sha256": "3a9edaeef06e6f8a60eee553702e2d7701e1b6be2062e37083749f8fb39c8de9",
+   "mtime_ns_sha256": "4d290181b1290312338da0a4c1bff227f145144ccf6d4b5510eb150ff401518d"
+  },
+  {
+   "files": 53,
+   "bytes": 69533779,
+   "content_sha256": "3a9edaeef06e6f8a60eee553702e2d7701e1b6be2062e37083749f8fb39c8de9",
+   "mtime_ns_sha256": "4d290181b1290312338da0a4c1bff227f145144ccf6d4b5510eb150ff401518d"
+  }
+ ],
+ "rerun_changed_nothing": true
+}

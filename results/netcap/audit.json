@@ -1,0 +1,651 @@
+{
+ "meta": {
+  "phase": 0,
+  "date": "2026-11-02",
+  "project_release": "1.0",
+  "repository": "https://github.com/Vkartik-3/NetCap",
+  "working_tree_clean_of_tracked_changes": true,
+  "seed": 42,
+  "python": "3.13.13",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "env": "Python 3.13 .venv with requirements.txt pins minus tensorflow/keras/ipykernel, plus networkx 3.7",
+  "command": "python -I netcap/audit/build_audit.py",
+  "note": "Reproductions ran in an isolated workspace (TRAFFIC_PROJECT=<scratch>/repro with raw/ and raw_geant/ symlinked) so the primary results and figures were not modified."
+ },
+ "project_log_summary": {
+  "done": [
+   "Phases 0-12 per docs/NETCAP_RESEARCH_LOG.md: data layer with cleaning rules R1-R4 (Abilene) and G1-G4 (GEANT); persistence/ARIMA/seasonal/blend/ridge baselines; LSTM/CNN/CNN-LSTM (residual, original-units MAE loss); horizons 5/30/60 min; link loads and congestion warnings via A; GEANT generalisation; error analysis; DM and day-block bootstrap tests; seasonal inputs; burst fallback rule (k sd) and learned gate; conformal q90 warning margins; rolling-origin folds A/B/C; 3-seed ablations."
+  ],
+  "key_findings_from_log": [
+   "Architecture alone: +0.3-2.5% vs persistence on Abilene (sections 14-15, 19, 23).",
+   "Seasonal inputs + fallback rule: +8.7-13.1% vs persistence at 60 min across 4 Abilene folds (section 23.1).",
+   "Better forecasts do not give better congestion warnings (sections 16, 22).",
+   "GEANT results not robust across folds (section 23.1).",
+   "80% utilisation threshold gives zero Abilene events; 50% used (section 16.2)."
+  ],
+  "open_per_log": [
+   "Written report not started (status table row 7); presentation files do exist in docs/presentation/, so that row is stale.",
+   "Not tried: peak-weighted loss, ARIMA + network combination (section 21.4).",
+   "Seasonal ARIMA with 288-step season not done (section 11.3).",
+   "Rule threshold k is not well determined by validation (sections 21.4, 23.1).",
+   "Section 9 'Next steps' and section 5 script table are stale (describe Phase 4 as upcoming)."
+  ]
+ },
+ "abilene": {
+  "source": "https://www.cs.utexas.edu/~yzhang/research/AbileneTM/",
+  "downloaded": "2026-11-02",
+  "files": 29,
+  "sha256_file": "results/netcap/audit_detail/abilene_sha256.txt",
+  "command": "python -I netcap/audit/verify_abilene.py raw results/netcap/audit_detail/abilene_verify.json",
+  "X": {
+   "files": 24,
+   "all_shape_2016x720": true,
+   "total_rows": 48384,
+   "total_values": 34836480,
+   "total_bytes_gz": 177836678,
+   "any_nan": false,
+   "any_negative": false,
+   "unit_per_readme": "100 bytes per 5 minutes (100 = packet sampling rate)",
+   "max_realOD_raw": 53292389000000.0,
+   "max_realOD_mbit_s": 142113037.3333333,
+   "second_largest_weekly_max_mbit_s": 7085.250666666666,
+   "unit_sanity": "with the README unit, the largest weekly maxima other than the R4 outlier are below the 9.92 Gbit/s link speed",
+   "per_router_totals_equal_across_5_versions_all_weeks": false
+  },
+  "demands": {
+   "n": 144,
+   "flow_index_is_src*12+dst_with_common_node_order": true
+  },
+  "links": {
+   "n": 54,
+   "internal": 30,
+   "inbound": 12,
+   "outbound": 12,
+   "indices_1_to_54_in_order": true
+  },
+  "topo": {
+   "routers": [
+    "ATLA-M5",
+    "ATLAng",
+    "CHINng",
+    "DNVRng",
+    "HSTNng",
+    "IPLSng",
+    "KSCYng",
+    "LOSAng",
+    "NYCMng",
+    "SNVAng",
+    "STTLng",
+    "WASHng"
+   ],
+   "router_order_matches_common": true,
+   "n_links": 30,
+   "internal_links_in_links_file_all_in_topo": true,
+   "topo_links_all_in_links_file": true,
+   "symmetric_capacity_and_weight": true,
+   "capacities_kbps": [
+    2480000.0,
+    9920000.0
+   ],
+   "links_below_max_capacity": [
+    "ATLAng,IPLSng",
+    "IPLSng,ATLAng"
+   ]
+  },
+  "A": {
+   "entries": 644,
+   "shape": [
+    54,
+    144
+   ],
+   "name_index_mismatches": 0,
+   "distinct_fractions": [
+    1.0
+   ],
+   "all_fractions_1": true,
+   "every_flow_one_ingress_link_at_its_source": true,
+   "every_flow_one_egress_link_at_its_destination": true,
+   "note": "link type 1 '*,X' is entry at X (flows sourced at X use it); type 2 'X,*' is exit at X"
+  },
+  "routing_preview": {
+   "flows_where_A_path_is_an_ospf_shortest_path": 144,
+   "of": 144,
+   "flows_with_equal_cost_ties": 0,
+   "discrepancies": [],
+   "label": "preview only; Phase 3 correctness gate repeats this with tests"
+  },
+  "checks_passed": {
+   "units_100_bytes_per_5_min": "stated in raw/readme.txt; consistent: all weekly maxima except the R4 outlier are below link speed (2nd largest weekly max 7085.3 Mbit/s)",
+   "flow_index_src*12+dst": true,
+   "A_54x144_all_fractions_1": true,
+   "node_numbering_consistent_X_A_links_topo": true
+  },
+  "discrepancies_with_docs": [
+   {
+    "claim": "PROJECT_LOG 10.3: 'all five versions have exactly the same per-router totals'",
+    "finding": "True for per-SOURCE totals only (max relative difference 0.65%, week 5). Per-DESTINATION totals differ across versions in almost every step (max relative difference 8.42 in X23).",
+    "impact": "None on results: realOD choice rests on raw/readme.txt, and the flow index is confirmed by raw/demands.",
+    "command": "python -I netcap/audit/totals_check.py raw",
+    "output": "results/netcap/audit_detail/router_totals_check.txt"
+   }
+  ]
+ },
+ "reproduction": {
+  "commands": [
+   "TRAFFIC_PROJECT=<repro> BROWSER=true MPLBACKEND=Agg .venv/bin/python scripts/01_data.py",
+   "TRAFFIC_PROJECT=<repro> BROWSER=true MPLBACKEND=Agg .venv/bin/python scripts/02_baselines.py",
+   "TRAFFIC_PROJECT=<repro> .venv/bin/python netcap/audit/run06_baselines.py <repro>/scripts/06_baselines2.py out.json",
+   "python -I netcap/audit/compare_metrics.py results/metrics.csv <repro>/results/metrics.csv out.json"
+  ],
+  "01_data": {
+   "status": "reproduced, identical to PROJECT_LOG 10.5-10.7",
+   "removed_steps": {
+    "duplicate": 1152,
+    "flow": 6336,
+    "router": 40,
+    "impossible": 1
+   },
+   "kept_pct": 84.4,
+   "segments": 9,
+   "samples": {
+    "train": 24448,
+    "val": 8149,
+    "test": 8150
+   },
+   "peak_trough": 1.53,
+   "wall_s": 11.97,
+   "peak_rss_bytes": 2064613376,
+   "log": "audit_detail/01.log"
+  },
+  "02_baselines": {
+   "status": "reproduced, identical to PROJECT_LOG 11.1-11.2",
+   "persistence_mae_mbit": {
+    "val": 2.742,
+    "test": 3.212
+   },
+   "arima_top5_vs_persistence_test_mae_mbit": [
+    21.871,
+    21.281
+   ],
+   "arima_change_pct": -2.8,
+   "wall_s": 26.49,
+   "log": "audit_detail/02.log"
+  },
+  "06_baselines2": {
+   "status": "PARTIAL: cells 1-3 (seasonal, blend, yday_change, ridge, ARIMA) + baseline-only tables and best-baseline-vs-persistence significance. Cell 4+ neural rows NOT reproduced (needs TensorFlow and saved models; models/ is empty).",
+   "matches_log_section_19": true,
+   "results": {
+    "cases": {
+     "abilene_h1": {
+      "persistence_mae_mbit": {
+       "val": 2.741797937462914,
+       "test": 3.2124844406768833
+      },
+      "best_baseline_by_val": "ridge",
+      "blend_cfg": [
+       "seasonal_mean7",
+       "0.07"
+      ],
+      "ridge_cfg": [
+       "scaled",
+       "1.0"
+      ],
+      "gain_vs_persistence_pct": {
+       "seasonal_day": {
+        "val": -147.02480019937713,
+        "test": -222.1507884504415
+       },
+       "seasonal_week": {
+        "val": -160.98881104618337,
+        "test": -231.8566234463974
+       },
+       "seasonal_mean7": {
+        "val": -117.8532960082439,
+        "test": -194.44233121272262
+       },
+       "blend": {
+        "val": 1.6963711605773812,
+        "test": -2.280773617954468
+       },
+       "yday_change": {
+        "val": 0.8344865615043218,
+        "test": 0.4741885635286436
+       },
+       "ridge": {
+        "val": 4.926023516705635,
+        "test": -4.503466163474545
+       }
+      },
+      "best_vs_persistence_test": {
+       "gain_pct": -4.503466163474523,
+       "ci95": [
+        -14.451197505712987,
+        0.8472712885460112
+       ],
+       "dm_p": 0.2866411732394446
+      }
+     },
+     "abilene_h6": {
+      "persistence_mae_mbit": {
+       "val": 4.420878594516062,
+       "test": 5.2995036221730025
+      },
+      "best_baseline_by_val": "blend",
+      "blend_cfg": [
+       "seasonal_mean7",
+       "0.22"
+      ],
+      "ridge_cfg": [
+       "scaled",
+       "1.0"
+      ],
+      "gain_vs_persistence_pct": {
+       "seasonal_day": {
+        "val": -54.285591344083485,
+        "test": -96.11491370326488
+       },
+       "seasonal_week": {
+        "val": -62.81677261242269,
+        "test": -103.49387205326495
+       },
+       "seasonal_mean7": {
+        "val": -35.11356691678576,
+        "test": -78.53249150644035
+       },
+       "blend": {
+        "val": 5.324636739947042,
+        "test": -2.7861186420787387
+       },
+       "yday_change": {
+        "val": 0.31910350865684833,
+        "test": 0.13518255188463835
+       },
+       "ridge": {
+        "val": 3.7283313392716066,
+        "test": -12.904409845719522
+       }
+      },
+      "best_vs_persistence_test": {
+       "gain_pct": -2.7861186420787387,
+       "ci95": [
+        -10.371171324079725,
+        2.443506264648295
+       ],
+       "dm_p": 0.41316954707975556
+      }
+     },
+     "abilene_h12": {
+      "persistence_mae_mbit": {
+       "val": 4.9796814776171905,
+       "test": 6.156949547995843
+      },
+      "best_baseline_by_val": "blend",
+      "blend_cfg": [
+       "seasonal_mean7",
+       "0.3"
+      ],
+      "ridge_cfg": [
+       "scaled",
+       "1.0"
+      ],
+      "gain_vs_persistence_pct": {
+       "seasonal_day": {
+        "val": -37.138444758820285,
+        "test": -69.04239066306094
+       },
+       "seasonal_week": {
+        "val": -44.767974251354815,
+        "test": -75.66125557762867
+       },
+       "seasonal_mean7": {
+        "val": -19.95478214020421,
+        "test": -53.71138434725484
+       },
+       "blend": {
+        "val": 7.296476639013338,
+        "test": -1.6873590960025275
+       },
+       "yday_change": {
+        "val": 0.24669616141643758,
+        "test": 0.042063804537140204
+       },
+       "ridge": {
+        "val": 4.428410175932451,
+        "test": -13.29893945001961
+       }
+      },
+      "best_vs_persistence_test": {
+       "gain_pct": -1.6873590960025275,
+       "ci95": [
+        -10.77595684272343,
+        4.549913457305917
+       ],
+       "dm_p": 0.6751836912256919
+      }
+     },
+     "geant_h1": {
+      "persistence_mae_mbit": {
+       "val": 1.8211854560472003,
+       "test": 1.4690546451160147
+      },
+      "best_baseline_by_val": "blend",
+      "blend_cfg": [
+       "seasonal_day",
+       "0.01"
+      ],
+      "ridge_cfg": [
+       "original",
+       "10000.0"
+      ],
+      "gain_vs_persistence_pct": {
+       "seasonal_day": {
+        "val": -202.59781444880275,
+        "test": -210.28920210348772
+       },
+       "seasonal_week": {
+        "val": -340.6889947009015,
+        "test": -332.91177808039015
+       },
+       "seasonal_mean7": {
+        "val": -238.7183812323062,
+        "test": -236.55873736462638
+       },
+       "blend": {
+        "val": 0.23453724425116507,
+        "test": 0.3092846192705889
+       },
+       "yday_change": {
+        "val": 0.027018490638675008,
+        "test": 0.04861611726735271
+       },
+       "ridge": {
+        "val": -0.012082736885821177,
+        "test": -0.010593167306205409
+       }
+      },
+      "best_vs_persistence_test": {
+       "gain_pct": 0.3092846192705778,
+       "ci95": [
+        0.24677224934577024,
+        0.36013136335738904
+       ],
+       "dm_p": 5.656024448186433e-23
+      }
+     },
+     "geant_h4": {
+      "persistence_mae_mbit": {
+       "val": 2.854141274962522,
+       "test": 2.3767640761299527
+      },
+      "best_baseline_by_val": "blend",
+      "blend_cfg": [
+       "seasonal_day",
+       "0.05"
+      ],
+      "ridge_cfg": [
+       "original",
+       "10000.0"
+      ],
+      "gain_vs_persistence_pct": {
+       "seasonal_day": {
+        "val": -94.2472722050867,
+        "test": -91.92966328913808
+       },
+       "seasonal_week": {
+        "val": -182.1249319825264,
+        "test": -167.62331762498485
+       },
+       "seasonal_mean7": {
+        "val": -115.68074674726563,
+        "test": -108.14800449626306
+       },
+       "blend": {
+        "val": 0.8949154291528649,
+        "test": 1.2461763373258883
+       },
+       "yday_change": {
+        "val": 0.09200278819576635,
+        "test": 0.18385440504798956
+       },
+       "ridge": {
+        "val": -0.028140012981237028,
+        "test": 0.00044578904275782705
+       }
+      },
+      "best_vs_persistence_test": {
+       "gain_pct": 1.2461763373258772,
+       "ci95": [
+        0.9084625923276951,
+        1.5509394752547458
+       ],
+       "dm_p": 1.762366896139679e-13
+      }
+     }
+    },
+    "arima_top5": {
+     "h1": {
+      "arima_mae_mbit": 21.871922883824816,
+      "persistence_mae_mbit": 21.280531726494885,
+      "gain_pct": -2.7790243445544593,
+      "orders": [
+       [
+        2,
+        0,
+        1
+       ],
+       [
+        1,
+        1,
+        1
+       ],
+       [
+        2,
+        1,
+        1
+       ],
+       [
+        2,
+        1,
+        1
+       ],
+       [
+        1,
+        0,
+        0
+       ]
+      ]
+     },
+     "h6": {
+      "arima_mae_mbit": 35.00593480328732,
+      "persistence_mae_mbit": 37.79444020980223,
+      "gain_pct": 7.378083630913778,
+      "orders": [
+       [
+        2,
+        0,
+        1
+       ],
+       [
+        1,
+        1,
+        1
+       ],
+       [
+        1,
+        1,
+        1
+       ],
+       [
+        0,
+        1,
+        1
+       ],
+       [
+        2,
+        1,
+        1
+       ]
+      ]
+     },
+     "h12": {
+      "arima_mae_mbit": 41.34544824524062,
+      "persistence_mae_mbit": 47.30772233421063,
+      "gain_pct": 12.603173001754065,
+      "orders": [
+       [
+        2,
+        0,
+        1
+       ],
+       [
+        1,
+        1,
+        1
+       ],
+       [
+        2,
+        1,
+        1
+       ],
+       [
+        0,
+        1,
+        1
+       ],
+       [
+        2,
+        1,
+        1
+       ]
+      ]
+     }
+    }
+   },
+   "wall_s": 134.85,
+   "peak_rss_bytes": 3705847808,
+   "log": "audit_detail/06.log"
+  },
+  "metrics_csv_comparison": {
+   "repro_rows": 10,
+   "matched": 10,
+   "unmatched": [],
+   "max_rel_diff_any_metric": 3.503939697590698e-06
+  },
+  "differences": "None beyond float noise: max relative difference over all compared metrics 3.50e-06 (ARIMA rows); persistence rows identical."
+ },
+ "datasets": {
+  "geant_totem": {
+   "available": true,
+   "license": "no license stated; TOTEM page asks publications to cite Uhlig et al., SIGCOMM CCR 36(1), 2006",
+   "url_in_readme": "https://totem.info.ucl.ac.be/dataset.html",
+   "archive_url_working": "https://totem.run.montefiore.uliege.be/files/data/traffic-matrices-anonymized-v2.tar.bz2",
+   "issue": "link on the dataset page (totem.run.montefiore.ulg.ac.be) no longer resolves; host moved to uliege.be (HTTP 301)",
+   "archive_bytes": 17883919,
+   "sha256_file": "results/netcap/audit_detail/geant_sha256.txt",
+   "matrices": 10772,
+   "extracted_bytes_approx": "206M (du -sh)",
+   "rows_note": "10,772 matrices x 529 OD pairs (sparse: files list only some pairs)"
+  },
+  "cesnet_timeseries24": {
+   "available": true,
+   "license": "CC-BY-4.0 (Zenodo record 13382427)",
+   "doi": "10.5281/zenodo.13382427",
+   "downloaded": [
+    "institutions.tar.gz",
+    "times.tar.gz",
+    "weekends_and_holidays.csv"
+   ],
+   "md5_verified_against_zenodo": true,
+   "institutions_tar_gz_bytes": 479428489,
+   "counts": {
+    "per_directory": {
+     "institutions/agg_10_minutes": {
+      "files": 283,
+      "rows": 10446225,
+      "bytes": 1040104019
+     },
+     "institutions/agg_1_day": {
+      "files": 283,
+      "rows": 78667,
+      "bytes": 8898225
+     },
+     "institutions/agg_1_hour": {
+      "files": 283,
+      "rows": 1880182,
+      "bytes": 195195487
+     },
+     "institutions": {
+      "files": 1,
+      "rows": 283,
+      "bytes": 1038
+     },
+     "times": {
+      "files": 3,
+      "rows": 47296,
+      "bytes": 1493903
+     }
+    },
+    "headers": {
+     "institutions/agg_10_minutes": "id_time,n_flows,n_packets,n_bytes,sum_n_dest_asn,average_n_dest_asn,std_n_dest_asn,sum_n_dest_ports,average_n_dest_ports,std_n_dest_ports,sum_n_dest_ip,average_n_dest_ip,std_n_dest_ip,tcp_udp_ratio_packets,tcp_udp_ratio_bytes,dir_ratio_packets,dir_ratio_bytes,avg_duration,avg_ttl",
+     "institutions/agg_1_day": "id_time,n_flows,n_packets,n_bytes,sum_n_dest_asn,average_n_dest_asn,std_n_dest_asn,sum_n_dest_ports,average_n_dest_ports,std_n_dest_ports,sum_n_dest_ip,average_n_dest_ip,std_n_dest_ip,tcp_udp_ratio_packets,tcp_udp_ratio_bytes,dir_ratio_packets,dir_ratio_bytes,avg_duration,avg_ttl",
+     "institutions/agg_1_hour": "id_time,n_flows,n_packets,n_bytes,sum_n_dest_asn,average_n_dest_asn,std_n_dest_asn,sum_n_dest_ports,average_n_dest_ports,std_n_dest_ports,sum_n_dest_ip,average_n_dest_ip,std_n_dest_ip,tcp_udp_ratio_packets,tcp_udp_ratio_bytes,dir_ratio_packets,dir_ratio_bytes,avg_duration,avg_ttl",
+     "institutions": "id_institution",
+     "times": "id_time,time"
+    },
+    "total_rows": 12452653,
+    "total_bytes": 1245692672,
+    "total_files": 853,
+    "count_seconds": 0.6
+   },
+   "time_range_10min": "2023-10-09 02:03:49+02:00 .. 2024-07-14 23:50:52+02:00 (40,298 slots)",
+   "not_downloaded_observed_sizes_bytes": {
+    "ip_addresses_full.tar.gz": 40048881181,
+    "institution_subnets.tar.gz": 774004934,
+    "ip_addresses_sample.tar.gz": 170864480
+   },
+   "note": "Per-institution aggregate time series (flows, packets, bytes, ...), not a topology or traffic matrix. Full IP-level set (40.0 GB compressed) not feasible on this machine (66 GiB free disk)."
+  },
+  "mawi_wide": {
+   "available": true,
+   "samplepoint": "F",
+   "daily_traces_2025": 365,
+   "example": {
+    "id": "202510011400",
+    "duration_s": 899.95,
+    "packets": 207553081,
+    "pcap_gz_bytes": 5357837608,
+    "avg_rate_mbps": 1635.64,
+    "caplen_bytes": 96
+   },
+   "license": "NOT FOUND on the archive index page; must be checked before redistribution of derived data",
+   "tools": "nfdump 1.7.10 available via Homebrew (includes nfpcapd for pcap->flow); softflowd not in Homebrew",
+   "note": "Not downloaded yet (5.36 GB per 15-min trace). Real flow data from WIDE, unrelated to Abilene."
+  }
+ },
+ "models": {
+  "local_models_dir": "empty (only .gitkeep)",
+  "elsewhere_on_disk": "none found (*.keras search of home)",
+  "github_releases": 0,
+  "github_license": null,
+  "plan": "Serve TF-free statistical forecasters. Neural (CNN-LSTM seasonal+rule) forecasts can only be imported as precomputed artifacts after retraining with TF 2.21 (available on PyPI for py3.13); otherwise skipped and stated as such."
+ },
+ "environment_constraints": {
+  "ram_bytes": 17179869184,
+  "cpus": 8,
+  "free_disk": "66Gi",
+  "docker_daemon": "not running at audit time",
+  "kind": "v0.32.0",
+  "postgres_client": "psql 17.4",
+  "local_dns_resolver_flaky": "mawi.wide.ad.jp and the old TOTEM host intermittently failed to resolve; worked on retry"
+ },
+ "gate": {
+  "status": "AWAITING USER APPROVAL",
+  "blocking_issues": [],
+  "decisions_needed": [
+   "Neural forecasts: retrain CNN-LSTM seasonal+rule on CPU to produce artifacts, or skip neural challengers.",
+   "CESNET scope: institutions (10.4M rows at 10-min) is downloaded; the 40 GB IP-level set is not feasible here.",
+   "MAWI: how many 15-min traces to download (5.36 GB each); license must be confirmed.",
+   "Repository release workflow and CI activation."
+  ]
+ }
+}

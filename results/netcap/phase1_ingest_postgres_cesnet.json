@@ -1,0 +1,68 @@
+{
+ "command": "python <repo>/netcap/pipeline/ingest.py postgres cesnet",
+ "date": "2026-11-02T22:37:56+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "uncommitted (repo has no commits yet)",
+  "dirty": null,
+  "netcap_source_sha256": "e98dcad5b8b3ff27a31c2da3bd35b5f21d3e9cb0b58526b79a2cc7490f5d3944",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "CESNET-TimeSeries24 institutions",
+  "zenodo_record": 13382427,
+  "doi": "10.5281/zenodo.13382427",
+  "archive_md5": {
+   "institutions.tar.gz": "md5:ab3e15fb8dc9b7120ddb2318795b6812",
+   "times.tar.gz": "md5:a03813763e07646ca38f17ffd53e549e"
+  }
+ },
+ "target": "postgres",
+ "runs": [
+  {
+   "rows_seen": 12405074,
+   "rows_changed": 12405074,
+   "wall_s": 76.08624570800748,
+   "rows_per_s": 163039.63856498263,
+   "peak_rss_bytes": 616316928
+  },
+  {
+   "rows_seen": 12405074,
+   "rows_changed": 0,
+   "wall_s": 55.862584875008906,
+   "rows_per_s": 222064.08865175204,
+   "peak_rss_bytes": 847708160,
+   "table_sizes": {
+    "cesnet_series": {
+     "total_bytes": 3329875968,
+     "heap_bytes": 2530779136,
+     "index_bytes": 798367744
+    }
+   },
+   "postgres_server_version": "17.4"
+  }
+ ],
+ "fingerprints": [
+  {
+   "cesnet_series": {
+    "rows": 0,
+    "checksum": "0"
+   }
+  },
+  {
+   "cesnet_series": {
+    "rows": 12405074,
+    "checksum": "7149857538680245991525891"
+   }
+  },
+  {
+   "cesnet_series": {
+    "rows": 12405074,
+    "checksum": "7149857538680245991525891"
+   }
+  }
+ ],
+ "rerun_changed_nothing": true
+}

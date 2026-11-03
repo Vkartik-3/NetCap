@@ -1,0 +1,30 @@
+{
+ "command": "python <repo>/netcap/ops/measure.py phase1_mawi_202510011400_chunked_process -- .venv/bin/python -m netcap.pipeline.mawi_ingest 202510011400 --delete-raw",
+ "date": "2026-11-03T02:34:26+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "d0dc09d54a871f180934087622484a2c165f20eafb2421d64e556e757ca10cf0",
+  "project_release": "1.0"
+ },
+ "data_version": "see measured command's own result file",
+ "measured_command": ".venv/bin/python -m netcap.pipeline.mawi_ingest 202510011400 --delete-raw",
+ "returncode": 0,
+ "process_wall_s": 440.70135283470154,
+ "teardown_s": 0.10268688201904297,
+ "max_rss_bytes": 2830417920,
+ "peak_memory_footprint_bytes": 3774058552,
+ "user_s": 563.59,
+ "sys_s": 29.6,
+ "vm_stat_delta_system_wide": {
+  "swapouts": 92796,
+  "swapins": 11770,
+  "pageouts": 4282
+ },
+ "swapusage_before": "total = 6144.00M  used = 4786.88M  free = 1357.12M  (encrypted)",
+ "swapusage_after": "total = 7168.00M  used = 6060.81M  free = 1107.19M  (encrypted)",
+ "stderr_tail": "      440.69 real       563.59 user        29.60 sys\n          2830417920  maximum resident set size\n                   0  average shared memory size\n                   0  average unshared data size\n                   0  average unshared stack size\n             3621382  page reclaims\n                4000  page faults\n                   0  swaps\n                   0  block input operations\n                   0  block output operations\n             2217172  messages sent\n              280768  messages received\n                   0  signals received\n              595762  voluntary context switches\n             1008322  involuntary context switches\n       4523442692412  instructions retired\n        919883754205  cycles elapsed\n          3774058552  peak memory footprint\n"
+}

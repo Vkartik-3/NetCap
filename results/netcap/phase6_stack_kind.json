@@ -1,0 +1,90 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 3.5654296875,
+  "cpu_count": 8,
+  "timing_label": "measured on an otherwise idle machine"
+ },
+ "command": "python <repo>/netcap/ops/stack_check.py kind --api http://localhost:8080",
+ "date": "2026-11-03T04:57:16+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "26c84c6e2c849c1ff261475be575575cc6b476094a0b60b6f5a9cb42e4433c92",
+  "project_release": "1.0"
+ },
+ "data_version": "live stack",
+ "api": "http://localhost:8080",
+ "endpoints": {
+  "/health": {
+   "status": 200,
+   "ms": 39.49179098708555,
+   "bytes": 52
+  },
+  "/metrics": {
+   "status": 200,
+   "ms": 5.049250001320615,
+   "bytes": 3528
+  },
+  "/api/topology": {
+   "status": 200,
+   "ms": 1772.2790839907248,
+   "bytes": 5381
+  },
+  "/api/link/1/utilisation": {
+   "status": 200,
+   "ms": 28.208333009388298,
+   "bytes": 174702
+  },
+  "/api/forecast/summary": {
+   "status": 200,
+   "ms": 26.64929101592861,
+   "bytes": 27178
+  },
+  "/api/forecast?flow=86&horizon=12&method=gbm&limit=10": {
+   "status": 200,
+   "ms": 252.18937499448657,
+   "bytes": 984
+  },
+  "/api/results/summary": {
+   "status": 200,
+   "ms": 26.695084001403302,
+   "bytes": 59718
+  },
+  "/api/limitations": {
+   "status": 200,
+   "ms": 34.17341600288637,
+   "bytes": 3681
+  },
+  "/": {
+   "status": 200,
+   "ms": 11.230666015762836,
+   "bytes": 12601
+  },
+  "POST /api/scenario failure": {
+   "status": 200,
+   "ms": 1880.5843330046628,
+   "bytes": 2583,
+   "max_util": 2.9734483731182793
+  },
+  "POST /api/scenario growth": {
+   "status": 200,
+   "ms": 160.7505829888396,
+   "bytes": 2639,
+   "max_util": 1.5071002032258063
+  },
+  "POST /api/te": {
+   "status": 200,
+   "ms": 1451.7569589952473,
+   "bytes": 206
+  }
+ },
+ "health": {
+  "status": "ok",
+  "database": true,
+  "parquet_store": true
+ },
+ "all_ok": true
+}

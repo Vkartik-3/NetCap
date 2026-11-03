@@ -1,0 +1,59 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 5.5595703125,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python <repo>/netcap/bench/forecast_throughput.py",
+ "date": "2026-11-03T04:35:47+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "f4478515f7a9c2c5fba1d62e3443b1f008576e255b0cd7b35b30f0e582b3994f",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "abilene": "raw realOD",
+  "cesnet": "data_netcap cesnet 1_hour"
+ },
+ "results": {
+  "abilene_h12": {
+   "series": 144,
+   "train_targets": 24388,
+   "forecast_cells": 2341440,
+   "simple_baselines_s": 0.09985116601455957,
+   "ets_select_and_forecast_s": 0.7799345830280799,
+   "gbm_total_s": 16.90373200000613,
+   "gbm_fit_s": 6.354203790979227,
+   "gbm_predict_s": 6.845462375000352,
+   "simple_baselines_forecasts_per_s": 23449300.528534524,
+   "ets_forecasts_per_select_and_forecast_forecasts_per_s": 3002097.9335336145,
+   "gbm_total_forecasts_per_s": 138516.15726037012,
+   "gbm_predict_forecasts_per_s": 342042.63667432393
+  },
+  "cesnet_h1": {
+   "series": 283,
+   "train_targets": 4023,
+   "forecast_cells": 743121,
+   "simple_baselines_s": 0.026375958987046033,
+   "ets_select_and_forecast_s": 0.15551145799690858,
+   "gbm_total_s": 9.18259537499398,
+   "gbm_fit_s": 6.936497666989453,
+   "gbm_predict_s": 1.9353389170137234,
+   "simple_baselines_forecasts_per_s": 28174179.38680324,
+   "ets_forecasts_per_select_and_forecast_forecasts_per_s": 4778561.075639665,
+   "gbm_total_forecasts_per_s": 80927.12023701548,
+   "gbm_predict_forecasts_per_s": 383974.6069627197
+  }
+ },
+ "load_average_at_start": [
+  3.974609375,
+  4.30712890625,
+  9.12060546875
+ ],
+ "cpu_count": 8,
+ "peak_rss_bytes": 2542436352
+}

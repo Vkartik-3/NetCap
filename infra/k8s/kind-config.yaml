@@ -1,0 +1,14 @@
+# kind create cluster --name netcap --config infra/k8s/kind-config.yaml   (run from the repo root)
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    extraMounts:
+      - hostPath: ./data_netcap
+        containerPath: /netcap/data
+      - hostPath: ./raw
+        containerPath: /netcap/raw/abilene
+        readOnly: true
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 8080

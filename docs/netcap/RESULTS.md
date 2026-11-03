@@ -1,0 +1,151 @@
+# NetCap results
+
+Every number here is copied from a file in `results/netcap/` (named in each section), produced by the command
+recorded inside that file, with the code version, seed, date and data version. `results/netcap/summary.json`
+collects the headline values with their source paths. Labels used throughout:
+**ASSUMED** (an input, not a measurement), **INJECTED** (synthetic anomalies), **upper bound, measured under CPU
+contention** (timings taken while other heavy jobs ran), **added after seeing results** (post-hoc, never replacing
+the original).
+
+## Status
+
+| Phase | Status | Notes |
+|---|---|---|
+| 0 Audit | done | base scripts reproduced; no trained models published by the forecasting module |
+| 1 Data layer | done | incl. all 8 follow-ups (bounded-memory MAWI, per-table rows, cleanup, commits, README, coverage, Docker plan) |
+| 2 Forecasting | done | GBM included; SARIMA-type and frozen ridge failed (kept); 2 labelled post-hoc variants |
+| 3 Scenarios + TE | done | gate passed 144/144; N-1 sweep; LP with bootstrap intervals |
+| 4 Anomaly detection | done (weak results) | detectors catch dropouts, rarely spikes or shifts |
+| Neural retrain | **not run: needs GPU (no NVIDIA GPU on this machine)** | user decision; no neural claims |
+| 5 API + dashboard | done | FastAPI + static Plotly page; TF-free (tested) |
+| 6 Engineering | done | CI written (runs on first push); Compose and kind stacks run and checked end to end |
+| 7 Results and docs | done | this file, summary.json, RESUME_FACTS.md, INTERVIEW_NOTES.md |
+
+## Phase 1: data layer (`phase1_summary.json`, `phase1_report.md`)
+- Abilene: 9,629,270 rows in 7 tables, of which **6,967,296 are measured** OD traffic (48,384 five-minute steps × 144
+  flows; 5,883,120 in kept steps); 2,612,736 are derived link loads; the rest is reference data.
+- CESNET-TimeSeries24 institutions: **10,446,225 rows** (10-minute), 1,880,182 (hourly), 78,667 (daily): 12,405,074
+  total from 1,244,197,731 bytes of CSV.
+- Every ingestion is idempotent: re-runs change 0 Postgres rows and 0 Parquet files (row checksums compared).
+- Query latency (CESNET 10-minute table, 10,446,225 rows, warm cache, median; identical results across variants):
+  one institution for one week: 186.4 ms full scan → 0.37 ms with a B-tree on (institution_id, ts) (about 500×);
+  top-10 institutions for one day: 192.8 → 3.69 ms (52×); network hourly totals for one month: the index does not
+  help (235.4 ms); monthly range partitions give 71.6 ms (3.2×). Idle re-measurement: see Phase 6.
+- MAWI 2025-10-01 14:00 (real WIDE traffic): **207,302,561 IP packets reconciled exactly** across an independent pcap
+  walk, softflowd's counters and the 56,523,852 decoded flow records; 0 export failures. Bounded-memory pipeline:
+  1.85 GB peak footprint, 0 system-wide swap-outs, 415.8 s to process exit, 0.09 s teardown (first version: 16.8 GB,
+  superseded).
+
+## Phase 2: forecasting (`phase2_forecast_abilene.json`, `phase2_forecast_cesnet_1h.json`, `phase2_report.md`)
+- Forecasting module reproduced on identical folds: persistence (= `metrics.csv`), blend −2.3 / −2.8 / −1.7% and the base
+  ridge definition −4.5 / −12.9 / −13.3% at 5 / 30 / 60 min (the forecasting module's section 19.1 numbers exactly).
+- **The gradient-boosting model (alone, or with the fallback rule in 3 cases) is chosen on validation in all 12 Abilene cases**; the GBM beats persistence on test by
+  +8.8% to +20.5% (60 min: +18.0% [+14.6, +20.3] original fold; +16.9%, +18.4%, +20.5% in folds A, B, C; 95%
+  day-block bootstrap; every Diebold-Mariano p < 1e-20). It also beats the best simple baseline chosen on validation
+  in all 12 cases (+8.4% to +19.3%). Checked for look-ahead before use.
+- For comparison, the forecasting module's best published model (seasonal CNN-LSTM + rule, GPU) was +8.7% to +13.1% at
+  60 min over the same four folds (its section 23.1). That is the forecasting module's number, not reproduced by NetCap.
+- Flow 86 (LOSA→CHIN bursts): fallback rule and smooth gate help the blend (60 min: 167.5 → 130.4 / 120.7 Mbit/s),
+  not back to persistence (89.9); clipping does not rescue ridge; the GBM is at 83.0 without any fix.
+- Negative: frozen ridge (−80% to −109%), frozen SARIMA-type model (−12% to −123% on the 10 busiest flows; the
+  validation-chosen order, added after seeing results, gives −13% to +5%).
+- 90% split-conformal intervals: 84.8-86.1% coverage in the original test period, 89-90% in folds A-C (GBM, 60 min).
+- CESNET (283 institutions, hourly): GBM chosen in all 8 cases, +16.6% to +20.3% at 1 hour and +44.0% to +50.2% at
+  6 hours over persistence.
+
+## Phase 3: scenarios and TE (`phase3_scenarios.json`, `phase3_report.md`)
+- Gate: OSPF ECMP routing equals matrix A for **144/144 flows**.
+- Measured demand: 40,855 steps; network total mean 3,281 Mbit/s, max 12,864 Mbit/s. Busiest link peak 75.4%,
+  worst p95 9.3%.
+- N-1: the IPLS–KSCY link failure overloads ATLA→IPLS (2.48 Gbit/s) to **297%**; every other link failure stays
+  at or below 77%. Router failures strand 2.5% to 79% of traffic (their own flows).
+- Upgrade rule fixed in advance: no effect (negative result). Rule added after seeing results (ATLA–IPLS to
+  9.92 Gbit/s, ASSUMED): worst N-1 case 297% → **77%**.
+- TE bound (LP / OSPF max utilisation), hourly over all data: mean 0.704 [0.696, 0.712] normally, 0.493 [0.483,
+  0.504] under the worst failure (95% day-block bootstrap); 0.51 on the 20 busiest steps.
+- Better forecasts, not better warnings: the GBM has 14% lower link-load error than persistence at 60 min but a
+  warning F1 of 0.890 vs 0.896 (methods span 0.890-0.906; no F1 interval computed, so no F1 difference is claimed).
+
+## Phase 4: anomaly detection (`phase4_anomaly.json`, `phase4_report.md`)
+- INJECTED anomalies, test period: best average precision 0.165 (Abilene, STL) and 0.186 (CESNET, threshold) against
+  base rates of 0.46% and 1.90%. Dropouts are found (72-100%), spikes and level shifts mostly are not (0-56%).
+- Weak labels (rules R2-R4, raw Abilene): the static threshold has the best average precision (0.142 vs base rate
+  0.0095); STL absorbs day-long outages into its trend (0.007).
+
+## Neural retrain (`phase_neural_retrain.json`)
+Not run: needs GPU (no NVIDIA GPU on this machine). User decision. NetCap claims nothing from the forecasting module's neural
+results. To run on a GPU machine: see the hand-off section below.
+
+## Phase 5: API and dashboard
+FastAPI service (`netcap_app/api.py`): health, Prometheus `/metrics`, topology with measured utilisation, link
+series, forecast summary and per-flow forecasts with 90% intervals, live scenario evaluation (growth / failure /
+upgrade, ASSUMED inputs labelled), the TE LP, anomalies (from Postgres), every result file, and the limitations
+page. Static Plotly dashboard at `/` (tabs: overview with the warnings finding, network map, forecasts, scenarios,
+anomalies, limitations). Structured JSON request logs. TF-free (tested). All endpoints return 200 on the real results.
+
+## Phase 6: engineering quality (`phase6_quality.json`, `phase6_idle_*.json`)
+- Tests: **48 passed, 0 failed, 0 skipped** (re-run with Docker up: same) (with the raw data present; in CI, tests that need raw data are skipped).
+- Coverage 44.3% overall (45.1% before the stack-check script was added); by package: store 100%, db 85.7%, data 80.0%, netcap_app 77.6%, scenario 46.5%,
+  forecast 43.1%, anomaly 42.7%, pipeline 9.1%, bench / ops / report 0% (CLIs exercised only by the recorded runs).
+  Not padded.
+- ruff, yamllint, kubeconform (7/7 resources valid, strict), kustomize build, `docker compose config`: all pass.
+- **Docker Compose (Postgres, API, Prometheus, ingest job) and Kubernetes on kind (Postgres StatefulSet, 2 API replicas, ingest Job, NodePort) were run and checked end to end: every endpoint 200, database reachable, Prometheus scraping the API, ingest re-run changes nothing (`phase6_stack_compose.json`, `phase6_stack_kind.json`).** Docker 28.3.2, kind; image 1.59 GB. Two bugs found and fixed by running it: provenance needed `git` (absent in the image), and `POST /api/te` rejected a JSON body (422).
+- CI (`.github/workflows/ci.yml`): lint, tests with a Postgres service and coverage, image build, compose config,
+  kubeconform. Not run yet (no remote).
+
+Benchmarks re-run after all other jobs (load average recorded; macOS's Storage scan kept the 5-minute load just
+above 4 for three of them, so they are labelled "upper bound, measured under CPU contention"):
+
+| Benchmark | Result | Label |
+|---|---|---|
+| MAWI trace, chunked pipeline (`phase6_idle_mawi_process.json`) | 411.3 s to exit, 0.07 s teardown, peak footprint 1.63 GB, packets reconciled exactly again | idle |
+| MAWI swap-outs in that run | 69,364 system-wide (the earlier identical run had 0; not attributable, see caveat) | idle |
+| CESNET → Parquet, 12,405,074 rows | 6.5 s, 1.90M rows/s | upper bound, under contention |
+| CESNET → Postgres re-upsert, 12,405,074 rows | 60.4 s, 205k rows/s, 0 rows changed | upper bound, under contention |
+| Query latency (Postgres, indexed / partitioned) | Q1 0.39 / 0.39 ms, Q2 236.9 / 74.1 ms, Q3 3.83 / 4.01 ms (heap 187.7 / 234.7 / 198.6 ms) | upper bound, under contention |
+| Forecasting, Abilene 60 min (2,341,440 forecasts) | GBM fit 6.4 s, predict 6.8 s (342k forecasts/s); ETS select + forecast 0.78 s | upper bound, under contention |
+| Forecasting, CESNET 1 h (743,121 forecasts) | GBM fit 6.9 s, predict 1.9 s (384k forecasts/s) | upper bound, under contention |
+
+Caveat on swapping: macOS counts swap-outs for the whole system; across three runs of the same bounded-memory
+pipeline (1.6-1.9 GB footprint) the count was 92,796, 0 and 69,364, while an idle `sleep` of the same length had 0.
+Only the 0 is conclusive.
+
+## Hand-off: running everything from a clean clone
+
+```
+git clone https://github.com/Vkartik-3/NetCap.git netcap && cd netcap
+python3.13 -m venv .venv && .venv/bin/pip install -r requirements.txt
+# data (not in the repository):
+#   Abilene: download X01.gz..X24.gz, A, links, topo-2003-04-10.txt into raw/ (see research/README.md)
+#   CESNET:  institutions.tar.gz and times.tar.gz from doi:10.5281/zenodo.13382427 into raw_cesnet/, then
+mkdir -p raw_cesnet/extracted && tar -xzf raw_cesnet/institutions.tar.gz -C raw_cesnet/extracted && tar -xzf raw_cesnet/times.tar.gz -C raw_cesnet/extracted
+# Postgres: either docker compose up -d db (port 5434; set NETCAP_DATABASE_URL=postgresql://netcap:netcap@localhost:5434/netcap)
+#           or any local Postgres 17 with user/password/database netcap (default URL uses port 5433)
+.venv/bin/python -m netcap.pipeline.ingest parquet abilene && .venv/bin/python -m netcap.pipeline.ingest postgres abilene
+.venv/bin/python -m netcap.pipeline.ingest parquet cesnet  && .venv/bin/python -m netcap.pipeline.ingest postgres cesnet
+.venv/bin/python -m netcap.bench.query_latency
+.venv/bin/python -m netcap.forecast.run abilene && .venv/bin/python -m netcap.forecast.run cesnet
+.venv/bin/python -m netcap.scenario.run
+.venv/bin/python -m netcap.anomaly.run
+.venv/bin/python -m netcap.ops.quality && .venv/bin/python -m netcap.report.summary
+.venv/bin/uvicorn netcap_app.api:app --port 8000          # dashboard at http://localhost:8000/
+# MAWI (optional; needs softflowd 1.1.1 built as in docs/netcap/NOTES.md 5 and the 5.4 GB pcap in raw_mawi/):
+.venv/bin/python -m netcap.pipeline.mawi_ingest 202510011400 --delete-raw --chunk-records 1000000 --duckdb-memory 1GB
+```
+
+What you still need to do by hand:
+1. (Done here; to repeat) **Docker**: `docker compose up -d --build db api prometheus`, then
+   `docker compose --profile jobs run --rm ingest-abilene`, open http://localhost:8000/ and http://localhost:9090/.
+2. (Done here; to repeat) **Kubernetes on kind**: `kind create cluster --name netcap --config infra/k8s/kind-config.yaml`,
+   `docker build -f infra/Dockerfile -t netcap:1.0 . && kind load docker-image netcap:1.0 --name netcap`,
+   `kubectl apply -k infra/k8s && kubectl apply -f infra/k8s/job-ingest.yaml`, then http://localhost:8080/.
+   Change the Postgres password in `infra/k8s/postgres.yaml` before any shared use.
+3. **Neural retrain on a GPU machine** (NVIDIA, Linux/WSL2):
+   `python -m venv .venv-tf && .venv-tf/bin/pip install -r research/requirements-gpu.txt polars==2.1.0 pyarrow==26.0.0 && .venv-tf/bin/python -m netcap.neural.retrain --time-one-epoch && .venv-tf/bin/python -m netcap.neural.retrain`
+4. **Git**: the repository uses `https://github.com/Vkartik-3/NetCap.git` as `origin`.
+5. Hosted deployment: not done.
+6. Re-enable normal sleep if you disabled it: `sudo pmset -a disablesleep 0`.
+
+## Not done
+- Neural retrain (needs GPU). GÉANT (optional, skipped). MAWI traces 2 and 3 (user instruction).
+- Per-kind anomaly thresholds or a combined detector (not tried).

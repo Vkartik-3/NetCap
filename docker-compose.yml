@@ -1,0 +1,79 @@
+# NetCap local stack: Postgres, the API (with the dashboard at /), Prometheus, and one-off pipeline jobs.
+#   docker compose up -d db api prometheus
+#   docker compose --profile jobs run --rm ingest-abilene      # Parquet + Postgres from raw/ (mounted read-only)
+# Data stays on the host: ./data_netcap (Parquet store) and ./raw* (raw downloads, never in the image).
+name: netcap
+
+services:
+  db:
+    image: postgres:17.4-bookworm
+    environment:
+      POSTGRES_USER: netcap
+      POSTGRES_PASSWORD: netcap          # local development only; Kubernetes uses a Secret
+      POSTGRES_DB: netcap
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netcap -d netcap"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile
+    image: netcap:1.0
+    environment:
+      NETCAP_DATABASE_URL: postgresql://netcap:netcap@db:5432/netcap
+    volumes:
+      - ./data_netcap:/data:ro
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    volumes:
+      - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api
+
+  ingest-abilene:
+    image: netcap:1.0
+    profiles: ["jobs"]
+    environment:
+      NETCAP_DATABASE_URL: postgresql://netcap:netcap@db:5432/netcap
+    volumes:
+      - ./data_netcap:/data
+      - ./raw:/raw/abilene:ro
+    command: >
+      sh -c "python -m netcap.pipeline.ingest parquet abilene &&
+             python -m netcap.pipeline.ingest postgres abilene"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ingest-cesnet:
+    image: netcap:1.0
+    profiles: ["jobs"]
+    environment:
+      NETCAP_DATABASE_URL: postgresql://netcap:netcap@db:5432/netcap
+    volumes:
+      - ./data_netcap:/data
+      - ./raw_cesnet/extracted:/raw/cesnet:ro
+    command: >
+      sh -c "python -m netcap.pipeline.ingest parquet cesnet &&
+             python -m netcap.pipeline.ingest postgres cesnet"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

@@ -1,0 +1,116 @@
+{
+ "command": "python <repo>/netcap/pipeline/ingest.py parquet cesnet",
+ "date": "2026-11-02T22:33:16+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "uncommitted (repo has no commits yet)",
+  "dirty": null,
+  "netcap_source_sha256": "e98dcad5b8b3ff27a31c2da3bd35b5f21d3e9cb0b58526b79a2cc7490f5d3944",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "CESNET-TimeSeries24 institutions",
+  "zenodo_record": 13382427,
+  "doi": "10.5281/zenodo.13382427",
+  "archive_md5": {
+   "institutions.tar.gz": "md5:ab3e15fb8dc9b7120ddb2318795b6812",
+   "times.tar.gz": "md5:a03813763e07646ca38f17ffd53e549e"
+  }
+ },
+ "target": "parquet",
+ "runs": [
+  {
+   "table": {
+    "rows": 12405074,
+    "bytes": 491818321,
+    "files": 270,
+    "created": 270,
+    "replaced": 0,
+    "unchanged": 0,
+    "removed_stale": []
+   },
+   "per_aggregation": {
+    "10_minutes": {
+     "rows": 10446225,
+     "wall_s": 4.599474666989408
+    },
+    "1_hour": {
+     "rows": 1880182,
+     "wall_s": 1.203476458991645
+    },
+    "1_day": {
+     "rows": 78667,
+     "wall_s": 0.21204812500218395
+    }
+   },
+   "rows_total": 12405074,
+   "wall_s": 6.0191899170022225,
+   "rows_per_s": 2060920.8499900901,
+   "peak_rss_bytes": 1227177984,
+   "source_csv_bytes": {
+    "10_minutes": 1040104019,
+    "1_hour": 195195487,
+    "1_day": 8898225
+   },
+   "batch_size": 32
+  },
+  {
+   "table": {
+    "rows": 12405074,
+    "bytes": 491818321,
+    "files": 270,
+    "created": 0,
+    "replaced": 0,
+    "unchanged": 270,
+    "removed_stale": []
+   },
+   "per_aggregation": {
+    "10_minutes": {
+     "rows": 10446225,
+     "wall_s": 4.519888040988008
+    },
+    "1_hour": {
+     "rows": 1880182,
+     "wall_s": 1.0663589579926338
+    },
+    "1_day": {
+     "rows": 78667,
+     "wall_s": 0.1650145839957986
+    }
+   },
+   "rows_total": 12405074,
+   "wall_s": 5.755195624995395,
+   "rows_per_s": 2155456.5315075503,
+   "peak_rss_bytes": 1227177984,
+   "source_csv_bytes": {
+    "10_minutes": 1040104019,
+    "1_hour": 195195487,
+    "1_day": 8898225
+   },
+   "batch_size": 32
+  }
+ ],
+ "fingerprints": [
+  {
+   "files": 0,
+   "bytes": 0,
+   "content_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "mtime_ns_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "files": 270,
+   "bytes": 491818321,
+   "content_sha256": "082e31dab5942bf33be06171f8a5f1beccd79532e73caf30915e0d5f5ba483ed",
+   "mtime_ns_sha256": "d5aec3c7b59dadb2ec6c904c106c57ff892d81ef5bf61cbb5d5015dd6acdb19c"
+  },
+  {
+   "files": 270,
+   "bytes": 491818321,
+   "content_sha256": "082e31dab5942bf33be06171f8a5f1beccd79532e73caf30915e0d5f5ba483ed",
+   "mtime_ns_sha256": "d5aec3c7b59dadb2ec6c904c106c57ff892d81ef5bf61cbb5d5015dd6acdb19c"
+  }
+ ],
+ "rerun_changed_nothing": true
+}

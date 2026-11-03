@@ -1,0 +1,46 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 3.11865234375,
+  "cpu_count": 8,
+  "timing_label": "measured on an otherwise idle machine"
+ },
+ "command": "python <repo>/netcap/ops/measure.py phase6_idle_mawi_process -- .venv/bin/python -m netcap.pipeline.mawi_ingest 202510011400 --delete-raw --chunk-records 1000000 --duckdb-memory 1GB --result-suffix idle",
+ "date": "2026-11-03T04:43:39+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "f4478515f7a9c2c5fba1d62e3443b1f008576e255b0cd7b35b30f0e582b3994f",
+  "project_release": "1.0"
+ },
+ "data_version": "see measured command's own result file",
+ "measured_command": ".venv/bin/python -m netcap.pipeline.mawi_ingest 202510011400 --delete-raw --chunk-records 1000000 --duckdb-memory 1GB --result-suffix idle",
+ "returncode": 0,
+ "process_wall_s": 411.31024408340454,
+ "load_average_before": [
+  3.7822265625,
+  4.34765625,
+  8.6640625
+ ],
+ "load_average_after": [
+  3.11865234375,
+  3.533203125,
+  6.63134765625
+ ],
+ "timing_label": "measured on an otherwise idle machine",
+ "teardown_s": 0.07291388511657715,
+ "max_rss_bytes": 1595785216,
+ "peak_memory_footprint_bytes": 1629948472,
+ "user_s": 549.45,
+ "sys_s": 20.8,
+ "vm_stat_delta_system_wide": {
+  "swapouts": 69364,
+  "swapins": 34423,
+  "pageouts": 4435
+ },
+ "swapusage_before": "total = 6144.00M  used = 4831.31M  free = 1312.69M  (encrypted)",
+ "swapusage_after": "total = 6144.00M  used = 5379.00M  free = 765.00M  (encrypted)",
+ "stderr_tail": "      411.30 real       549.45 user        20.80 sys\n          1595785216  maximum resident set size\n                   0  average shared memory size\n                   0  average unshared data size\n                   0  average unshared stack size\n             1440663  page reclaims\n                4857  page faults\n                   0  swaps\n                   0  block input operations\n                   0  block output operations\n             2217172  messages sent\n              356437  messages received\n                   0  signals received\n              653083  voluntary context switches\n              356640  involuntary context switches\n       4499744112855  instructions retired\n        872445923048  cycles elapsed\n          1629948472  peak memory footprint\n"
+}

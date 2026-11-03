@@ -1,0 +1,101 @@
+{
+ "command": "python -",
+ "date": "2026-11-02T23:11:05+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "uncommitted (repo has no commits yet)",
+  "dirty": null,
+  "netcap_source_sha256": "d82de747be1819861563a38a197fc8ba80809404f83b32e6ad9c1c58bd6cbfd8",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "MAWI samplepoint-F 202510011400"
+ },
+ "attempts": [
+  {
+   "tool": "nfdump 1.7.10 nfpcapd (built --enable-nfpcapd)",
+   "status": "REJECTED",
+   "command": "nfpcapd -r raw_mawi/202510011400.pcap.gz -w <dir> -t 60 -e 60,15 -z=zstd",
+   "nfdump_I_stats": {
+    "Flows": 17999386,
+    "Flows_tcp": 17321731,
+    "Flows_udp": 2198,
+    "Flows_icmp": 673285,
+    "Flows_other": 2172,
+    "Packets": 53075430,
+    "Packets_tcp": 52397738,
+    "Packets_udp": 2235,
+    "Packets_icmp": 673285,
+    "Packets_other": 2172,
+    "Bytes": 2689821247,
+    "Bytes_tcp": 2650056088,
+    "Bytes_udp": 74265,
+    "Bytes_icmp": 39559550,
+    "Bytes_other": 131344,
+    "First": 1759294800,
+    "Last": 1759295700,
+    "msec_first": 237,
+    "msec_last": 185
+   },
+   "archive_summary_packets": 207553081,
+   "cause": "decode_ip.c returns DECODE_SKIP when the IP total length exceeds the captured bytes ('IPv4/IPv6 packet length exceeds captured data'); MAWI truncates every packet to 96 bytes, so only packets that fit in 96 bytes are kept (mostly bare TCP ACKs and ICMP). A verbose run logged this for almost every packet (512,865,550 log lines, 20.0 GB, deleted).",
+   "kept_packet_share_vs_archive": 0.2557197886163877
+  },
+  {
+   "tool": "softflowd 1.1.1 -> NetFlow v9 over UDP -> nfcapd",
+   "status": "REJECTED",
+   "sample": "first 4,237,648 records (19.3 s) of the trace, cut on a record boundary",
+   "pcap_count": {
+    "records": 4237648,
+    "wire_bytes": 3551487133,
+    "first_ts": 1759294800.236999,
+    "last_ts": 1759294819.545233,
+    "linktype": 1,
+    "snaplen": 96,
+    "ethertype_ipv4": 3643964,
+    "ethertype_ipv6": 588113,
+    "ethertype_other": 5571,
+    "trailing_partial_bytes": 0
+   },
+   "nfcapd_stats": {
+    "Flows": 928987,
+    "Flows_tcp": 292761,
+    "Flows_udp": 134570,
+    "Flows_icmp": 501619,
+    "Flows_other": 37,
+    "Packets": 3171634,
+    "Packets_tcp": 1521263,
+    "Packets_udp": 928347,
+    "Packets_icmp": 556537,
+    "Packets_other": 165487,
+    "Bytes": 2785752835,
+    "Bytes_tcp": 1989023804,
+    "Bytes_udp": 636269092,
+    "Bytes_icmp": 28715019,
+    "Bytes_other": 131744920,
+    "First": 1793654538,
+    "Last": 1793654557,
+    "msec_first": 201,
+    "msec_last": 509
+   },
+   "softflowd_packets_processed": 4232077,
+   "cause": "UDP export loss: sequence failures; and flow times stamped with the wall clock (no -a)",
+   "received_packet_share": 0.7494272906660252
+  },
+  {
+   "tool": "softflowd 1.1.1 -> IPFIX over TCP -> netcap.data.ipfix collector",
+   "status": "ADOPTED",
+   "sample_check": {
+    "flow_record_packets": 4232077,
+    "pcap_ip_records": 4232077,
+    "export_failures": 0,
+    "flow_bytes": 3491897585,
+    "pcap_wire_minus_14_all_records": 3492160061,
+    "note": "byte gap = the 5,571 non-IP frames, which are not flows"
+   },
+   "stdin_vs_file_input": "decoded flow records identical (options record differs: it names the input)"
+  }
+ ]
+}

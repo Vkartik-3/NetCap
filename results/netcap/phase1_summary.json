@@ -1,0 +1,343 @@
+{
+ "command": "python <repo>/netcap/pipeline/phase1_summary.py",
+ "date": "2026-11-03T03:05:10+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "095ea34b3283162ca084c3a77b6f5ff4f7f18fa7cc4d3129e0398b1bc2ecd83b",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "sources": "results/netcap/phase1_*.json"
+ },
+ "abilene": {
+  "source": "phase1_ingest_parquet_abilene.json / phase1_ingest_postgres_abilene.json",
+  "rows": 9629270,
+  "rows_by_table": {
+   "nodes": {
+    "rows": 12,
+    "kind": "reference (topology)"
+   },
+   "links": {
+    "rows": 54,
+    "kind": "reference (topology)"
+   },
+   "flows": {
+    "rows": 144,
+    "kind": "reference (OD pairs)"
+   },
+   "routing": {
+    "rows": 644,
+    "kind": "reference (non-zero entries of the 54 x 144 routing matrix A)"
+   },
+   "time_steps": {
+    "rows": 48384,
+    "kind": "reference (one row per 5-minute step with cleaning label)"
+   },
+   "traffic_matrix": {
+    "rows": 6967296,
+    "kind": "MEASURED: OD-flow traffic per 5-minute step (realOD)"
+   },
+   "link_load": {
+    "rows": 2612736,
+    "kind": "DERIVED: traffic_matrix x routing matrix A^T, not a measurement"
+   }
+  },
+  "measured_od_observations": {
+   "all_steps": 6967296,
+   "kept_steps_after_cleaning": 5883120,
+   "note": "traffic_matrix rows = 48,384 five-minute steps x 144 OD flows (realOD, column 0). Only these are traffic observations; link_load is computed from them and the routing matrix, and the other tables are reference data."
+  },
+  "parquet": {
+   "wall_s": 2.6196744159969967,
+   "rows_per_s": 3675750.673900172,
+   "peak_rss_bytes": 755744768,
+   "rerun_changed_nothing": true
+  },
+  "postgres": {
+   "wall_s": 25.229716831992846,
+   "rows_changed_run1": 9629270,
+   "rows_changed_run2": 0,
+   "rerun_changed_nothing": true,
+   "table_bytes": {
+    "nodes": 32768,
+    "links": 32768,
+    "flows": 65536,
+    "routing": 114688,
+    "time_steps": 4554752,
+    "traffic_matrix": 584957952,
+    "link_load": 249626624
+   }
+  },
+  "cleaning_matches_reference": "tests_netcap/test_abilene.py::test_clean_matches_reference_on_real_data"
+ },
+ "cesnet_institutions": {
+  "source": "phase1_ingest_parquet_cesnet.json / phase1_ingest_postgres_cesnet.json",
+  "rows_by_aggregation": {
+   "10_minutes": 10446225,
+   "1_hour": 1880182,
+   "1_day": 78667
+  },
+  "rows_total": 12405074,
+  "source_csv_bytes": {
+   "10_minutes": 1040104019,
+   "1_hour": 195195487,
+   "1_day": 8898225
+  },
+  "parquet": {
+   "bytes": 491818321,
+   "files": 270,
+   "wall_s": 6.0191899170022225,
+   "rows_per_s": 2060920.8499900901,
+   "peak_rss_bytes": 1227177984,
+   "rerun_changed_nothing": true
+  },
+  "postgres": {
+   "wall_s": 76.08624570800748,
+   "rows_per_s": 163039.63856498263,
+   "rows_changed_run2": 0,
+   "rerun_changed_nothing": true,
+   "table_bytes": {
+    "total_bytes": 3329875968,
+    "heap_bytes": 2530779136,
+    "index_bytes": 798367744
+   }
+  },
+  "scope": "per-institution aggregate series; not link-level; not used for routing scenarios"
+ },
+ "query_latency_ms_median_warm": {
+  "source": "phase1_query_latency.json",
+  "rows": 10446225,
+  "postgres": {
+   "bench_heap": {
+    "q1_one_institution_one_week": 186.39200000325218,
+    "q2_network_hourly_total_one_month": 229.51058299804572,
+    "q3_top10_institutions_one_day": 192.78695799584966
+   },
+   "bench_indexed": {
+    "q1_one_institution_one_week": 0.3749169991351664,
+    "q2_network_hourly_total_one_month": 235.43329199310392,
+    "q3_top10_institutions_one_day": 3.6912500072503462
+   },
+   "bench_partitioned": {
+    "q1_one_institution_one_week": 0.37799999699927866,
+    "q2_network_hourly_total_one_month": 71.62337499903515,
+    "q3_top10_institutions_one_day": 3.8636660028714687
+   }
+  },
+  "parquet_duckdb": {
+   "flat_file": {
+    "q1_one_institution_one_week": 4.38383300206624,
+    "q2_network_hourly_total_one_month": 46.17212498851586,
+    "q3_top10_institutions_one_day": 30.97074999823235
+   },
+   "hive_month_partitions": {
+    "q1_one_institution_one_week": 6.724249993567355,
+    "q2_network_hourly_total_one_month": 25.482124998234212,
+    "q3_top10_institutions_one_day": 7.972958002937958
+   }
+  },
+  "identical_results_across_variants": {
+   "q1_one_institution_one_week": true,
+   "q2_network_hourly_total_one_month": true,
+   "q3_top10_institutions_one_day": true
+  }
+ },
+ "mawi": {
+  "trace": "202510011400",
+  "superseded": {
+   "file": "phase1_mawi_202510011400.json",
+   "why": "whole trace in memory; peak footprint 16.8 GB and exit long after the work finished; numbers not used"
+  },
+  "idle_swap_control": {
+   "process_wall_s": 440.1528561115265,
+   "vm_stat_delta_system_wide": {
+    "swapouts": 0,
+    "swapins": 10464,
+    "pageouts": 1267
+   }
+  },
+  "attempts": [
+   {
+    "source": "phase1_mawi_202510011400_chunked.json, phase1_mawi_202510011400_chunked_process.json",
+    "settings": {
+     "chunk_records": 4000000,
+     "duckdb_memory_limit": "3GB"
+    },
+    "label": "REAL flow data from MAWI (WIDE samplepoint-F), not Abilene; addresses anonymised by MAWI",
+    "reconciliation": {
+     "pcap_ip_records (independent walk)": 207302561,
+     "softflowd_packets_processed": 207302561,
+     "flow_record_packets": 207302561,
+     "archive_summary_packets (all, incl. non-IP)": 207553081,
+     "pcap_records (all)": 207553081,
+     "flow_bytes": 181053517547,
+     "pcap_wire_bytes_minus_14_per_record": 181065327685,
+     "packets_match_exactly": true,
+     "export_failures": 0
+    },
+    "flow_records": 56523852,
+    "softflowd_wall_s": 206.0646507079946,
+    "softflowd_packets_per_s": 1007223.1228737752,
+    "decode_and_aggregate_s": 218.6013312080031,
+    "pipeline_wall_s_in_process": 438.97154937499727,
+    "process_wall_s_to_exit": 440.70135283470154,
+    "teardown_s": 0.10268688201904297,
+    "peak_rss_bytes_pipeline": 2774056960,
+    "peak_rss_bytes_children_max": 1549238272,
+    "peak_memory_footprint_bytes": 3774058552,
+    "swapouts_system_wide": 92796,
+    "swap_used_before_after": [
+     "total = 6144.00M  used = 4786.88M  free = 1357.12M  (encrypted)",
+     "total = 7168.00M  used = 6060.81M  free = 1107.19M  (encrypted)"
+    ],
+    "aggregates_vs_phase1": {
+     "mawi_traces": {
+      "rows": 1,
+      "bytes": 4578,
+      "files": 1,
+      "created": 0,
+      "replaced": 0,
+      "unchanged": 1,
+      "removed_stale": []
+     },
+     "mawi_protocol_mix": {
+      "rows": 27,
+      "bytes": 3105,
+      "files": 1,
+      "created": 0,
+      "replaced": 0,
+      "unchanged": 1,
+      "removed_stale": []
+     },
+     "mawi_top_talkers": {
+      "rows": 80,
+      "bytes": 5390,
+      "files": 1,
+      "created": 0,
+      "replaced": 0,
+      "unchanged": 1,
+      "removed_stale": []
+     },
+     "mawi_throughput": {
+      "rows": 91,
+      "bytes": 4601,
+      "files": 1,
+      "created": 0,
+      "replaced": 1,
+      "unchanged": 0,
+      "removed_stale": []
+     }
+    },
+    "throughput_mbps_10s": {
+     "bins": 91,
+     "mean": 1591.6792751384592,
+     "p50": 1587.7826368176973,
+     "p95": 1875.1370193282585,
+     "max": 2100.18221387468,
+     "approximation": "flow bytes spread uniformly over flow duration"
+    },
+    "protocol_byte_share": {
+     "TCP": 0.7041479652274917,
+     "UDP": 0.24676178885285782,
+     "ESP": 0.03634814467656856,
+     "ICMP": 0.009462254449462845,
+     "GRE": 0.0028322668841100174,
+     "ICMPv6": 0.0004463378679125752
+    }
+   },
+   {
+    "source": "phase1_mawi_202510011400_chunked_lowmem.json, phase1_mawi_202510011400_chunked_lowmem_process.json",
+    "settings": {
+     "chunk_records": 1000000,
+     "duckdb_memory_limit": "1GB"
+    },
+    "label": "REAL flow data from MAWI (WIDE samplepoint-F), not Abilene; addresses anonymised by MAWI",
+    "reconciliation": {
+     "pcap_ip_records (independent walk)": 207302561,
+     "softflowd_packets_processed": 207302561,
+     "flow_record_packets": 207302561,
+     "archive_summary_packets (all, incl. non-IP)": 207553081,
+     "pcap_records (all)": 207553081,
+     "flow_bytes": 181053517547,
+     "pcap_wire_bytes_minus_14_per_record": 181065327685,
+     "packets_match_exactly": true,
+     "export_failures": 0
+    },
+    "flow_records": 56523852,
+    "softflowd_wall_s": 193.0089765000157,
+    "softflowd_packets_per_s": 1075354.5496366234,
+    "decode_and_aggregate_s": 206.16035849999753,
+    "pipeline_wall_s_in_process": 414.2237088329857,
+    "process_wall_s_to_exit": 415.8050858974457,
+    "teardown_s": 0.08562994003295898,
+    "peak_rss_bytes_pipeline": 1406435328,
+    "peak_rss_bytes_children_max": 1555529728,
+    "peak_memory_footprint_bytes": 1849149912,
+    "swapouts_system_wide": 0,
+    "swap_used_before_after": [
+     "total = 8192.00M  used = 6674.75M  free = 1517.25M  (encrypted)",
+     "total = 8192.00M  used = 6610.75M  free = 1581.25M  (encrypted)"
+    ],
+    "aggregates_vs_phase1": {
+     "mawi_traces": {
+      "rows": 1,
+      "bytes": 4578,
+      "files": 1,
+      "created": 0,
+      "replaced": 0,
+      "unchanged": 1,
+      "removed_stale": []
+     },
+     "mawi_protocol_mix": {
+      "rows": 27,
+      "bytes": 3105,
+      "files": 1,
+      "created": 0,
+      "replaced": 0,
+      "unchanged": 1,
+      "removed_stale": []
+     },
+     "mawi_top_talkers": {
+      "rows": 80,
+      "bytes": 5390,
+      "files": 1,
+      "created": 0,
+      "replaced": 0,
+      "unchanged": 1,
+      "removed_stale": []
+     },
+     "mawi_throughput": {
+      "rows": 91,
+      "bytes": 4601,
+      "files": 1,
+      "created": 0,
+      "replaced": 1,
+      "unchanged": 0,
+      "removed_stale": []
+     }
+    },
+    "throughput_mbps_10s": {
+     "bins": 91,
+     "mean": 1591.6792751384608,
+     "p50": 1587.7826368177161,
+     "p95": 1875.137019328256,
+     "max": 2100.182213874692,
+     "approximation": "flow bytes spread uniformly over flow duration"
+    },
+    "protocol_byte_share": {
+     "TCP": 0.7041479652274917,
+     "UDP": 0.24676178885285782,
+     "ESP": 0.03634814467656856,
+     "ICMP": 0.009462254449462845,
+     "GRE": 0.0028322668841100174,
+     "ICMPv6": 0.0004463378679125752
+    }
+   }
+  ]
+ },
+ "scale_statement": "Largest single table: CESNET institutions, 10,446,225 rows at 10-minute aggregation (12,405,074 across all three aggregations); MAWI trace: 207,302,561 IP packets -> 56,523,852 flow records. Use these numbers rather than the words 'large-scale'."
+}

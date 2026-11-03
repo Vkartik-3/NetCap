@@ -1,0 +1,369 @@
+{
+ "demands": {
+  "n": 144,
+  "flow_index_is_src*12+dst_with_common_node_order": true
+ },
+ "links": {
+  "n": 54,
+  "internal": 30,
+  "inbound": 12,
+  "outbound": 12,
+  "indices_1_to_54_in_order": true
+ },
+ "topo": {
+  "routers": [
+   "ATLA-M5",
+   "ATLAng",
+   "CHINng",
+   "DNVRng",
+   "HSTNng",
+   "IPLSng",
+   "KSCYng",
+   "LOSAng",
+   "NYCMng",
+   "SNVAng",
+   "STTLng",
+   "WASHng"
+  ],
+  "router_order_matches_common": true,
+  "n_links": 30,
+  "internal_links_in_links_file_all_in_topo": true,
+  "topo_links_all_in_links_file": true,
+  "symmetric_capacity_and_weight": true,
+  "capacities_kbps": [
+   2480000.0,
+   9920000.0
+  ],
+  "links_below_max_capacity": [
+   "ATLAng,IPLSng",
+   "IPLSng,ATLAng"
+  ]
+ },
+ "A": {
+  "entries": 644,
+  "shape": [
+   54,
+   144
+  ],
+  "name_index_mismatches": 0,
+  "distinct_fractions": [
+   1.0
+  ],
+  "all_fractions_1": true,
+  "every_flow_one_ingress_link_at_its_source": true,
+  "every_flow_one_egress_link_at_its_destination": true,
+  "note": "link type 1 '*,X' is entry at X (flows sourced at X use it); type 2 'X,*' is exit at X"
+ },
+ "routing_preview": {
+  "flows_where_A_path_is_an_ospf_shortest_path": 144,
+  "of": 144,
+  "flows_with_equal_cost_ties": 0,
+  "discrepancies": [],
+  "label": "preview only; Phase 3 correctness gate repeats this with tests"
+ },
+ "X": {
+  "files": 24,
+  "all_shape_2016x720": true,
+  "total_rows": 48384,
+  "total_values": 34836480,
+  "total_bytes_gz": 177836678,
+  "any_nan": false,
+  "any_negative": false,
+  "unit_per_readme": "100 bytes per 5 minutes (100 = packet sampling rate)",
+  "max_realOD_raw": 53292389000000.0,
+  "max_realOD_mbit_s": 142113037.3333333,
+  "second_largest_weekly_max_mbit_s": 7085.250666666666,
+  "unit_sanity": "with the README unit, the largest weekly maxima other than the R4 outlier are below the 9.92 Gbit/s link speed",
+  "per_router_totals_equal_across_5_versions_all_weeks": false,
+  "per_file": {
+   "X01.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7320862,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 942874470.0,
+    "realOD_zero_frac": 0.006968557098765432,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X02.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7269940,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 587662740.0,
+    "realOD_zero_frac": 0.0341882991622575,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X03.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7168222,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 1955220900.0,
+    "realOD_zero_frac": 0.16824432319223986,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X04.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7193511,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2142087700.0,
+    "realOD_zero_frac": 0.13316385582010581,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X05.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7349588,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 1010231000.0,
+    "realOD_zero_frac": 0.14652915564373897,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X06.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7496632,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2416310300.0,
+    "realOD_zero_frac": 0.008274085097001763,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X07.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7493819,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2390417000.0,
+    "realOD_zero_frac": 0.034932346781305114,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X08.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7478898,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2413271800.0,
+    "realOD_zero_frac": 0.03866291887125221,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X09.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7331758,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2277689800.0,
+    "realOD_zero_frac": 0.0435543430335097,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X10.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7333278,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2352088100.0,
+    "realOD_zero_frac": 0.044425843253968256,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X11.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7327763,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2363458300.0,
+    "realOD_zero_frac": 0.04069871582892416,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X12.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7492608,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2333983400.0,
+    "realOD_zero_frac": 0.03513558201058201,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X13.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7483670,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 1389332900.0,
+    "realOD_zero_frac": 0.037278163580246916,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X14.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7474429,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 1058994800.0,
+    "realOD_zero_frac": 0.0412119708994709,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X15.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7477119,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 964531500.0,
+    "realOD_zero_frac": 0.04610683972663139,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X16.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7473722,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 438792470.0,
+    "realOD_zero_frac": 0.03896604938271605,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X17.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7468012,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2436309000.0,
+    "realOD_zero_frac": 0.044591187169312166,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X18.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7471048,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 707048080.0,
+    "realOD_zero_frac": 0.03951719576719577,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X19.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7466720,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 1934924100.0,
+    "realOD_zero_frac": 0.048910796957671955,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X20.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7461686,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 1614661100.0,
+    "realOD_zero_frac": 0.05397789902998237,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X21.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7401515,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 706631930.0,
+    "realOD_zero_frac": 0.05184909611992945,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X22.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7461083,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2134869700.0,
+    "realOD_zero_frac": 0.03324446097883598,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X23.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7475541,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 2656969000.0,
+    "realOD_zero_frac": 0.02191151344797178,
+    "row_totals_equal_across_5_versions": false
+   },
+   "X24.gz": {
+    "shape": [
+     2016,
+     720
+    ],
+    "bytes": 7465254,
+    "nan": 0,
+    "negative": 0,
+    "realOD_max": 53292389000000.0,
+    "realOD_zero_frac": 0.02418154761904762,
+    "row_totals_equal_across_5_versions": false
+   }
+  }
+ }
+}

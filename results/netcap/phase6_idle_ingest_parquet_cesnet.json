@@ -1,0 +1,80 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 4.04736328125,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python <repo>/netcap/pipeline/ingest.py parquet cesnet --runs 1 --result-name phase6_idle_ingest_parquet_cesnet",
+ "date": "2026-11-03T04:30:55+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "f4478515f7a9c2c5fba1d62e3443b1f008576e255b0cd7b35b30f0e582b3994f",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "CESNET-TimeSeries24 institutions",
+  "zenodo_record": 13382427,
+  "doi": "10.5281/zenodo.13382427",
+  "archive_md5": {
+   "institutions.tar.gz": "md5:ab3e15fb8dc9b7120ddb2318795b6812",
+   "times.tar.gz": "md5:a03813763e07646ca38f17ffd53e549e"
+  }
+ },
+ "target": "parquet",
+ "runs": [
+  {
+   "table": {
+    "rows": 12405074,
+    "bytes": 491818321,
+    "files": 270,
+    "created": 0,
+    "replaced": 0,
+    "unchanged": 270,
+    "removed_stale": []
+   },
+   "per_aggregation": {
+    "10_minutes": {
+     "rows": 10446225,
+     "wall_s": 5.049299957987387
+    },
+    "1_hour": {
+     "rows": 1880182,
+     "wall_s": 1.2287678749999031
+    },
+    "1_day": {
+     "rows": 78667,
+     "wall_s": 0.23323887499282137
+    }
+   },
+   "rows_total": 12405074,
+   "wall_s": 6.515991749998648,
+   "rows_per_s": 1903789.0893588953,
+   "peak_rss_bytes": 1208205312,
+   "source_csv_bytes": {
+    "10_minutes": 1040104019,
+    "1_hour": 195195487,
+    "1_day": 8898225
+   },
+   "batch_size": 32
+  }
+ ],
+ "fingerprints": [
+  {
+   "files": 271,
+   "bytes": 839149520,
+   "content_sha256": "863d087c3208ffcd62d6282104c7603c46ed266666e18d0e540e492e06d34bc6",
+   "mtime_ns_sha256": "fc7a1c97add12733e422587da553affc18120311af00651b32308291fd823941"
+  },
+  {
+   "files": 271,
+   "bytes": 839149520,
+   "content_sha256": "863d087c3208ffcd62d6282104c7603c46ed266666e18d0e540e492e06d34bc6",
+   "mtime_ns_sha256": "fc7a1c97add12733e422587da553affc18120311af00651b32308291fd823941"
+  }
+ ],
+ "rerun_changed_nothing": null
+}

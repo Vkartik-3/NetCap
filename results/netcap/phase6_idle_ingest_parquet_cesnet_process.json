@@ -1,0 +1,46 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 4.04736328125,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python <repo>/netcap/ops/measure.py phase6_idle_ingest_parquet_cesnet_process -- .venv/bin/python -m netcap.pipeline.ingest parquet cesnet --runs 1 --result-name phase6_idle_ingest_parquet_cesnet",
+ "date": "2026-11-03T04:30:55+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "f4478515f7a9c2c5fba1d62e3443b1f008576e255b0cd7b35b30f0e582b3994f",
+  "project_release": "1.0"
+ },
+ "data_version": "see measured command's own result file",
+ "measured_command": ".venv/bin/python -m netcap.pipeline.ingest parquet cesnet --runs 1 --result-name phase6_idle_ingest_parquet_cesnet",
+ "returncode": 0,
+ "process_wall_s": 7.9297308921813965,
+ "load_average_before": [
+  3.79052734375,
+  5.6982421875,
+  11.31298828125
+ ],
+ "load_average_after": [
+  4.04736328125,
+  5.7197265625,
+  11.28759765625
+ ],
+ "timing_label": "upper bound, measured under CPU contention",
+ "teardown_s": null,
+ "max_rss_bytes": 1208205312,
+ "peak_memory_footprint_bytes": 1184401136,
+ "user_s": 12.89,
+ "sys_s": 2.62,
+ "vm_stat_delta_system_wide": {
+  "swapouts": 0,
+  "swapins": 24,
+  "pageouts": 14
+ },
+ "swapusage_before": "total = 7168.00M  used = 6013.44M  free = 1154.56M  (encrypted)",
+ "swapusage_after": "total = 7168.00M  used = 6013.44M  free = 1154.56M  (encrypted)",
+ "stderr_tail": "        7.92 real        12.89 user         2.62 sys\n          1208205312  maximum resident set size\n                   0  average shared memory size\n                   0  average unshared data size\n                   0  average unshared stack size\n              337337  page reclaims\n                2056  page faults\n                   0  swaps\n                   0  block input operations\n                   0  block output operations\n                   0  messages sent\n                   0  messages received\n                   0  signals received\n                3943  voluntary context switches\n              225003  involuntary context switches\n        184086006135  instructions retired\n         53267027828  cycles elapsed\n          1184401136  peak memory footprint\n"
+}

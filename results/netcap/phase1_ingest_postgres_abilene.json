@@ -1,0 +1,252 @@
+{
+ "command": "python <repo>/netcap/pipeline/ingest.py postgres abilene",
+ "date": "2026-11-02T22:35:07+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "uncommitted (repo has no commits yet)",
+  "dirty": null,
+  "netcap_source_sha256": "e98dcad5b8b3ff27a31c2da3bd35b5f21d3e9cb0b58526b79a2cc7490f5d3944",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "Abilene TM (Zhang), 24 weeks",
+  "files": 27,
+  "combined_sha256": "37e2a5b33667a98afcffe61d52fb130f7195ab4a37c46839223253f901c25451"
+ },
+ "target": "postgres",
+ "runs": [
+  {
+   "tables": {
+    "nodes": {
+     "rows_seen": 12,
+     "rows_changed": 12,
+     "wall_s": 0.005449874995974824,
+     "rows_per_s": 2201.8853659694905
+    },
+    "links": {
+     "rows_seen": 54,
+     "rows_changed": 54,
+     "wall_s": 0.002797207998810336,
+     "rows_per_s": 19304.964100977268
+    },
+    "flows": {
+     "rows_seen": 144,
+     "rows_changed": 144,
+     "wall_s": 0.002770207996945828,
+     "rows_per_s": 51981.65630839305
+    },
+    "routing": {
+     "rows_seen": 644,
+     "rows_changed": 644,
+     "wall_s": 0.005222874999162741,
+     "rows_per_s": 123303.73598894042
+    },
+    "time_steps": {
+     "rows_seen": 48384,
+     "rows_changed": 48384,
+     "wall_s": 0.20370412500051316,
+     "rows_per_s": 237520.96330831843
+    },
+    "traffic_matrix": {
+     "rows_seen": 6967296,
+     "rows_changed": 6967296,
+     "wall_s": 17.83984120799869,
+     "rows_per_s": 390546.973976211
+    },
+    "link_load": {
+     "rows_seen": 2612736,
+     "rows_changed": 2612736,
+     "wall_s": 7.169931333002751,
+     "rows_per_s": 364401.8162313128
+    }
+   },
+   "rows_seen": 9629270,
+   "rows_changed": 9629270,
+   "wall_s": 25.229716831992846,
+   "peak_rss_bytes": 408928256
+  },
+  {
+   "tables": {
+    "nodes": {
+     "rows_seen": 12,
+     "rows_changed": 0,
+     "wall_s": 0.002579708001576364,
+     "rows_per_s": 4651.68925811264
+    },
+    "links": {
+     "rows_seen": 54,
+     "rows_changed": 0,
+     "wall_s": 0.0020593749941326678,
+     "rows_per_s": 26221.5478744039
+    },
+    "flows": {
+     "rows_seen": 144,
+     "rows_changed": 0,
+     "wall_s": 0.0017186660115839913,
+     "rows_per_s": 83785.91246316895
+    },
+    "routing": {
+     "rows_seen": 644,
+     "rows_changed": 0,
+     "wall_s": 0.0026797909958986565,
+     "rows_per_s": 240317.2489890531
+    },
+    "time_steps": {
+     "rows_seen": 48384,
+     "rows_changed": 0,
+     "wall_s": 0.08867441699840128,
+     "rows_per_s": 545636.5165713164
+    },
+    "traffic_matrix": {
+     "rows_seen": 6967296,
+     "rows_changed": 0,
+     "wall_s": 12.518433624994941,
+     "rows_per_s": 556562.92222445
+    },
+    "link_load": {
+     "rows_seen": 2612736,
+     "rows_changed": 0,
+     "wall_s": 5.388507124996977,
+     "rows_per_s": 484871.95792683784
+    }
+   },
+   "rows_seen": 9629270,
+   "rows_changed": 0,
+   "wall_s": 18.00465270699351,
+   "peak_rss_bytes": 598458368,
+   "table_sizes": {
+    "nodes": {
+     "total_bytes": 32768,
+     "heap_bytes": 8192,
+     "index_bytes": 16384
+    },
+    "links": {
+     "total_bytes": 32768,
+     "heap_bytes": 8192,
+     "index_bytes": 16384
+    },
+    "flows": {
+     "total_bytes": 65536,
+     "heap_bytes": 16384,
+     "index_bytes": 16384
+    },
+    "routing": {
+     "total_bytes": 114688,
+     "heap_bytes": 40960,
+     "index_bytes": 40960
+    },
+    "time_steps": {
+     "total_bytes": 4554752,
+     "heap_bytes": 2981888,
+     "index_bytes": 1540096
+    },
+    "traffic_matrix": {
+     "total_bytes": 584957952,
+     "heap_bytes": 363544576,
+     "index_bytes": 221298688
+    },
+    "link_load": {
+     "total_bytes": 249626624,
+     "heap_bytes": 169869312,
+     "index_bytes": 79683584
+    }
+   },
+   "postgres_server_version": "17.4"
+  }
+ ],
+ "fingerprints": [
+  {
+   "nodes": {
+    "rows": 0,
+    "checksum": "0"
+   },
+   "links": {
+    "rows": 0,
+    "checksum": "0"
+   },
+   "flows": {
+    "rows": 0,
+    "checksum": "0"
+   },
+   "routing": {
+    "rows": 0,
+    "checksum": "0"
+   },
+   "time_steps": {
+    "rows": 0,
+    "checksum": "0"
+   },
+   "traffic_matrix": {
+    "rows": 0,
+    "checksum": "0"
+   },
+   "link_load": {
+    "rows": 0,
+    "checksum": "0"
+   }
+  },
+  {
+   "nodes": {
+    "rows": 12,
+    "checksum": "5822485885759371596"
+   },
+   "links": {
+    "rows": 54,
+    "checksum": "34887735775539381229"
+   },
+   "flows": {
+    "rows": 144,
+    "checksum": "80520705033862369154"
+   },
+   "routing": {
+    "rows": 644,
+    "checksum": "367970504862040347179"
+   },
+   "time_steps": {
+    "rows": 48384,
+    "checksum": "27892960969582105918503"
+   },
+   "traffic_matrix": {
+    "rows": 6967296,
+    "checksum": "4016484763529243902111768"
+   },
+   "link_load": {
+    "rows": 2612736,
+    "checksum": "1506299055445652944241458"
+   }
+  },
+  {
+   "nodes": {
+    "rows": 12,
+    "checksum": "5822485885759371596"
+   },
+   "links": {
+    "rows": 54,
+    "checksum": "34887735775539381229"
+   },
+   "flows": {
+    "rows": 144,
+    "checksum": "80520705033862369154"
+   },
+   "routing": {
+    "rows": 644,
+    "checksum": "367970504862040347179"
+   },
+   "time_steps": {
+    "rows": 48384,
+    "checksum": "27892960969582105918503"
+   },
+   "traffic_matrix": {
+    "rows": 6967296,
+    "checksum": "4016484763529243902111768"
+   },
+   "link_load": {
+    "rows": 2612736,
+    "checksum": "1506299055445652944241458"
+   }
+  }
+ ],
+ "rerun_changed_nothing": true
+}

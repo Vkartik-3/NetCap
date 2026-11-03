@@ -1,0 +1,120 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 3.16650390625,
+  "cpu_count": 8,
+  "timing_label": "measured on an otherwise idle machine"
+ },
+ "command": "python <repo>/netcap/ops/quality.py",
+ "date": "2026-11-03T04:44:24+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "f4478515f7a9c2c5fba1d62e3443b1f008576e255b0cd7b35b30f0e582b3994f",
+  "project_release": "1.0"
+ },
+ "data_version": "n/a",
+ "tests": {
+  "cmd": "<repo>/.venv/bin/python -m pytest -q -ra --cov=netcap --cov=netcap_app --cov-report=json:coverage.json --cov-report=term",
+  "returncode": 0,
+  "tail": "h/forecast_throughput.py      34     34     0%\nnetcap/bench/query_latency.py           124    124     0%\nnetcap/config.py                         11      0   100%\nnetcap/data/__init__.py                   0      0   100%\nnetcap/data/abilene.py                  119      2    98%\nnetcap/data/cesnet.py                    32      1    97%\nnetcap/data/ipfix.py                     98     16    84%\nnetcap/data/mawi.py                     192     34    82%\nnetcap/data/pcapcount.py                 44     44     0%\nnetcap/db/__init__.py                     0      0   100%\nnetcap/db/load.py                        56      8    86%\nnetcap/forecast/__init__.py               0      0   100%\nnetcap/forecast/evaluate.py              57     20    65%\nnetcap/forecast/methods.py              230     85    63%\nnetcap/forecast/panel.py                 91     26    71%\nnetcap/forecast/run.py                  195    195     0%\nnetcap/logs.py                           24      1    96%\nnetcap/ops/__init__.py                    0      0   100%\nnetcap/ops/cleanup.py                    44     44     0%\nnetcap/ops/label_timings.py              18     18     0%\nnetcap/ops/measure.py                    32     32     0%\nnetcap/ops/quality.py                    46     46     0%\nnetcap/pipeline/__init__.py               0      0   100%\nnetcap/pipeline/ingest.py                65     65     0%\nnetcap/pipeline/mawi_ingest.py          106    106     0%\nnetcap/pipeline/phase1_summary.py        25     25     0%\nnetcap/pipeline/to_parquet.py            64     38    41%\nnetcap/pipeline/to_postgres.py           27     27     0%\nnetcap/provenance.py                     43     25    42%\nnetcap/report/__init__.py                 0      0   100%\nnetcap/report/summary.py                 89     89     0%\nnetcap/scenario/__init__.py               0      0   100%\nnetcap/scenario/engine.py               115      8    93%\nnetcap/scenario/run.py                  174    174     0%\nnetcap/scenario/store.py                 28      6    79%\nnetcap/scenario/te.py                    38      2    95%\nnetcap/store/__init__.py                  0      0   100%\nnetcap/store/parquet.py                  45      0   100%\nnetcap_app/__init__.py                    0      0   100%\nnetcap_app/api.py                       170     38    78%\n---------------------------------------------------------\nTOTAL                                  2664   1463    45%\nCoverage JSON written to file coverage.json\n48 passed, 1 warning in 18.57s\n",
+  "passed": 48,
+  "skipped": 0,
+  "failed": 0
+ },
+ "coverage_by_package": {
+  "netcap": {
+   "covered": 53,
+   "statements": 79,
+   "percent": 67.1
+  },
+  "netcap/anomaly": {
+   "covered": 97,
+   "statements": 227,
+   "percent": 42.7
+  },
+  "netcap/bench": {
+   "covered": 0,
+   "statements": 158,
+   "percent": 0.0
+  },
+  "netcap/data": {
+   "covered": 388,
+   "statements": 485,
+   "percent": 80.0
+  },
+  "netcap/db": {
+   "covered": 48,
+   "statements": 56,
+   "percent": 85.7
+  },
+  "netcap/forecast": {
+   "covered": 247,
+   "statements": 573,
+   "percent": 43.1
+  },
+  "netcap/ops": {
+   "covered": 0,
+   "statements": 140,
+   "percent": 0.0
+  },
+  "netcap/pipeline": {
+   "covered": 26,
+   "statements": 287,
+   "percent": 9.1
+  },
+  "netcap/report": {
+   "covered": 0,
+   "statements": 89,
+   "percent": 0.0
+  },
+  "netcap/scenario": {
+   "covered": 165,
+   "statements": 355,
+   "percent": 46.5
+  },
+  "netcap/store": {
+   "covered": 45,
+   "statements": 45,
+   "percent": 100.0
+  },
+  "netcap_app": {
+   "covered": 132,
+   "statements": 170,
+   "percent": 77.6
+  }
+ },
+ "coverage_total_percent": 45.1,
+ "ruff": {
+  "cmd": "<repo>/.venv/bin/python -m ruff check netcap netcap_app tests_netcap",
+  "returncode": 0,
+  "tail": "All checks passed!\n"
+ },
+ "yamllint": {
+  "cmd": "<repo>/.venv/bin/python -m yamllint docker-compose.yml infra .github",
+  "returncode": 0,
+  "tail": ""
+ },
+ "kubeconform": {
+  "cmd": "kubeconform -strict -summary -ignore-filename-pattern kind-config|kustomization infra/k8s/",
+  "returncode": 0,
+  "tail": "Summary: 7 resources found in 4 files - Valid: 7, Invalid: 0, Errors: 0, Skipped: 0\n"
+ },
+ "kustomize": {
+  "cmd": "kubectl kustomize infra/k8s",
+  "returncode": 0,
+  "tail": "          cpu: 250m\n            memory: 512Mi\n        volumeMounts:\n        - mountPath: /var/lib/postgresql/data\n          name: data\n  volumeClaimTemplates:\n  - metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+ },
+ "compose_config": {
+  "cmd": "docker compose config --quiet",
+  "returncode": 0,
+  "tail": ""
+ },
+ "docker_daemon": {
+  "available": false,
+  "detail": "\nCannot connect to the Docker daemon at unix://~/.docker/run/docker.sock. Is the docker daemon running?\n"
+ },
+ "container_stack_status": "UNTESTED (no Docker daemon)"
+}

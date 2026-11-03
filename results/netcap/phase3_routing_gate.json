@@ -1,0 +1,28 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 4.45751953125,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python <repo>/netcap/scenario/run.py",
+ "date": "2026-11-03T04:22:29+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "0f76ce1db93f01d836c4b8d09a9997f789c9bb218b3a34bc5ef00db94cdc127f",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "topology": "raw/topo-2003-04-10.txt",
+  "A": "raw/A"
+ },
+ "routing_equals_A": true,
+ "flows_matching": 144,
+ "flows": 144,
+ "max_abs_diff": 0.0,
+ "unroutable": [],
+ "ecmp_flows": 0
+}

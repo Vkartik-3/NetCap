@@ -1,0 +1,231 @@
+{
+ "command": "python <repo>/netcap/bench/query_latency.py",
+ "date": "2026-11-02T22:45:27+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "uncommitted (repo has no commits yet)",
+  "dirty": null,
+  "netcap_source_sha256": "d1a711f1237c3403b01f1a883f9b597f380866ea28efa729a0958c53042c5760",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "CESNET-TimeSeries24 institutions, aggregation 10_minutes"
+ },
+ "queries": {
+  "q1_one_institution_one_week": "SELECT ts, n_bytes FROM <table> WHERE institution_id = 42 AND ts >= '2024-03-04 00:00:00+00'::timestamptz AND ts < '2024-03-11 00:00:00+00'::timestamptz ORDER BY ts",
+  "q2_network_hourly_total_one_month": "SELECT date_trunc('hour', ts) AS h, sum(n_bytes) AS b FROM <table> WHERE ts >= '2024-03-01 00:00:00+00'::timestamptz AND ts < '2024-04-01 00:00:00+00'::timestamptz GROUP BY 1 ORDER BY 1",
+  "q3_top10_institutions_one_day": "SELECT institution_id, sum(n_bytes) AS b FROM <table> WHERE ts >= '2024-03-05 00:00:00+00'::timestamptz AND ts < '2024-03-06 00:00:00+00'::timestamptz GROUP BY 1 ORDER BY 2 DESC, 1 LIMIT 10"
+ },
+ "postgres": {
+  "server_version": "17.4",
+  "shared_buffers": "1GB",
+  "build": {
+   "heap_build_s": 12.606051124996156,
+   "indexed_build_s": 21.302588582999306,
+   "partitioned_build_s": 41.82184054100071,
+   "partitions": 10
+  },
+  "sizes": {
+   "bench_heap": {
+    "rows": 10446225,
+    "total_bytes": 2139627520
+   },
+   "bench_indexed": {
+    "rows": 10446225,
+    "total_bytes": 2543484928
+   },
+   "bench_partitioned": {
+    "rows": 10446225,
+    "total_bytes": 2544517120
+   }
+  },
+  "latency": {
+   "bench_heap": {
+    "q1_one_institution_one_week": {
+     "median_ms": 186.39200000325218,
+     "p95_ms": 187.6298749994021,
+     "min_ms": 185.6974169932073,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31",
+     "plan_root": "Gather Merge",
+     "plan_scans": [
+      "Seq Scan:bench_heap"
+     ]
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 229.51058299804572,
+     "p95_ms": 230.13004199310672,
+     "min_ms": 226.64375000749715,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b",
+     "plan_root": "Aggregate",
+     "plan_scans": [
+      "Seq Scan:bench_heap"
+     ]
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 192.78695799584966,
+     "p95_ms": 196.8090000009397,
+     "min_ms": 190.89333398733288,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296",
+     "plan_root": "Limit",
+     "plan_scans": [
+      "Seq Scan:bench_heap"
+     ]
+    }
+   },
+   "bench_indexed": {
+    "q1_one_institution_one_week": {
+     "median_ms": 0.3749169991351664,
+     "p95_ms": 0.42058399412781,
+     "min_ms": 0.3569999971659854,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31",
+     "plan_root": "Index Scan",
+     "plan_scans": [
+      "Index Scan:bench_indexed"
+     ]
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 235.43329199310392,
+     "p95_ms": 239.2275000020163,
+     "min_ms": 225.83599999779835,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b",
+     "plan_root": "Aggregate",
+     "plan_scans": [
+      "Seq Scan:bench_indexed"
+     ]
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 3.6912500072503462,
+     "p95_ms": 3.9160829910542816,
+     "min_ms": 3.562707992387004,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296",
+     "plan_root": "Limit",
+     "plan_scans": [
+      "Bitmap Heap Scan:bench_indexed",
+      "Bitmap Index Scan:"
+     ]
+    }
+   },
+   "bench_partitioned": {
+    "q1_one_institution_one_week": {
+     "median_ms": 0.37799999699927866,
+     "p95_ms": 0.4143339901929721,
+     "min_ms": 0.3625000099418685,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31",
+     "plan_root": "Index Scan",
+     "plan_scans": [
+      "Index Scan:bench_p_2024_03"
+     ]
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 71.62337499903515,
+     "p95_ms": 72.52587500261143,
+     "min_ms": 69.66004100104328,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b",
+     "plan_root": "Sort",
+     "plan_scans": [
+      "Seq Scan:bench_p_2024_03"
+     ]
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 3.8636660028714687,
+     "p95_ms": 4.154957990976982,
+     "min_ms": 3.6976669944124296,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296",
+     "plan_root": "Limit",
+     "plan_scans": [
+      "Bitmap Heap Scan:bench_p_2024_03",
+      "Bitmap Index Scan:"
+     ]
+    }
+   }
+  }
+ },
+ "parquet_duckdb": {
+  "duckdb_version": "2.0.0",
+  "flat_build_s": 2.2305653750081547,
+  "flat_bytes": 347331199,
+  "partitioned_files": 90,
+  "partitioned_bytes": 406166722,
+  "latency": {
+   "flat_file": {
+    "q1_one_institution_one_week": {
+     "median_ms": 4.38383300206624,
+     "p95_ms": 4.67075000051409,
+     "min_ms": 4.251083999406546,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31"
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 46.17212498851586,
+     "p95_ms": 47.48800001107156,
+     "min_ms": 44.10029099381063,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b"
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 30.97074999823235,
+     "p95_ms": 32.13608400255907,
+     "min_ms": 30.6680409994442,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296"
+    }
+   },
+   "hive_month_partitions": {
+    "q1_one_institution_one_week": {
+     "median_ms": 6.724249993567355,
+     "p95_ms": 7.009458000538871,
+     "min_ms": 6.439666001824662,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31"
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 25.482124998234212,
+     "p95_ms": 26.16004199080635,
+     "min_ms": 24.031207998632453,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b"
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 7.972958002937958,
+     "p95_ms": 8.249833001173101,
+     "min_ms": 7.7397910063154995,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296"
+    }
+   }
+  }
+ },
+ "identical_results_across_variants": {
+  "q1_one_institution_one_week": true,
+  "q2_network_hourly_total_one_month": true,
+  "q3_top10_institutions_one_day": true
+ },
+ "cache": "warm (1 warm-up run per query)",
+ "peak_rss_bytes": 3807002624
+}

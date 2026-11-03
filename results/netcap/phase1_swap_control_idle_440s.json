@@ -1,0 +1,30 @@
+{
+ "command": "python <repo>/netcap/ops/measure.py phase1_swap_control_idle_440s -- sleep 440",
+ "date": "2026-11-03T02:42:55+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "500f83571aa7dafe66030fddd5e6ee542f3ed7146bada4d6337f0bfafac82a49",
+  "project_release": "1.0"
+ },
+ "data_version": "see measured command's own result file",
+ "measured_command": "sleep 440",
+ "returncode": 0,
+ "process_wall_s": 440.1528561115265,
+ "teardown_s": null,
+ "max_rss_bytes": 1163264,
+ "peak_memory_footprint_bytes": 852160,
+ "user_s": 0.0,
+ "sys_s": 0.0,
+ "vm_stat_delta_system_wide": {
+  "swapouts": 0,
+  "swapins": 10464,
+  "pageouts": 1267
+ },
+ "swapusage_before": "total = 7168.00M  used = 6012.81M  free = 1155.19M  (encrypted)",
+ "swapusage_after": "total = 7168.00M  used = 5852.81M  free = 1315.19M  (encrypted)",
+ "stderr_tail": "      440.11 real         0.00 user         0.00 sys\n             1163264  maximum resident set size\n                   0  average shared memory size\n                   0  average unshared data size\n                   0  average unshared stack size\n                 224  page reclaims\n                   2  page faults\n                   0  swaps\n                   0  block input operations\n                   0  block output operations\n                   0  messages sent\n                   0  messages received\n                   0  signals received\n                   1  voluntary context switches\n                  35  involuntary context switches\n            11188492  instructions retired\n            12339818  cycles elapsed\n              852160  peak memory footprint\n"
+}

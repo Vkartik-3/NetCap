@@ -1,0 +1,13 @@
+.git
+.venv
+.venv-tf
+data_netcap
+raw
+raw_cesnet
+raw_mawi
+raw_geant
+processed
+models
+**/__pycache__
+.coverage
+coverage.json

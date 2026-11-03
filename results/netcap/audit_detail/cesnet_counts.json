@@ -1,0 +1,40 @@
+{
+ "per_directory": {
+  "institutions/agg_10_minutes": {
+   "files": 283,
+   "rows": 10446225,
+   "bytes": 1040104019
+  },
+  "institutions/agg_1_day": {
+   "files": 283,
+   "rows": 78667,
+   "bytes": 8898225
+  },
+  "institutions/agg_1_hour": {
+   "files": 283,
+   "rows": 1880182,
+   "bytes": 195195487
+  },
+  "institutions": {
+   "files": 1,
+   "rows": 283,
+   "bytes": 1038
+  },
+  "times": {
+   "files": 3,
+   "rows": 47296,
+   "bytes": 1493903
+  }
+ },
+ "headers": {
+  "institutions/agg_10_minutes": "id_time,n_flows,n_packets,n_bytes,sum_n_dest_asn,average_n_dest_asn,std_n_dest_asn,sum_n_dest_ports,average_n_dest_ports,std_n_dest_ports,sum_n_dest_ip,average_n_dest_ip,std_n_dest_ip,tcp_udp_ratio_packets,tcp_udp_ratio_bytes,dir_ratio_packets,dir_ratio_bytes,avg_duration,avg_ttl",
+  "institutions/agg_1_day": "id_time,n_flows,n_packets,n_bytes,sum_n_dest_asn,average_n_dest_asn,std_n_dest_asn,sum_n_dest_ports,average_n_dest_ports,std_n_dest_ports,sum_n_dest_ip,average_n_dest_ip,std_n_dest_ip,tcp_udp_ratio_packets,tcp_udp_ratio_bytes,dir_ratio_packets,dir_ratio_bytes,avg_duration,avg_ttl",
+  "institutions/agg_1_hour": "id_time,n_flows,n_packets,n_bytes,sum_n_dest_asn,average_n_dest_asn,std_n_dest_asn,sum_n_dest_ports,average_n_dest_ports,std_n_dest_ports,sum_n_dest_ip,average_n_dest_ip,std_n_dest_ip,tcp_udp_ratio_packets,tcp_udp_ratio_bytes,dir_ratio_packets,dir_ratio_bytes,avg_duration,avg_ttl",
+  "institutions": "id_institution",
+  "times": "id_time,time"
+ },
+ "total_rows": 12452653,
+ "total_bytes": 1245692672,
+ "total_files": 853,
+ "count_seconds": 0.6
+}

@@ -1,0 +1,98 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 3.6650390625,
+  "cpu_count": 8,
+  "timing_label": "measured on an otherwise idle machine"
+ },
+ "command": "python <repo>/netcap/ops/stack_check.py compose --api http://localhost:8000 --prometheus http://localhost:9090",
+ "date": "2026-11-03T04:54:43+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "26c84c6e2c849c1ff261475be575575cc6b476094a0b60b6f5a9cb42e4433c92",
+  "project_release": "1.0"
+ },
+ "data_version": "live stack",
+ "api": "http://localhost:8000",
+ "endpoints": {
+  "/health": {
+   "status": 200,
+   "ms": 85.99758398486301,
+   "bytes": 52
+  },
+  "/metrics": {
+   "status": 200,
+   "ms": 2.1671249996870756,
+   "bytes": 4686
+  },
+  "/api/topology": {
+   "status": 200,
+   "ms": 427.7908749936614,
+   "bytes": 5381
+  },
+  "/api/link/1/utilisation": {
+   "status": 200,
+   "ms": 16.039917012676597,
+   "bytes": 174702
+  },
+  "/api/forecast/summary": {
+   "status": 200,
+   "ms": 22.586916980799288,
+   "bytes": 27178
+  },
+  "/api/forecast?flow=86&horizon=12&method=gbm&limit=10": {
+   "status": 200,
+   "ms": 62.07354200887494,
+   "bytes": 984
+  },
+  "/api/results/summary": {
+   "status": 200,
+   "ms": 4.647750000003725,
+   "bytes": 59718
+  },
+  "/api/limitations": {
+   "status": 200,
+   "ms": 1.4978749968577176,
+   "bytes": 3681
+  },
+  "/": {
+   "status": 200,
+   "ms": 3.525542007992044,
+   "bytes": 12601
+  },
+  "POST /api/scenario failure": {
+   "status": 200,
+   "ms": 561.1991670157295,
+   "bytes": 2583,
+   "max_util": 2.9734483731182793
+  },
+  "POST /api/scenario growth": {
+   "status": 200,
+   "ms": 43.07337501086295,
+   "bytes": 2639,
+   "max_util": 1.5071002032258063
+  },
+  "POST /api/te": {
+   "status": 200,
+   "ms": 71.64895901223645,
+   "bytes": 206
+  }
+ },
+ "health": {
+  "status": "ok",
+  "database": true,
+  "parquet_store": true
+ },
+ "prometheus_targets": [
+  {
+   "job": "netcap-api",
+   "health": "up",
+   "lastError": ""
+  }
+ ],
+ "prometheus_requests_total": [],
+ "all_ok": true
+}

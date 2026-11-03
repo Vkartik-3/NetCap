@@ -1,0 +1,138 @@
+{
+ "repro_rows": 10,
+ "matched": 10,
+ "unmatched": [],
+ "max_rel_diff_any_metric": 3.503939697590698e-06,
+ "rows": [
+  {
+   "key": [
+    "persistence",
+    "abilene",
+    "1",
+    "val split, all 144 flows"
+   ],
+   "reference_rows_with_key": 4,
+   "reference_timestamp": "2026-10-08T00:00:16",
+   "mae_repro": 1028174.2265485929,
+   "mae_reference": 1028174.2265485929,
+   "max_rel_diff": 0.0
+  },
+  {
+   "key": [
+    "persistence",
+    "abilene",
+    "1",
+    "test split, all 144 flows"
+   ],
+   "reference_rows_with_key": 4,
+   "reference_timestamp": "2026-10-08T00:00:16",
+   "mae_repro": 1204681.6652538313,
+   "mae_reference": 1204681.6652538313,
+   "max_rel_diff": 0.0
+  },
+  {
+   "key": [
+    "arima_top5",
+    "abilene",
+    "1",
+    "test split, 5 busiest flows, per-flow order chosen on val MAE, fitted on 4 train weeks"
+   ],
+   "reference_rows_with_key": 4,
+   "reference_timestamp": "2026-10-08T00:00:39",
+   "mae_repro": 8201667.40183228,
+   "mae_reference": 8201664.419399125,
+   "max_rel_diff": 1.971380469536422e-06
+  },
+  {
+   "key": [
+    "persistence_top5",
+    "abilene",
+    "1",
+    "test split, 5 busiest flows (same as arima_top5)"
+   ],
+   "reference_rows_with_key": 4,
+   "reference_timestamp": "2026-10-08T00:00:39",
+   "mae_repro": 7980199.397435583,
+   "mae_reference": 7980199.397435583,
+   "max_rel_diff": 0.0
+  },
+  {
+   "key": [
+    "arima_top5",
+    "abilene",
+    "1",
+    "Phase 8, test split, 5 busiest flows, order per flow and horizon chosen on val"
+   ],
+   "reference_rows_with_key": 2,
+   "reference_timestamp": "2026-10-25T18:52:06",
+   "mae_repro": 8201971.081434307,
+   "mae_reference": 8201974.592112506,
+   "max_rel_diff": 3.503939697590698e-06
+  },
+  {
+   "key": [
+    "persistence_top5",
+    "abilene",
+    "1",
+    "Phase 8, test split, 5 busiest flows"
+   ],
+   "reference_rows_with_key": 2,
+   "reference_timestamp": "2026-10-25T18:52:06",
+   "mae_repro": 7980199.397435583,
+   "mae_reference": 7980199.397435583,
+   "max_rel_diff": 0.0
+  },
+  {
+   "key": [
+    "arima_top5",
+    "abilene",
+    "6",
+    "Phase 8, test split, 5 busiest flows, order per flow and horizon chosen on val"
+   ],
+   "reference_rows_with_key": 2,
+   "reference_timestamp": "2026-10-25T18:52:09",
+   "mae_repro": 13127225.551232746,
+   "mae_reference": 13127225.648692023,
+   "max_rel_diff": 6.02680950350285e-08
+  },
+  {
+   "key": [
+    "persistence_top5",
+    "abilene",
+    "6",
+    "Phase 8, test split, 5 busiest flows"
+   ],
+   "reference_rows_with_key": 2,
+   "reference_timestamp": "2026-10-25T18:52:09",
+   "mae_repro": 14172915.078675838,
+   "mae_reference": 14172915.078675838,
+   "max_rel_diff": 0.0
+  },
+  {
+   "key": [
+    "arima_top5",
+    "abilene",
+    "12",
+    "Phase 8, test split, 5 busiest flows, order per flow and horizon chosen on val"
+   ],
+   "reference_rows_with_key": 2,
+   "reference_timestamp": "2026-10-25T18:52:11",
+   "mae_repro": 15504543.091965234,
+   "mae_reference": 15504539.186339892,
+   "max_rel_diff": 1.1135194112251867e-06
+  },
+  {
+   "key": [
+    "persistence_top5",
+    "abilene",
+    "12",
+    "Phase 8, test split, 5 busiest flows"
+   ],
+   "reference_rows_with_key": 2,
+   "reference_timestamp": "2026-10-25T18:52:11",
+   "mae_repro": 17740395.875328988,
+   "mae_reference": 17740395.875328988,
+   "max_rel_diff": 0.0
+  }
+ ]
+}

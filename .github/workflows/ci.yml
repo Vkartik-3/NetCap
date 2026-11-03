@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install ruff==0.17.3 yamllint==1.38.0
+      - run: ruff check netcap netcap_app tests_netcap
+      - run: yamllint docker-compose.yml infra .github
+
+  test:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17.4-bookworm
+        env:
+          POSTGRES_USER: netcap
+          POSTGRES_PASSWORD: netcap
+          POSTGRES_DB: netcap
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U netcap" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      NETCAP_DATABASE_URL: postgresql://netcap:netcap@localhost:5432/netcap
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -r requirements.txt
+      # Raw datasets are not in the repository, so tests that need them are skipped here
+      # (they run locally; see README). Everything else, including Postgres upserts, runs in CI.
+      - run: pytest --cov=netcap --cov=netcap_app --cov-report=term --cov-report=xml -ra
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage.xml
+
+  images-and-manifests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f infra/Dockerfile -t netcap:ci .
+      - run: docker compose config --quiet
+      - name: kubeconform
+        run: |
+          curl -sSL https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz | tar xz
+          ./kubeconform -strict -summary -ignore-filename-pattern 'kind-config|kustomization' infra/k8s/

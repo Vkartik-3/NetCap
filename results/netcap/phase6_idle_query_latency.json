@@ -1,0 +1,236 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 4.5625,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python <repo>/netcap/bench/query_latency.py --result-name phase6_idle_query_latency",
+ "date": "2026-11-03T04:34:57+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "f4478515f7a9c2c5fba1d62e3443b1f008576e255b0cd7b35b30f0e582b3994f",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "CESNET-TimeSeries24 institutions, aggregation 10_minutes"
+ },
+ "queries": {
+  "q1_one_institution_one_week": "SELECT ts, n_bytes FROM <table> WHERE institution_id = 42 AND ts >= '2024-03-04 00:00:00+00'::timestamptz AND ts < '2024-03-11 00:00:00+00'::timestamptz ORDER BY ts",
+  "q2_network_hourly_total_one_month": "SELECT date_trunc('hour', ts) AS h, sum(n_bytes) AS b FROM <table> WHERE ts >= '2024-03-01 00:00:00+00'::timestamptz AND ts < '2024-04-01 00:00:00+00'::timestamptz GROUP BY 1 ORDER BY 1",
+  "q3_top10_institutions_one_day": "SELECT institution_id, sum(n_bytes) AS b FROM <table> WHERE ts >= '2024-03-05 00:00:00+00'::timestamptz AND ts < '2024-03-06 00:00:00+00'::timestamptz GROUP BY 1 ORDER BY 2 DESC, 1 LIMIT 10"
+ },
+ "postgres": {
+  "server_version": "17.4",
+  "shared_buffers": "1GB",
+  "build": {
+   "heap_build_s": 23.425342957983958,
+   "indexed_build_s": 26.419156499992823,
+   "partitioned_build_s": 50.99743145797402,
+   "partitions": 10
+  },
+  "sizes": {
+   "bench_heap": {
+    "rows": 10446225,
+    "total_bytes": 2139627520
+   },
+   "bench_indexed": {
+    "rows": 10446225,
+    "total_bytes": 2543484928
+   },
+   "bench_partitioned": {
+    "rows": 10446225,
+    "total_bytes": 2544517120
+   }
+  },
+  "latency": {
+   "bench_heap": {
+    "q1_one_institution_one_week": {
+     "median_ms": 187.67650000518188,
+     "p95_ms": 191.805291979108,
+     "min_ms": 185.78545900527388,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31",
+     "plan_root": "Gather Merge",
+     "plan_scans": [
+      "Seq Scan:bench_heap"
+     ]
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 234.7015000123065,
+     "p95_ms": 238.01554201054387,
+     "min_ms": 230.94262499944307,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b",
+     "plan_root": "Aggregate",
+     "plan_scans": [
+      "Seq Scan:bench_heap"
+     ]
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 198.60358300502412,
+     "p95_ms": 206.8635829782579,
+     "min_ms": 195.26366601348855,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296",
+     "plan_root": "Limit",
+     "plan_scans": [
+      "Seq Scan:bench_heap"
+     ]
+    }
+   },
+   "bench_indexed": {
+    "q1_one_institution_one_week": {
+     "median_ms": 0.39070798084139824,
+     "p95_ms": 0.45958301052451134,
+     "min_ms": 0.3705830022227019,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31",
+     "plan_root": "Index Scan",
+     "plan_scans": [
+      "Index Scan:bench_indexed"
+     ]
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 236.89608299173415,
+     "p95_ms": 246.28866600687616,
+     "min_ms": 231.49912498774938,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b",
+     "plan_root": "Aggregate",
+     "plan_scans": [
+      "Seq Scan:bench_indexed"
+     ]
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 3.834583010757342,
+     "p95_ms": 4.514208994805813,
+     "min_ms": 3.653499996289611,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296",
+     "plan_root": "Limit",
+     "plan_scans": [
+      "Bitmap Heap Scan:bench_indexed",
+      "Bitmap Index Scan:"
+     ]
+    }
+   },
+   "bench_partitioned": {
+    "q1_one_institution_one_week": {
+     "median_ms": 0.39045902667567134,
+     "p95_ms": 0.42574998224154115,
+     "min_ms": 0.36299999919719994,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31",
+     "plan_root": "Index Scan",
+     "plan_scans": [
+      "Index Scan:bench_p_2024_03"
+     ]
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 74.0561249840539,
+     "p95_ms": 74.57195801544003,
+     "min_ms": 72.22987498971634,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b",
+     "plan_root": "Sort",
+     "plan_scans": [
+      "Seq Scan:bench_p_2024_03"
+     ]
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 4.005833994597197,
+     "p95_ms": 4.354125005193055,
+     "min_ms": 3.7585420068353415,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296",
+     "plan_root": "Limit",
+     "plan_scans": [
+      "Bitmap Heap Scan:bench_p_2024_03",
+      "Bitmap Index Scan:"
+     ]
+    }
+   }
+  }
+ },
+ "parquet_duckdb": {
+  "duckdb_version": "2.0.0",
+  "flat_build_s": 3.926016958022956,
+  "flat_bytes": 347331199,
+  "partitioned_files": 90,
+  "partitioned_bytes": 406166722,
+  "latency": {
+   "flat_file": {
+    "q1_one_institution_one_week": {
+     "median_ms": 4.678541008615866,
+     "p95_ms": 4.88737499108538,
+     "min_ms": 4.405250016134232,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31"
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 48.12829100410454,
+     "p95_ms": 50.9533750009723,
+     "min_ms": 46.0113330045715,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b"
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 38.42804199666716,
+     "p95_ms": 54.85691700596362,
+     "min_ms": 31.302041985327378,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296"
+    }
+   },
+   "hive_month_partitions": {
+    "q1_one_institution_one_week": {
+     "median_ms": 6.854583014501259,
+     "p95_ms": 7.061917014652863,
+     "min_ms": 6.642583990469575,
+     "runs": 15,
+     "result_rows": 1006,
+     "result_sha256": "7b1e774c47da7e5edfa25d74fac8adc11fa036810e4194b2181dd8baa9f89a31"
+    },
+    "q2_network_hourly_total_one_month": {
+     "median_ms": 26.71295902109705,
+     "p95_ms": 28.70091699878685,
+     "min_ms": 25.71945800445974,
+     "runs": 15,
+     "result_rows": 744,
+     "result_sha256": "50bde1dabc69a87f6e53c78fd1c060c3956c9f2c8940306c724618302cf4c67b"
+    },
+    "q3_top10_institutions_one_day": {
+     "median_ms": 8.687958004884422,
+     "p95_ms": 9.194249985739589,
+     "min_ms": 8.14462499693036,
+     "runs": 15,
+     "result_rows": 10,
+     "result_sha256": "30a171e9a9660d7e3afd816a0b6b906c731d5dd7d041622e4d7f5f737e98a296"
+    }
+   }
+  }
+ },
+ "identical_results_across_variants": {
+  "q1_one_institution_one_week": true,
+  "q2_network_hourly_total_one_month": true,
+  "q3_top10_institutions_one_day": true
+ },
+ "cache": "warm (1 warm-up run per query)",
+ "peak_rss_bytes": 2432204800
+}

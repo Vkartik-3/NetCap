@@ -1,0 +1,49 @@
+# environment
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# data and outputs that are regenerated (see README: Data)
+raw/*
+raw_geant/
+processed/*
+models/*
+!raw/.gitkeep
+!processed/.gitkeep
+!models/.gitkeep
+
+# output pages and run logs, rebuilt on every run
+results/reports/
+results/report.html
+results/*.log
+
+# unrelated scratch files from other editors / courses
+tempCodeRunnerFile.*
+*.exe
+
+# NetCap additions (not in the forecasting module)
+raw_cesnet/
+raw_mawi/
+raw_geant/
+*.pcap*
+processed/
+models/
+data_netcap/
+.coverage
+htmlcov/
+.pytest_cache/
+.venv-tf/
+
+# kept locally, not published
+RESUME_FACTS.md
+INTERVIEW_NOTES.md
+NEXT_STEPS.md
+NetCap_Project_Explanation_Guide.pdf
+docs/presentation/
+.vscode/
+results/netcap/audit_detail/*.log
+.venv-tf/
+
+# generated static dashboard (published on the gh-pages branch)
+site/

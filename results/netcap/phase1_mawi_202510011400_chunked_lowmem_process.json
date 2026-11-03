@@ -1,0 +1,30 @@
+{
+ "command": "python <repo>/netcap/ops/measure.py phase1_mawi_202510011400_chunked_lowmem_process -- .venv/bin/python -m netcap.pipeline.mawi_ingest 202510011400 --delete-raw --chunk-records 1000000 --duckdb-memory 1GB --result-suffix chunked_lowmem",
+ "date": "2026-11-03T03:04:54+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "095ea34b3283162ca084c3a77b6f5ff4f7f18fa7cc4d3129e0398b1bc2ecd83b",
+  "project_release": "1.0"
+ },
+ "data_version": "see measured command's own result file",
+ "measured_command": ".venv/bin/python -m netcap.pipeline.mawi_ingest 202510011400 --delete-raw --chunk-records 1000000 --duckdb-memory 1GB --result-suffix chunked_lowmem",
+ "returncode": 0,
+ "process_wall_s": 415.8050858974457,
+ "teardown_s": 0.08562994003295898,
+ "max_rss_bytes": 1555529728,
+ "peak_memory_footprint_bytes": 1849149912,
+ "user_s": 550.43,
+ "sys_s": 20.02,
+ "vm_stat_delta_system_wide": {
+  "swapouts": 0,
+  "swapins": 3756,
+  "pageouts": 6707
+ },
+ "swapusage_before": "total = 8192.00M  used = 6674.75M  free = 1517.25M  (encrypted)",
+ "swapusage_after": "total = 8192.00M  used = 6610.75M  free = 1581.25M  (encrypted)",
+ "stderr_tail": "      415.80 real       550.43 user        20.02 sys\n          1555529728  maximum resident set size\n                   0  average shared memory size\n                   0  average unshared data size\n                   0  average unshared stack size\n              752674  page reclaims\n                4790  page faults\n                   0  swaps\n                   0  block input operations\n                   2  block output operations\n             2217172  messages sent\n              352782  messages received\n                   0  signals received\n              641254  voluntary context switches\n              583302  involuntary context switches\n       4517645345939  instructions retired\n        898410143118  cycles elapsed\n          1849149912  peak memory footprint\n"
+}

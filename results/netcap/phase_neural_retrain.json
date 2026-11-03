@@ -1,0 +1,42 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 19.90771484375,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python <repo>/netcap/neural/retrain.py --record-not-run",
+ "date": "2026-11-03T03:49:56+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "0b47f49ab84f0059383b9d50eee0b92bb25af035a78f0daac18706dc18daae5a",
+  "project_release": "1.0"
+ },
+ "data_version": "n/a (not run)",
+ "status": "not run: needs GPU (no NVIDIA GPU on this machine)",
+ "decision": "user chose to skip the CPU retrain and its timing gate to save time",
+ "planned": {
+  "dataset": "abilene",
+  "horizon_steps": 12,
+  "fold": "original",
+  "seeds": [
+   42,
+   43,
+   44
+  ],
+  "models": [
+   "cnn_lstm_base",
+   "cnn_lstm_seasonal (+ fallback rule)"
+  ],
+  "settings": {
+   "epochs": 200,
+   "patience": 15,
+   "lr": 0.001
+  }
+ },
+ "gpu_command": "python -m venv .venv-tf && .venv-tf/bin/pip install -r requirements-gpu.txt polars==2.1.0 pyarrow==26.0.0 && .venv-tf/bin/python -m netcap.neural.retrain --time-one-epoch && .venv-tf/bin/python -m netcap.neural.retrain",
+ "claims": "none: the forecasting module's neural results are not claimed by NetCap"
+}

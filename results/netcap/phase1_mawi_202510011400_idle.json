@@ -1,0 +1,740 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 3.11865234375,
+  "cpu_count": 8,
+  "timing_label": "measured on an otherwise idle machine"
+ },
+ "command": "python <repo>/netcap/pipeline/mawi_ingest.py 202510011400 --delete-raw --chunk-records 1000000 --duckdb-memory 1GB --result-suffix idle",
+ "date": "2026-11-03T04:43:39+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "project-release-1.0",
+  "dirty": true,
+  "netcap_source_sha256": "f4478515f7a9c2c5fba1d62e3443b1f008576e255b0cd7b35b30f0e582b3994f",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "dataset": "MAWI samplepoint-F",
+  "trace_id": "202510011400",
+  "pcap_sha256": "f2ce3e0ee2e9cc34c37dad91bc78c0b7953f6e07e3bdf1861e4e27e75468e17f"
+ },
+ "trace_id": "202510011400",
+ "source_url": "https://mawi.wide.ad.jp/mawi/samplepoint-F/2025/202510011400.pcap.gz",
+ "archive_summary": {
+  "packets": 207553081,
+  "duration_s": 899.95,
+  "avg_rate_mbps": 1635.64,
+  "caplen_bytes": 96,
+  "start": "Wed Oct  1 14:00:00 2025",
+  "ip_packets": 176328212,
+  "ip6_packets": 130
+ },
+ "label": "REAL flow data from MAWI (WIDE samplepoint-F), not Abilene; addresses anonymised by MAWI",
+ "pcap_bytes": 5357837608,
+ "pcap_sha256": "f2ce3e0ee2e9cc34c37dad91bc78c0b7953f6e07e3bdf1861e4e27e75468e17f",
+ "softflowd": {
+  "wall_s": 198.58635866601253,
+  "ipfix_bytes": 3007699084,
+  "command": "~/.local/softflowd/sbin/softflowd -d -a -r - -n 127.0.0.1:4739 -P tcp -v 10 -6 -A milli -m 4000000 -p softflowd.pid -c sf.ctl -t maxlife=60 -t general=15 -t tcp=15 -t tcp.rst=15 -t tcp.fin=15 -t udp=15 -t icmp=15",
+  "packets_processed": 207302561,
+  "ignored_non_ip": 250520,
+  "flows_exported": 54098143,
+  "records_exported": 56523852,
+  "export_failures": 0,
+  "softflowd_log_tail": "  Duration:                  0.00s         1.97s       130.05s\n\nExpired flow reasons:\n       tcp =         0   tcp.rst =         0   tcp.fin =         0\n       udp =         0      icmp =         0   general =         0\n   maxlife =   1020269\nover 2 GiB =         0\n  maxflows =  48147655\n   flushed =   4930219\n\nPer-protocol statistics:     Octets      Packets   Avg Life    Max Life\n             ip (0):          45724          454      68.57s     111.28s\n           icmp (1):     1713174452     34902751       0.56s     129.18s\n        ipencap (4):             46            1       0.00s       0.00s\n            tcp (6):   127488465978    100160500       3.63s     130.05s\n            cbt (7):             46            1       0.00s       0.00s\n            egp (8):             46            1       0.00s       0.00s\n           udp (17):    44677089868     62287023       3.39s     128.85s\n          ipv6 (41):          23344          130      12.57s      74.10s\n           gre (47):      512791882       910122       2.17s     120.00s\n           esp (50):     6580959450      7909195      62.63s      83.60s\n     ipv6-icmp (58):       80811041      1130933      18.36s     126.64s\n       etherip (97):         154980         1435      66.13s      66.22s\n       Unknown (99):             46            1       0.00s       0.00s\n         ifmp (101):             46            1       0.00s       0.00s\n    ipx-in-ip (111):             46            1       0.00s       0.00s\n         isis (124):             46            1       0.00s       0.00s\n        crudp (127):             46            1       0.00s       0.00s\n          sps (130):             46            1       0.00s       0.00s\n      Unknown (163):             46            1       0.00s       0.00s\n      Unknown (168):             46            1       0.00s       0.00s\n      Unknown (177):             46            1       0.00s       0.00s\n      Unknown (184):             46            1       0.00s       0.00s\n      Unknown (189):             46            1       0.00s       0.00s\n      Unknown (199):             46            1       0.00s       0.00s\n      Unknown (220):             46            1       0.00s       0.00s\n      Unknown (224):             46            1       0.00s       0.00s\n      Unknown (243):             46            1       0.00s       0.00s\nsoftflowd v1.1.1 starting data collection\nExporting flows from - to [127.0.0.1]:4739\nShutting down after pcap EOF\nShutting down on user request\n",
+  "packets_per_s": 1045152.7607143848
+ },
+ "pcap_count": {
+  "records": 207553081,
+  "wire_bytes": 183971070819,
+  "first_ts": 1759294800.236999,
+  "last_ts": 1759295700.185362,
+  "linktype": 1,
+  "snaplen": 96,
+  "ethertype_ipv4": 176328212,
+  "ethertype_ipv6": 30974349,
+  "ethertype_other": 250520,
+  "trailing_partial_bytes": 0,
+  "extra_wait_s": 8.724999497644603e-05
+ },
+ "decode": {
+  "messages": 2217118,
+  "bytes": 3007699084,
+  "trailing_bytes": 0,
+  "templates": {
+   "1024": [
+    "sourceIPv4Address",
+    "destinationIPv4Address",
+    "flowStartMilliseconds",
+    "flowEndMilliseconds",
+    "octetDeltaCount",
+    "packetDeltaCount",
+    "ingressInterface",
+    "egressInterface",
+    "ie61",
+    "flowEndReason",
+    "sourceTransportPort",
+    "destinationTransportPort",
+    "protocolIdentifier",
+    "tcpControlBits",
+    "ipVersion",
+    "ipClassOfService"
+   ],
+   "1025": [
+    "sourceIPv4Address",
+    "destinationIPv4Address",
+    "flowStartMilliseconds",
+    "flowEndMilliseconds",
+    "octetDeltaCount",
+    "packetDeltaCount",
+    "ingressInterface",
+    "egressInterface",
+    "ie61",
+    "flowEndReason",
+    "icmpTypeCodeIPv4",
+    "protocolIdentifier",
+    "ipVersion",
+    "ipClassOfService"
+   ],
+   "2048": [
+    "sourceIPv6Address",
+    "destinationIPv6Address",
+    "flowStartMilliseconds",
+    "flowEndMilliseconds",
+    "octetDeltaCount",
+    "packetDeltaCount",
+    "ingressInterface",
+    "egressInterface",
+    "ie61",
+    "flowEndReason",
+    "sourceTransportPort",
+    "destinationTransportPort",
+    "protocolIdentifier",
+    "tcpControlBits",
+    "ipVersion",
+    "ipClassOfService"
+   ],
+   "2049": [
+    "sourceIPv6Address",
+    "destinationIPv6Address",
+    "flowStartMilliseconds",
+    "flowEndMilliseconds",
+    "octetDeltaCount",
+    "packetDeltaCount",
+    "ingressInterface",
+    "egressInterface",
+    "ie61",
+    "flowEndReason",
+    "icmpTypeCodeIPv6",
+    "protocolIdentifier",
+    "ipVersion",
+    "ipClassOfService"
+   ],
+   "256": [
+    "ie143",
+    "systemInitTimeMilliseconds",
+    "ie305",
+    "ie306",
+    "ie304",
+    "ie82",
+    "ie130",
+    "ie131",
+    "ie403",
+    "ie404"
+   ]
+  },
+  "first_seq": 16,
+  "last_seq": 56523852,
+  "records": {
+   "256": 138570,
+   "1024": 21946020,
+   "2048": 2193290,
+   "1025": 31770359,
+   "2049": 614183
+  },
+  "decode_and_chunk_aggregate_s": 198.18471704199328,
+  "records_to_frame_s": 0.7260793790046591,
+  "chunk_records": 1000000,
+  "flow_records": 56523852,
+  "ipfix_sha256": "a22be5e42958bccd87865ddaa9888b4637aa65f7a2fe597c14971f413741b0d8",
+  "peak_rss_bytes_after_decode": 899383296
+ },
+ "aggregate_finish_s": 8.831414208980277,
+ "chunked": {
+  "chunks": 57,
+  "spill_bytes": 412479978,
+  "duckdb_memory_limit": "1GB",
+  "spill_deleted": true
+ },
+ "totals": {
+  "flows": 56523852,
+  "packets": 207302561,
+  "bytes": 181053517547,
+  "t_first": 1759294800.236,
+  "t_last": 1759295700.185
+ },
+ "by_ip_version": [
+  {
+   "ip_version": 4,
+   "flows": 53716379,
+   "packets": 176328212,
+   "bytes": 142882663121
+  },
+  {
+   "ip_version": 6,
+   "flows": 2807473,
+   "packets": 30974349,
+   "bytes": 38170854426
+  }
+ ],
+ "reconciliation": {
+  "pcap_ip_records (independent walk)": 207302561,
+  "softflowd_packets_processed": 207302561,
+  "flow_record_packets": 207302561,
+  "archive_summary_packets (all, incl. non-IP)": 207553081,
+  "pcap_records (all)": 207553081,
+  "flow_bytes": 181053517547,
+  "pcap_wire_bytes_minus_14_per_record": 181065327685,
+  "packets_match_exactly": true,
+  "export_failures": 0
+ },
+ "stores": {
+  "parquet": {
+   "mawi_traces": {
+    "rows": 1,
+    "bytes": 4578,
+    "files": 1,
+    "created": 0,
+    "replaced": 0,
+    "unchanged": 1,
+    "removed_stale": []
+   },
+   "mawi_protocol_mix": {
+    "rows": 27,
+    "bytes": 3105,
+    "files": 1,
+    "created": 0,
+    "replaced": 0,
+    "unchanged": 1,
+    "removed_stale": []
+   },
+   "mawi_top_talkers": {
+    "rows": 80,
+    "bytes": 5390,
+    "files": 1,
+    "created": 0,
+    "replaced": 0,
+    "unchanged": 1,
+    "removed_stale": []
+   },
+   "mawi_throughput": {
+    "rows": 91,
+    "bytes": 4601,
+    "files": 1,
+    "created": 0,
+    "replaced": 0,
+    "unchanged": 1,
+    "removed_stale": []
+   }
+  },
+  "postgres": {
+   "mawi_traces": {
+    "rows_seen": 1,
+    "rows_changed": 0,
+    "wall_s": 0.012830874999053776,
+    "rows_per_s": 77.93700741950536
+   },
+   "mawi_protocol_mix": {
+    "rows_seen": 27,
+    "rows_changed": 0,
+    "wall_s": 0.002517208020435646,
+    "rows_per_s": 10726.169542129135
+   },
+   "mawi_top_talkers": {
+    "rows_seen": 80,
+    "rows_changed": 0,
+    "wall_s": 0.0023487920116167516,
+    "rows_per_s": 34060.06134401545
+   },
+   "mawi_throughput": {
+    "rows_seen": 91,
+    "rows_changed": 0,
+    "wall_s": 0.0027458330150693655,
+    "rows_per_s": 33141.12675482604
+   }
+  }
+ },
+ "stores_s": 0.06688616701285355,
+ "wall_s": 409.98859216598794,
+ "peak_rss_bytes": 1399554048,
+ "peak_rss_bytes_children": 1595785216,
+ "protocol_mix": [
+  {
+   "proto": "TCP",
+   "flows": 16915439,
+   "packets": 100160500,
+   "bytes": 127488465978,
+   "byte_share": 0.7041479652274917,
+   "packet_share": 0.48316093885593625,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "UDP",
+   "flows": 7222051,
+   "packets": 62287023,
+   "bytes": 44677089868,
+   "byte_share": 0.24676178885285782,
+   "packet_share": 0.30046431987880745,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "ESP",
+   "flows": 146,
+   "packets": 7909195,
+   "bytes": 6580959450,
+   "byte_share": 0.03634814467656856,
+   "packet_share": 0.038152905404772106,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "ICMP",
+   "flows": 31770359,
+   "packets": 34902751,
+   "bytes": 1713174452,
+   "byte_share": 0.009462254449462845,
+   "packet_share": 0.16836623161640535,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "GRE",
+   "flows": 1573,
+   "packets": 910122,
+   "bytes": 512791882,
+   "byte_share": 0.0028322668841100174,
+   "packet_share": 0.0043903075563065525,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "ICMPv6",
+   "flows": 614183,
+   "packets": 1130933,
+   "bytes": 80811041,
+   "byte_share": 0.0004463378679125752,
+   "packet_share": 0.005455470470526411,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "97",
+   "flows": 5,
+   "packets": 1435,
+   "bytes": 154980,
+   "byte_share": 8.559899973209218e-07,
+   "packet_share": 6.922249262516346e-06,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "0",
+   "flows": 33,
+   "packets": 454,
+   "bytes": 45724,
+   "byte_share": 2.5254411303072543e-07,
+   "packet_share": 2.1900356551793877e-06,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "IPv6-in-IPv4",
+   "flows": 45,
+   "packets": 130,
+   "bytes": 23344,
+   "byte_share": 1.28934252790422e-07,
+   "packet_share": 6.271027206460801e-07,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "IPIP",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "7",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "8",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "99",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "101",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "111",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "124",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "127",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "130",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "163",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "168",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "177",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "184",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "189",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "199",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "220",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "224",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  },
+  {
+   "proto": "243",
+   "flows": 1,
+   "packets": 1,
+   "bytes": 46,
+   "byte_share": 2.5406852417578015e-10,
+   "packet_share": 4.823867081892924e-09,
+   "trace_id": "202510011400"
+  }
+ ],
+ "top5": {
+  "src": [
+   {
+    "trace_id": "202510011400",
+    "kind": "src",
+    "rank": 1,
+    "key": "150.83.9.157",
+    "flows": 13567,
+    "packets": 4731988,
+    "bytes": 22367862367,
+    "byte_share": 0.12354282131631875
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "src",
+    "rank": 2,
+    "key": "2001:3dce:2ce:111a:e361:ffd7:cfc8:12cd",
+    "flows": 2610,
+    "packets": 3225075,
+    "bytes": 9117876758,
+    "byte_share": 0.05036011938090667
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "src",
+    "rank": 3,
+    "key": "203.114.134.43",
+    "flows": 13192,
+    "packets": 2542198,
+    "bytes": 7408766050,
+    "byte_share": 0.04092030991928531
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "src",
+    "rank": 4,
+    "key": "150.83.12.32",
+    "flows": 14,
+    "packets": 7678911,
+    "bytes": 6503032346,
+    "byte_share": 0.03591773545251264
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "src",
+    "rank": 5,
+    "key": "203.114.140.191",
+    "flows": 12418,
+    "packets": 1604702,
+    "bytes": 3963801292,
+    "byte_share": 0.021892981399662836
+   }
+  ],
+  "dst": [
+   {
+    "trace_id": "202510011400",
+    "kind": "dst",
+    "rank": 1,
+    "key": "210.187.95.66",
+    "flows": 14,
+    "packets": 7678911,
+    "bytes": 6503032346,
+    "byte_share": 0.03591773545251264
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dst",
+    "rank": 2,
+    "key": "202.11.236.39",
+    "flows": 67143,
+    "packets": 2209222,
+    "bytes": 4364936242,
+    "byte_share": 0.024108541502746
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dst",
+    "rank": 3,
+    "key": "20.83.190.35",
+    "flows": 63,
+    "packets": 847114,
+    "bytes": 4265325400,
+    "byte_share": 0.023558368032771067
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dst",
+    "rank": 4,
+    "key": "202.11.236.157",
+    "flows": 29622,
+    "packets": 2307433,
+    "bytes": 4218946171,
+    "byte_share": 0.023302204940065838
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dst",
+    "rank": 5,
+    "key": "131.112.30.51",
+    "flows": 33534,
+    "packets": 1815836,
+    "bytes": 3814951761,
+    "byte_share": 0.021070851385197032
+   }
+  ],
+  "pair": [
+   {
+    "trace_id": "202510011400",
+    "kind": "pair",
+    "rank": 1,
+    "key": "150.83.12.32->210.187.95.66",
+    "flows": 14,
+    "packets": 7678911,
+    "bytes": 6503032346,
+    "byte_share": 0.03591773545251264
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "pair",
+    "rank": 2,
+    "key": "203.114.134.43->20.83.190.35",
+    "flows": 20,
+    "packets": 744299,
+    "bytes": 3467100933,
+    "byte_share": 0.01914959167860392
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "pair",
+    "rank": 3,
+    "key": "203.114.134.43->216.71.184.172",
+    "flows": 277,
+    "packets": 1465771,
+    "bytes": 3400615176,
+    "byte_share": 0.01878237563165393
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "pair",
+    "rank": 4,
+    "key": "2a04:ae7d:fe8f:c06f:97e1:ffcf:2430:3e84->2001:3dce:2ce:b9de:3690:7626:380c:57c9",
+    "flows": 23,
+    "packets": 917273,
+    "bytes": 3081574538,
+    "byte_share": 0.017020241195811338
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "pair",
+    "rank": 5,
+    "key": "2001:3dce:2ce:111a:e361:ffd7:cfc8:12cd->2402:2ff:3b5e:7c2f:ed61:8000:f83f:3fad",
+    "flows": 24,
+    "packets": 760096,
+    "bytes": 2489792073,
+    "byte_share": 0.01375169124981883
+   }
+  ],
+  "dport": [
+   {
+    "trace_id": "202510011400",
+    "kind": "dport",
+    "rank": 1,
+    "key": "TCP/443",
+    "flows": 750080,
+    "packets": 24843904,
+    "bytes": 9892954706,
+    "byte_share": 0.054641052215027366
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dport",
+    "rank": 2,
+    "key": "ESP/0",
+    "flows": 146,
+    "packets": 7909195,
+    "bytes": 6580959450,
+    "byte_share": 0.03634814467656856
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dport",
+    "rank": 3,
+    "key": "TCP/35218",
+    "flows": 48,
+    "packets": 870410,
+    "bytes": 2131074028,
+    "byte_share": 0.011770409417462938
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dport",
+    "rank": 4,
+    "key": "UDP/443",
+    "flows": 38369,
+    "packets": 5406722,
+    "bytes": 1987828042,
+    "byte_share": 0.01097922906404719
+   },
+   {
+    "trace_id": "202510011400",
+    "kind": "dport",
+    "rank": 5,
+    "key": "TCP/55330",
+    "flows": 110,
+    "packets": 532317,
+    "bytes": 1814354163,
+    "byte_share": 0.010021093141860714
+   }
+  ]
+ },
+ "throughput_mbps_10s": {
+  "bins": 91,
+  "mean": 1591.6792751384608,
+  "p50": 1587.7826368177161,
+  "p95": 1875.137019328256,
+  "max": 2100.182213874692,
+  "approximation": "flow bytes spread uniformly over flow duration"
+ },
+ "raw_deleted": [
+  "202510011400.pcap.gz",
+  "202510011400.ipfix"
+ ]
+}

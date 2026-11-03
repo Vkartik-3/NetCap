@@ -1,0 +1,62 @@
+{
+ "command": "python <repo>/netcap/ops/cleanup.py --apply",
+ "date": "2026-11-03T02:15:23+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "uncommitted (repo has no commits yet)",
+  "dirty": null,
+  "netcap_source_sha256": "e9d4c1bdd8bf179e0b0ac2542217f946c4faebb246fa1766d3879eefb549064a",
+  "project_release": "1.0"
+ },
+ "data_version": "n/a",
+ "targets": [
+  {
+   "path": "<repo>/raw_cesnet/extracted",
+   "what": "CSV files extracted from the kept tarballs",
+   "bytes": 1245692672,
+   "rebuild": "mkdir -p raw_cesnet/extracted && tar -xzf raw_cesnet/institutions.tar.gz -C raw_cesnet/extracted && tar -xzf raw_cesnet/times.tar.gz -C raw_cesnet/extracted",
+   "existed": true
+  },
+  {
+   "path": "<repo>/raw_geant/totem",
+   "what": "G\u00c9ANT XML extracted from the kept archive (G\u00c9ANT not used)",
+   "bytes": 183361503,
+   "rebuild": "mkdir -p raw_geant/totem && tar -xjf raw_geant/dl/traffic-matrices-anonymized-v2.tar.bz2 -C raw_geant/totem",
+   "existed": true
+  },
+  {
+   "path": "<scratch>/repro",
+   "what": "Phase 0 re-run of the forecasting module scripts (results kept in results/netcap/audit*)",
+   "bytes": 1582954980,
+   "rebuild": "python -m netcap.audit.build_audit",
+   "existed": true
+  },
+  {
+   "path": "<scratch>/build",
+   "what": "softflowd and nfdump source trees (installed under ~/.local)",
+   "bytes": 27613269,
+   "rebuild": "see docs/netcap/NOTES.md 5",
+   "existed": true
+  },
+  {
+   "path": "<repo>/.coverage",
+   "what": "coverage data file",
+   "bytes": 53248,
+   "rebuild": "pytest --cov",
+   "existed": true
+  },
+  {
+   "path": "postgres tables bench_heap, bench_indexed, bench_partitioned",
+   "what": "query-latency benchmark copies",
+   "bytes": 7228940288,
+   "rebuild": "python -m netcap.bench.query_latency",
+   "existed": true
+  }
+ ],
+ "free_bytes_before": 46895116288,
+ "free_bytes_after": 57223319552,
+ "freed_bytes_measured": 10328203264,
+ "freed_bytes_listed": 10268615960
+}
