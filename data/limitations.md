@@ -47,4 +47,5 @@ What NetCap's results do and do not show. Numbers are in docs/netcap/RESULTS.md 
 
 ## Engineering
 - Docker Compose and Kubernetes were run on one laptop (kind, single node); there is no hosted or multi-node deployment.
-- Neural models: see RESULTS.md for whether the limited CPU retrain ran and whether it reproduced the forecasting module.
+- Neural models: one limited GPU retrain (Abilene, 60 min, original fold, 3 seeds). The rule result reproduced cleanly;
+  the seasonal model's match is weak (seeds disagree). Other horizons and folds were not retrained.
