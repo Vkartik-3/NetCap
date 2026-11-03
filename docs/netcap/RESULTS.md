@@ -64,7 +64,13 @@ the original).
 - TE bound (LP / OSPF max utilisation), hourly over all data: mean 0.704 [0.696, 0.712] normally, 0.493 [0.483,
   0.504] under the worst failure (95% day-block bootstrap); 0.51 on the 20 busiest steps.
 - Better forecasts, not better warnings: the GBM has 14% lower link-load error than persistence at 60 min but a
-  warning F1 of 0.890 vs 0.896 (methods span 0.890-0.906; no F1 interval computed, so no F1 difference is claimed).
+  warning F1 of 0.890 vs 0.896: difference **−0.007, 95% CI [−0.114, +0.081]** (paired day-block bootstrap, 2,000
+  resamples; GBM better in 28% of resamples, worse in 57%). No method's F1 difference from persistence excludes 0,
+  including the best point values (blend_gate +0.009 [−0.001, +0.039]; base CNN-LSTM +0.011 [−0.000, +0.046]).
+- Why the intervals are wide: the test period has 1,091 warning events (link-steps at or above 50%) on only **3 of 29
+  days**, and **95% of them on one day**. Warning F1 here is essentially one congestion episode, so the data cannot rank
+  methods by warning quality. Even methods that never warn (F1 0) have an interval reaching 0, because resamples
+  without that day leave events that persistence misses too.
 
 ## Phase 4: anomaly detection (`phase4_anomaly.json`, `phase4_report.md`)
 - INJECTED anomalies, test period: best average precision 0.165 (Abilene, STL) and 0.186 (CESNET, threshold) against

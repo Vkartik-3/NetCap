@@ -203,7 +203,7 @@ def forecast_driven(net, R0):
     root = config.DATA / "forecasts" / "panel=abilene" / "h=12"
     if not root.exists():
         return {"status": "not run: Phase 2 forecasts missing"}
-    res = {}
+    res, counts = {}, {}
     core = net.core_mask()
     cap = net.capacities()[core]
     files = sorted(root.glob("*.parquet")) + sorted((config.DATA / "forecasts" / "panel=abilene_neural" / "h=12").glob("*.parquet"))
@@ -229,8 +229,57 @@ def forecast_driven(net, R0):
                         "link_load_mae_pp": float(np.abs(u_p - u_a).mean() * 100),
                         "warning_f1": 2 * tp / max(2 * tp + fp + fn, 1), "warning_precision": tp / max(tp + fp, 1),
                         "warning_recall": tp / max(tp + fn, 1), "warning_events_actual": int(ev_a.sum())}
+            if col == "point":                         # per-row counts for the F1 bootstrap
+                counts[f.stem] = (rows, np.stack([(ev_a & ev_p).sum(1), (~ev_a & ev_p).sum(1), (ev_a & ~ev_p).sum(1)], 1))
         res[f.stem] = out
-    return {"horizon_minutes": 60, "period": "original fold test period", "methods": res}
+    boot = f1_bootstrap(counts)
+    events = boot.pop("_events", None)
+    for m, b in boot.items():
+        res[m]["point"].update(b)
+    return {"horizon_minutes": 60, "period": "original fold test period", "methods": res, "warning_events": events,
+            "warning_f1_bootstrap": f"paired day-block bootstrap over test rows: {BOOT} resamples, blocks of {BLOCK_STEPS} "
+                                    f"5-minute rows (one day), seed {config.SEED}; same resampled rows for every method; "
+                                    "difference = method - persistence; point forecasts"}
+
+
+def f1_bootstrap(counts, ref="persistence"):
+    """95% day-block bootstrap intervals for each method's warning F1 and its difference to persistence.
+
+    counts[m] = (rows, per-row [tp, fp, fn]). F1 is recomputed from the summed counts of each resample (F1 is not
+    an average over rows). Methods whose rows differ from persistence's are skipped."""
+    if ref not in counts:
+        return {}
+    rows0, c0 = counts[ref]
+    n = len(rows0)
+    rng = np.random.default_rng(config.SEED)
+    k = int(np.ceil(n / BLOCK_STEPS))
+    starts = rng.integers(0, n - BLOCK_STEPS + 1, size=(BOOT, k))
+    idx = (starts[:, :, None] + np.arange(BLOCK_STEPS)).reshape(BOOT, -1)[:, :n]
+
+    def f1(c):                                         # c: (..., 3) summed tp, fp, fn; undefined (NaN) with no events at all
+        den = 2 * c[..., 0] + c[..., 1] + c[..., 2]
+        return np.where(den > 0, 2 * c[..., 0] / np.where(den > 0, den, 1), np.nan)
+
+    f_ref = f1(c0[idx].sum(1))
+    ci = lambda a: [float(x) for x in np.nanpercentile(a, [2.5, 97.5])]
+    actual = c0[:, 0] + c0[:, 2]                       # actual warning events per row (tp + fn)
+    per_day = np.bincount(np.arange(n) // BLOCK_STEPS, weights=actual).astype(int)
+    out = {"_events": {"actual_events": int(actual.sum()), "test_days": int(len(per_day)),
+                       "days_with_events": int((per_day > 0).sum()), "events_per_day": per_day.tolist(),
+                       "largest_day_share": float(per_day.max() / max(actual.sum(), 1))}}
+    for m, (rows, c) in counts.items():
+        if len(rows) != n or not np.array_equal(rows, rows0):
+            continue
+        f_m = f1(c[idx].sum(1))
+        d = f_m - f_ref
+        dd = d[np.isfinite(d)]                         # shares over defined resamples only (NaN > 0 is False)
+        lo, hi = ci(d)
+        out[m] = {"warning_f1_ci95": ci(f_m), "warning_f1_diff_vs_persistence": float(f1(c.sum(0)) - f1(c0.sum(0))),
+                  "warning_f1_diff_ci95": [lo, hi], "warning_f1_diff_excludes_0": bool(lo > 0 or hi < 0),
+                  "bootstrap_resamples_defined": int(np.isfinite(d).sum()),
+                  "share_resamples_better_than_persistence": float((dd > 0).mean()) if len(dd) else None,
+                  "share_resamples_worse_than_persistence": float((dd < 0).mean()) if len(dd) else None}
+    return out
 
 
 def store(out):

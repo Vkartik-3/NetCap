@@ -1,18 +1,18 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 2.8505859375,
+  "load_average_1min": 2.75732421875,
   "cpu_count": 8,
   "timing_label": "measured on an otherwise idle machine"
  },
  "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/report/summary.py",
- "date": "2026-11-03T17:33:15+00:00",
+ "date": "2026-11-03T17:45:52+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "e365bfb30197cf38f1dab6f609fd29b42e194aef",
-  "dirty": false,
-  "netcap_source_sha256": "178a24d1b1f1ba1803142fc7a09a31cbef74df36a13038243492e9f9ef2f68ad",
+  "netcap_commit": "cae69ef9ca7a93e9f2f9f5510ea8afd08c3bef59",
+  "dirty": true,
+  "netcap_source_sha256": "3c57d61a43605e2ee908455ce349a0654bc874afb2bae61efa5bc523f3f32251",
   "project_release": "1.0"
  },
  "data_version": {
@@ -1473,7 +1473,20 @@
        "warning_f1": 0.0,
        "warning_precision": 0.0,
        "warning_recall": 0.0,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_vs_persistence": -0.8964252978918423,
+       "warning_f1_diff_ci95": [
+        -0.9551297149011315,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 1.7044658240716986,
@@ -1499,7 +1512,20 @@
        "warning_f1": 0.8976594768242313,
        "warning_precision": 0.8988970588235294,
        "warning_recall": 0.8964252978918423,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9545996487751465
+       ],
+       "warning_f1_diff_vs_persistence": 0.001234178932388974,
+       "warning_f1_diff_ci95": [
+        -0.002453550595837961,
+        0.009764617538783868
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.48036253776435045,
+       "share_resamples_worse_than_persistence": 0.311178247734139
       },
       "hi": {
        "mean_abs_error_pp": 1.1555899402285645,
@@ -1525,7 +1551,20 @@
        "warning_f1": 0.3424242424242424,
        "warning_precision": 0.9868995633187773,
        "warning_recall": 0.2071494042163153,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.555372035532857
+       ],
+       "warning_f1_diff_vs_persistence": -0.5540010554675999,
+       "warning_f1_diff_ci95": [
+        -0.7713108921592918,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 0.7291455243996431,
@@ -1551,7 +1590,20 @@
        "warning_f1": 0.905625290562529,
        "warning_precision": 0.9188679245283019,
        "warning_recall": 0.8927589367552704,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9562985095555061
+       ],
+       "warning_f1_diff_vs_persistence": 0.009199992670686719,
+       "warning_f1_diff_ci95": [
+        -0.0007812234348870684,
+        0.03931155747333842
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.7930513595166163,
+       "share_resamples_worse_than_persistence": 0.05236656596173213
       },
       "hi": {
        "mean_abs_error_pp": 0.7434534429164443,
@@ -1577,7 +1629,20 @@
        "warning_f1": 0.903010033444816,
        "warning_precision": 0.9431137724550899,
        "warning_recall": 0.8661778185151238,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9447754826640773
+       ],
+       "warning_f1_diff_vs_persistence": 0.006584735552973675,
+       "warning_f1_diff_ci95": [
+        -0.021404651153247967,
+        0.08511634592187946
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.4511581067472306,
+       "share_resamples_worse_than_persistence": 0.3997985901309164
       },
       "hi": {
        "mean_abs_error_pp": 0.7285326527596218,
@@ -1603,7 +1668,20 @@
        "warning_f1": 0.7810473815461346,
        "warning_precision": 0.8566739606126915,
        "warning_recall": 0.7176901924839597,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.8952784776530728
+       ],
+       "warning_f1_diff_vs_persistence": -0.11537791634570771,
+       "warning_f1_diff_ci95": [
+        -0.48846698284365825,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.022658610271903322,
+       "share_resamples_worse_than_persistence": 0.823766364551863
       },
       "hi": {
        "mean_abs_error_pp": 0.8423754096116313,
@@ -1629,7 +1707,20 @@
        "warning_f1": 0.7810473815461346,
        "warning_precision": 0.8566739606126915,
        "warning_recall": 0.7176901924839597,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.8952784776530728
+       ],
+       "warning_f1_diff_vs_persistence": -0.11537791634570771,
+       "warning_f1_diff_ci95": [
+        -0.48846698284365825,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.022658610271903322,
+       "share_resamples_worse_than_persistence": 0.823766364551863
       },
       "hi": {
        "mean_abs_error_pp": 0.8425990346623884,
@@ -1655,7 +1746,20 @@
        "warning_f1": 0.8896385542168674,
        "warning_precision": 0.9380081300813008,
        "warning_recall": 0.846012832263978,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9458868461452054
+       ],
+       "warning_f1_diff_vs_persistence": -0.006786743674974893,
+       "warning_f1_diff_ci95": [
+        -0.11365932802103015,
+        0.08060778263154475
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.28298086606243705,
+       "share_resamples_worse_than_persistence": 0.567472306143001
       },
       "hi": {
        "mean_abs_error_pp": 0.7643968913301088,
@@ -1681,7 +1785,20 @@
        "warning_f1": 0.8896385542168674,
        "warning_precision": 0.9380081300813008,
        "warning_recall": 0.846012832263978,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9458868461452054
+       ],
+       "warning_f1_diff_vs_persistence": -0.006786743674974893,
+       "warning_f1_diff_ci95": [
+        -0.11365932802103015,
+        0.08060778263154475
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.28298086606243705,
+       "share_resamples_worse_than_persistence": 0.567472306143001
       },
       "hi": {
        "mean_abs_error_pp": 0.7629880977362141,
@@ -1707,7 +1824,20 @@
        "warning_f1": 0.0,
        "warning_precision": 0.0,
        "warning_recall": 0.0,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_vs_persistence": -0.8964252978918423,
+       "warning_f1_diff_ci95": [
+        -0.9551297149011315,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 1.436010381324381,
@@ -1733,7 +1863,20 @@
        "warning_f1": 0.8964252978918423,
        "warning_precision": 0.8964252978918423,
        "warning_recall": 0.8964252978918423,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9551297149011315
+       ],
+       "warning_f1_diff_vs_persistence": 0.0,
+       "warning_f1_diff_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.0
       },
       "hi": {
        "mean_abs_error_pp": 1.1068315018626853,
@@ -1759,7 +1902,20 @@
        "warning_f1": 0.0,
        "warning_precision": 0.0,
        "warning_recall": 0.0,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_vs_persistence": -0.8964252978918423,
+       "warning_f1_diff_ci95": [
+        -0.9551297149011315,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 4.422582529400731,
@@ -1785,7 +1941,20 @@
        "warning_f1": 0.0,
        "warning_precision": 0.0,
        "warning_recall": 0.0,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_vs_persistence": -0.8964252978918423,
+       "warning_f1_diff_ci95": [
+        -0.9551297149011315,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 1.0665197552004095,
@@ -1811,7 +1980,20 @@
        "warning_f1": 0.0,
        "warning_precision": 0.0,
        "warning_recall": 0.0,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_vs_persistence": -0.8964252978918423,
+       "warning_f1_diff_ci95": [
+        -0.9551297149011315,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 3.8044475805563907,
@@ -1837,7 +2019,20 @@
        "warning_f1": 0.0,
        "warning_precision": 0.0,
        "warning_recall": 0.0,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_vs_persistence": -0.8964252978918423,
+       "warning_f1_diff_ci95": [
+        -0.9551297149011315,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 1.4813725242525173,
@@ -1863,7 +2058,20 @@
        "warning_f1": 0.009103322712790168,
        "warning_precision": 0.009041591320072333,
        "warning_recall": 0.00916590284142988,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.035029347581863886
+       ],
+       "warning_f1_diff_vs_persistence": -0.8873219751790522,
+       "warning_f1_diff_ci95": [
+        -0.947116439968594,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.005035246727089627,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 1.1961435112853098,
@@ -1889,7 +2097,20 @@
        "warning_f1": 0.9079069767441861,
        "warning_precision": 0.9216241737488197,
        "warning_recall": 0.8945921173235564,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9568936345931286
+       ],
+       "warning_f1_diff_vs_persistence": 0.011481678852343746,
+       "warning_f1_diff_ci95": [
+        -0.00011618954803957471,
+        0.04619832631766223
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.8071500503524672,
+       "share_resamples_worse_than_persistence": 0.038267875125881166
       },
       "hi": {
        "mean_abs_error_pp": 0.6951761797874143,
@@ -1915,7 +2136,20 @@
        "warning_f1": 0.0,
        "warning_precision": 0.0,
        "warning_recall": 0.0,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.0
+       ],
+       "warning_f1_diff_vs_persistence": -0.8964252978918423,
+       "warning_f1_diff_ci95": [
+        -0.9551297149011315,
+        0.0
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.0,
+       "share_resamples_worse_than_persistence": 0.850956696878147
       },
       "hi": {
        "mean_abs_error_pp": 0.5518219511671071,
@@ -1941,7 +2175,20 @@
        "warning_f1": 0.888673765730881,
        "warning_precision": 0.9415384615384615,
        "warning_recall": 0.8414298808432631,
-       "warning_events_actual": 1091
+       "warning_events_actual": 1091,
+       "warning_f1_ci95": [
+        0.0,
+        0.9390669133868008
+       ],
+       "warning_f1_diff_vs_persistence": -0.007751532160961361,
+       "warning_f1_diff_ci95": [
+        -0.08365224380896673,
+        0.08445761205336495
+       ],
+       "warning_f1_diff_excludes_0": false,
+       "bootstrap_resamples_defined": 1986,
+       "share_resamples_better_than_persistence": 0.2633434038267875,
+       "share_resamples_worse_than_persistence": 0.5876132930513596
       },
       "hi": {
        "mean_abs_error_pp": 0.549920746537337,
@@ -1956,7 +2203,45 @@
        "warning_events_actual": 1091
       }
      }
-    }
+    },
+    "warning_events": {
+     "actual_events": 1091,
+     "test_days": 29,
+     "days_with_events": 3,
+     "events_per_day": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      45,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1038,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      8,
+      0,
+      0
+     ],
+     "largest_day_share": 0.9514207149404217
+    },
+    "warning_f1_bootstrap": "paired day-block bootstrap over test rows: 2000 resamples, blocks of 288 5-minute rows (one day), seed 42; same resampled rows for every method; difference = method - persistence; point forecasts"
    },
    "source": "phase3_scenarios.json: forecast_driven"
   }
@@ -2489,5 +2774,5 @@
    "source": "phase3_scenarios.json: te/lp_over_ospf_ratio"
   }
  ],
- "warnings_finding_html": "<p>Link-load error and congestion-warning F1 (link at or above 50% utilisation) in the original test period, 60-minute forecasts. Source: phase3_scenarios.json, forecast_driven.</p><table><tr><th>method</th><th>link-load MAE (pp)</th><th>warning F1 (point)</th><th>warning F1 (90% upper)</th></tr><tr><td>arima_dhr</td><td>0.835</td><td>0.000</td><td>0.000</td></tr><tr><td>arima_dhr_sel</td><td>0.502</td><td>0.898</td><td>0.892</td></tr><tr><td>blend</td><td>0.594</td><td>0.342</td><td>0.649</td></tr><tr><td>blend_gate</td><td>0.519</td><td>0.906</td><td>0.904</td></tr><tr><td>blend_rule</td><td>0.532</td><td>0.903</td><td>0.907</td></tr><tr><td>cnn_lstm_base</td><td>0.509</td><td>0.908</td><td>0.904</td></tr><tr><td>cnn_lstm_seasonal</td><td>0.582</td><td>0.000</td><td>0.000</td></tr><tr><td>cnn_lstm_seasonal_rule</td><td>0.446</td><td>0.889</td><td>0.889</td></tr><tr><td>ets</td><td>0.570</td><td>0.781</td><td>0.783</td></tr><tr><td>ets_rule</td><td>0.570</td><td>0.781</td><td>0.783</td></tr><tr><td>gbm</td><td>0.426</td><td>0.890</td><td>0.889</td></tr><tr><td>gbm_rule</td><td>0.425</td><td>0.890</td><td>0.889</td></tr><tr><td>mean7</td><td>1.108</td><td>0.000</td><td>0.000</td></tr><tr><td>persistence</td><td>0.494</td><td>0.896</td><td>0.891</td></tr><tr><td>ridge</td><td>1.451</td><td>0.000</td><td>0.000</td></tr><tr><td>ridge_basedef</td><td>0.635</td><td>0.000</td><td>0.000</td></tr><tr><td>ridge_clip</td><td>1.354</td><td>0.000</td><td>0.000</td></tr><tr><td>seasonal_day</td><td>1.213</td><td>0.000</td><td>0.000</td></tr><tr><td>seasonal_week</td><td>1.205</td><td>0.009</td><td>0.014</td></tr></table>"
+ "warnings_finding_html": "<p>Link-load error and congestion-warning F1 (link at or above 50% utilisation) in the original test period, 60-minute forecasts. F1 difference vs persistence with a 95% paired day-block bootstrap interval. The test period has 1,091 warning events on only 3 of 29 days (95% on one day), so the intervals are wide: no method's F1 difference from persistence excludes 0. Source: phase3_scenarios.json, forecast_driven.</p><table><tr><th>method</th><th>link-load MAE (pp)</th><th>warning F1 (point)</th><th>F1 \u2212 persistence [95% CI]</th><th>warning F1 (90% upper)</th></tr><tr><td>arima_dhr</td><td>0.835</td><td>0.000</td><td>-0.896 [-0.955, +0.000]</td><td>0.000</td></tr><tr><td>arima_dhr_sel</td><td>0.502</td><td>0.898</td><td>+0.001 [-0.002, +0.010]</td><td>0.892</td></tr><tr><td>blend</td><td>0.594</td><td>0.342</td><td>-0.554 [-0.771, +0.000]</td><td>0.649</td></tr><tr><td>blend_gate</td><td>0.519</td><td>0.906</td><td>+0.009 [-0.001, +0.039]</td><td>0.904</td></tr><tr><td>blend_rule</td><td>0.532</td><td>0.903</td><td>+0.007 [-0.021, +0.085]</td><td>0.907</td></tr><tr><td>cnn_lstm_base</td><td>0.509</td><td>0.908</td><td>+0.011 [-0.000, +0.046]</td><td>0.904</td></tr><tr><td>cnn_lstm_seasonal</td><td>0.582</td><td>0.000</td><td>-0.896 [-0.955, +0.000]</td><td>0.000</td></tr><tr><td>cnn_lstm_seasonal_rule</td><td>0.446</td><td>0.889</td><td>-0.008 [-0.084, +0.084]</td><td>0.889</td></tr><tr><td>ets</td><td>0.570</td><td>0.781</td><td>-0.115 [-0.488, +0.000]</td><td>0.783</td></tr><tr><td>ets_rule</td><td>0.570</td><td>0.781</td><td>-0.115 [-0.488, +0.000]</td><td>0.783</td></tr><tr><td>gbm</td><td>0.426</td><td>0.890</td><td>-0.007 [-0.114, +0.081]</td><td>0.889</td></tr><tr><td>gbm_rule</td><td>0.425</td><td>0.890</td><td>-0.007 [-0.114, +0.081]</td><td>0.889</td></tr><tr><td>mean7</td><td>1.108</td><td>0.000</td><td>-0.896 [-0.955, +0.000]</td><td>0.000</td></tr><tr><td>persistence</td><td>0.494</td><td>0.896</td><td>+0.000 [+0.000, +0.000]</td><td>0.891</td></tr><tr><td>ridge</td><td>1.451</td><td>0.000</td><td>-0.896 [-0.955, +0.000]</td><td>0.000</td></tr><tr><td>ridge_basedef</td><td>0.635</td><td>0.000</td><td>-0.896 [-0.955, +0.000]</td><td>0.000</td></tr><tr><td>ridge_clip</td><td>1.354</td><td>0.000</td><td>-0.896 [-0.955, +0.000]</td><td>0.000</td></tr><tr><td>seasonal_day</td><td>1.213</td><td>0.000</td><td>-0.896 [-0.955, +0.000]</td><td>0.000</td></tr><tr><td>seasonal_week</td><td>1.205</td><td>0.009</td><td>-0.887 [-0.947, +0.000]</td><td>0.014</td></tr></table>"
 }

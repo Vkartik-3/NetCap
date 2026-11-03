@@ -170,14 +170,24 @@ def warnings_html(o):
     fd = o["phase3"]["forecast_driven"]["value"]
     if not fd or "methods" not in fd:
         return "Phase 3 forecast-driven check not produced yet."
+    ci = lambda a: f"[{a[0]:+.3f}, {a[1]:+.3f}]" if a else "-"
     rows = []
     for m, r in sorted(fd["methods"].items()):
-        rows.append(f"<tr><td>{m}</td><td>{r['point']['link_load_mae_pp']:.3f}</td><td>{r['point']['warning_f1']:.3f}</td>"
+        p = r["point"]
+        rows.append(f"<tr><td>{m}</td><td>{p['link_load_mae_pp']:.3f}</td><td>{p['warning_f1']:.3f}</td>"
+                    f"<td>{p.get('warning_f1_diff_vs_persistence', float('nan')):+.3f} {ci(p.get('warning_f1_diff_ci95'))}</td>"
                     f"<td>{r['hi']['warning_f1']:.3f}</td></tr>")
+    ev = fd.get("warning_events") or {}
+    sig = sorted(m for m, r in fd["methods"].items() if r["point"].get("warning_f1_diff_excludes_0"))
+    note = (f" The test period has {ev['actual_events']:,} warning events on only {ev['days_with_events']} of {ev['test_days']} days "
+            f"({ev['largest_day_share']:.0%} on one day), so the intervals are wide: "
+            + (f"{len(sig)} method(s) differ from persistence ({', '.join(sig)})." if sig else
+               "no method's F1 difference from persistence excludes 0.")) if ev else ""
     return ("<p>Link-load error and congestion-warning F1 (link at or above 50% utilisation) in the original test period, "
-            "60-minute forecasts. Source: phase3_scenarios.json, forecast_driven.</p><table><tr><th>method</th>"
-            "<th>link-load MAE (pp)</th><th>warning F1 (point)</th><th>warning F1 (90% upper)</th></tr>" + "".join(rows) + "</table>")
-
+            "60-minute forecasts. F1 difference vs persistence with a 95% paired day-block bootstrap interval." + note +
+            " Source: phase3_scenarios.json, forecast_driven.</p><table><tr><th>method</th>"
+            "<th>link-load MAE (pp)</th><th>warning F1 (point)</th><th>F1 − persistence [95% CI]</th>"
+            "<th>warning F1 (90% upper)</th></tr>" + "".join(rows) + "</table>")
 
 if __name__ == "__main__":
     main()

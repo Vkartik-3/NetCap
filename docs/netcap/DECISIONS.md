@@ -141,3 +141,11 @@ Uncertainty and significance
   were kept and reloaded for the re-run (no retraining).
 - The run itself is labelled "upper bound, measured under CPU contention" by `cpu_at_save` (shared host); no CPU timing is
   claimed from it.
+
+## Warning-F1 interval (2026-11-03, added after seeing results)
+- Paired day-block bootstrap of warning F1 (point forecasts, 60 min, original test period): 2,000 resamples of
+  one-day blocks (288 rows), seed 42, the same rows for every method; F1 recomputed from the summed counts of each
+  resample; difference = method − persistence; 95% percentile interval.
+- Changed after seeing the first output: a resample with no actual events and no warnings now has F1 **undefined**
+  (dropped), not 0, because 0/0 was being scored as 0 (14 of 2,000 resamples). Shares "better / worse than
+  persistence" are over defined resamples only (a unit test caught them counting undefined ones as ties).

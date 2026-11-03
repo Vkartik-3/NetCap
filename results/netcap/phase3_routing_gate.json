@@ -1,18 +1,18 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 3.0283203125,
+  "load_average_1min": 2.8828125,
   "cpu_count": 8,
   "timing_label": "measured on an otherwise idle machine"
  },
  "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/scenario/run.py",
- "date": "2026-11-03T17:30:54+00:00",
+ "date": "2026-11-03T17:43:55+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "e365bfb30197cf38f1dab6f609fd29b42e194aef",
-  "dirty": false,
-  "netcap_source_sha256": "178a24d1b1f1ba1803142fc7a09a31cbef74df36a13038243492e9f9ef2f68ad",
+  "netcap_commit": "cae69ef9ca7a93e9f2f9f5510ea8afd08c3bef59",
+  "dirty": true,
+  "netcap_source_sha256": "15e669ef6c18a28111aea7516e797b4474835e3e7dce47aebeff161aaa9ddcd4",
   "project_release": "1.0"
  },
  "data_version": {
