@@ -47,3 +47,4 @@ results/netcap/audit_detail/*.log
 
 # generated static dashboard (published on the gh-pages branch)
 site/
+.DS_Store

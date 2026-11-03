@@ -4,7 +4,6 @@
 
 [![ci](https://github.com/Vkartik-3/NetCap/actions/workflows/ci.yml/badge.svg)](https://github.com/Vkartik-3/NetCap/actions/workflows/ci.yml)
 ![python](https://img.shields.io/badge/python-3.13-blue)
-![tests](https://img.shields.io/badge/tests-48%20passing-brightgreen)
 ![k8s](https://img.shields.io/badge/kubernetes-kind%20tested-326ce5)
 
 **Live dashboard (static snapshot):** https://vkartik-3.github.io/NetCap/
@@ -119,7 +118,7 @@ flowchart LR
 **Local**
 ```bash
 python3.13 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/pytest                                   # 48 tests (those needing raw data skip without it)
+.venv/bin/pytest                                   # tests needing raw data skip without it
 .venv/bin/uvicorn netcap_app.api:app --port 8000   # dashboard: http://localhost:8000
 ```
 
@@ -193,3 +192,7 @@ result: [docs/netcap/DECISIONS.md](docs/netcap/DECISIONS.md).
 | MAWI Working Group Traffic Archive, samplepoint-F (WIDE Project) | https://mawi.wide.ad.jp/mawi/ | only derived aggregates are stored |
 
 Raw data is never committed; see [docs/netcap/RESULTS.md](docs/netcap/RESULTS.md) for download and setup steps.
+
+## License
+
+Code: MIT (see [LICENSE](LICENSE)). The datasets keep their own terms (table above).
