@@ -1,18 +1,18 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 2.7529296875,
+  "load_average_1min": 2.865234375,
   "cpu_count": 8,
   "timing_label": "measured on an otherwise idle machine"
  },
  "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/scenario/run.py",
- "date": "2026-11-03T17:44:25+00:00",
+ "date": "2026-11-03T17:51:14+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "cae69ef9ca7a93e9f2f9f5510ea8afd08c3bef59",
+  "netcap_commit": "4301e369cd2f1ef63293a90d85586e8096114ac6",
   "dirty": true,
-  "netcap_source_sha256": "15e669ef6c18a28111aea7516e797b4474835e3e7dce47aebeff161aaa9ddcd4",
+  "netcap_source_sha256": "b1b4cf88fc12df0e5e7fb8f0b10c09f89440dc3615337cbaf1fd2884a48d2817",
   "project_release": "1.0"
  },
  "data_version": {
@@ -764,6 +764,541 @@
    "0.8": []
   }
  },
+ "upgrade_search": {
+  "rule": "every core link pair x ASSUMED sizes (2x, 4x current) against no failure + every N-1 link and router case; ranked by worst-case utilisation reduction (pp) per Gbit/s added per direction",
+  "label": "added after seeing results (search replaces the two fixed rules as the planning answer; both rules kept)",
+  "cases": 28,
+  "candidates": 30,
+  "capacities_ASSUMED": true,
+  "worst_case_util_before": 2.9734483731182793,
+  "worst_case_before": "link IPLSng-KSCYng",
+  "worst_link_before": "ATLAng->IPLSng",
+  "candidates_that_reduce_worst_case": 2,
+  "binding_link": {
+   "link": "ATLAng-IPLSng",
+   "capacity_mbps_now": 2480.0,
+   "worst_case_peak_load_mbps": 7374.151965333333,
+   "next_worst_util_if_unbounded": 0.7731501236559137,
+   "next_worst_case": "link CHINng-IPLSng",
+   "next_worst_link": "WASHng->NYCMng",
+   "min_capacity_mbps_to_stop_binding": 9537.800925988287,
+   "min_capacity_mbps_below_0.8": 9217.689956666665
+  },
+  "best_per_gbps": {
+   "link": "ATLAng-IPLSng",
+   "link_ids": [
+    4,
+    14
+   ],
+   "capacity_mbps_before": 2480.0,
+   "capacity_mbps_after_ASSUMED": 4960.0,
+   "gbps_added_per_direction": 2.48,
+   "worst_case_util_after": 1.4867241865591396,
+   "worst_case_after": "link IPLSng-KSCYng",
+   "worst_link_after": "ATLAng->IPLSng",
+   "reduction_pp": 148.67241865591396,
+   "reduction_pp_per_gbps": 59.94855590964273
+  },
+  "best_absolute": {
+   "link": "ATLAng-IPLSng",
+   "link_ids": [
+    4,
+    14
+   ],
+   "capacity_mbps_before": 2480.0,
+   "capacity_mbps_after_ASSUMED": 9920.0,
+   "gbps_added_per_direction": 7.44,
+   "worst_case_util_after": 0.7731501236559137,
+   "worst_case_after": "link CHINng-IPLSng",
+   "worst_link_after": "WASHng->NYCMng",
+   "reduction_pp": 220.02982494623654,
+   "reduction_pp_per_gbps": 29.573901202451147
+  },
+  "greedy_plan": {
+   "target_worst_case_util": 0.8,
+   "reached": true,
+   "worst_case_util_final": 0.7731501236559137,
+   "gbps_added_per_direction_total": 7.4399999999999995,
+   "steps": [
+    {
+     "step": 1,
+     "link": "ATLAng-IPLSng",
+     "capacity_mbps_before": 2480.0,
+     "capacity_mbps_after_ASSUMED": 4960.0,
+     "gbps_added_per_direction": 2.48,
+     "worst_case_util_after": 1.4867241865591396,
+     "worst_case_after": "link IPLSng-KSCYng",
+     "worst_link_after": "ATLAng->IPLSng",
+     "reduction_pp_per_gbps": 59.94855590964273,
+     "cumulative_gbps_added": 2.48
+    },
+    {
+     "step": 2,
+     "link": "ATLAng-IPLSng",
+     "capacity_mbps_before": 4960.0,
+     "capacity_mbps_after_ASSUMED": 9920.0,
+     "gbps_added_per_direction": 4.96,
+     "worst_case_util_after": 0.7731501236559137,
+     "worst_case_after": "link CHINng-IPLSng",
+     "worst_link_after": "WASHng->NYCMng",
+     "reduction_pp_per_gbps": 14.38657384885536,
+     "cumulative_gbps_added": 7.4399999999999995
+    }
+   ]
+  },
+  "ranking": [
+   {
+    "link": "ATLAng-IPLSng",
+    "link_ids": [
+     4,
+     14
+    ],
+    "capacity_mbps_before": 2480.0,
+    "capacity_mbps_after_ASSUMED": 4960.0,
+    "gbps_added_per_direction": 2.48,
+    "worst_case_util_after": 1.4867241865591396,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 148.67241865591396,
+    "reduction_pp_per_gbps": 59.94855590964273
+   },
+   {
+    "link": "ATLAng-IPLSng",
+    "link_ids": [
+     4,
+     14
+    ],
+    "capacity_mbps_before": 2480.0,
+    "capacity_mbps_after_ASSUMED": 9920.0,
+    "gbps_added_per_direction": 7.44,
+    "worst_case_util_after": 0.7731501236559137,
+    "worst_case_after": "link CHINng-IPLSng",
+    "worst_link_after": "WASHng->NYCMng",
+    "reduction_pp": 220.02982494623654,
+    "reduction_pp_per_gbps": 29.573901202451147
+   },
+   {
+    "link": "ATLA-M5-ATLAng",
+    "link_ids": [
+     1,
+     2
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "ATLA-M5-ATLAng",
+    "link_ids": [
+     1,
+     2
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "ATLAng-HSTNng",
+    "link_ids": [
+     3,
+     11
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "ATLAng-HSTNng",
+    "link_ids": [
+     3,
+     11
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "ATLAng-WASHng",
+    "link_ids": [
+     5,
+     29
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "ATLAng-WASHng",
+    "link_ids": [
+     5,
+     29
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "CHINng-IPLSng",
+    "link_ids": [
+     6,
+     15
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "CHINng-IPLSng",
+    "link_ids": [
+     6,
+     15
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "CHINng-NYCMng",
+    "link_ids": [
+     7,
+     22
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "CHINng-NYCMng",
+    "link_ids": [
+     7,
+     22
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "DNVRng-KSCYng",
+    "link_ids": [
+     8,
+     17
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "DNVRng-KSCYng",
+    "link_ids": [
+     8,
+     17
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "DNVRng-SNVAng",
+    "link_ids": [
+     9,
+     24
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "DNVRng-SNVAng",
+    "link_ids": [
+     9,
+     24
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "DNVRng-STTLng",
+    "link_ids": [
+     10,
+     27
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "DNVRng-STTLng",
+    "link_ids": [
+     10,
+     27
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "HSTNng-KSCYng",
+    "link_ids": [
+     12,
+     18
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "HSTNng-KSCYng",
+    "link_ids": [
+     12,
+     18
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "HSTNng-LOSAng",
+    "link_ids": [
+     13,
+     20
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "HSTNng-LOSAng",
+    "link_ids": [
+     13,
+     20
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "IPLSng-KSCYng",
+    "link_ids": [
+     16,
+     19
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "IPLSng-KSCYng",
+    "link_ids": [
+     16,
+     19
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "LOSAng-SNVAng",
+    "link_ids": [
+     21,
+     25
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "LOSAng-SNVAng",
+    "link_ids": [
+     21,
+     25
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "NYCMng-WASHng",
+    "link_ids": [
+     23,
+     30
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "NYCMng-WASHng",
+    "link_ids": [
+     23,
+     30
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "SNVAng-STTLng",
+    "link_ids": [
+     26,
+     28
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 19840.0,
+    "gbps_added_per_direction": 9.92,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   },
+   {
+    "link": "SNVAng-STTLng",
+    "link_ids": [
+     26,
+     28
+    ],
+    "capacity_mbps_before": 9920.0,
+    "capacity_mbps_after_ASSUMED": 39680.0,
+    "gbps_added_per_direction": 29.76,
+    "worst_case_util_after": 2.9734483731182793,
+    "worst_case_after": "link IPLSng-KSCYng",
+    "worst_link_after": "ATLAng->IPLSng",
+    "reduction_pp": 0.0,
+    "reduction_pp_per_gbps": 0.0
+   }
+  ]
+ },
  "combined": {
   "growth_factor_ASSUMED": 2.0,
   "failure": "link IPLSng-KSCYng",
@@ -1033,7 +1568,7 @@
   "hourly_sweep": {
    "normal": {
     "steps_solved": 3405,
-    "lp_solve_s_total": 11.295038624999961,
+    "lp_solve_s_total": 10.467741374999605,
     "ratio_mean": 0.7038837912219416,
     "ratio_mean_ci95": [
      0.6957788944197184,
@@ -1052,7 +1587,7 @@
    },
    "worst_failure": {
     "steps_solved": 3405,
-    "lp_solve_s_total": 9.869315209000433,
+    "lp_solve_s_total": 9.719544083000073,
     "ratio_mean": 0.49333480333790247,
     "ratio_mean_ci95": [
      0.4834638184432046,
@@ -1856,5 +2391,5 @@
   },
   "warning_f1_bootstrap": "paired day-block bootstrap over test rows: 2000 resamples, blocks of 288 5-minute rows (one day), seed 42; same resampled rows for every method; difference = method - persistence; point forecasts"
  },
- "wall_s": 30.60387020899998
+ "wall_s": 29.75745704200017
 }

@@ -120,6 +120,7 @@ def main():
                           "n_minus_1_worst_after": wa["failure"], "n_minus_1_worst_max_util_after": wa["max_util"],
                           "n_minus_1_worst_link_after": wa["worst_link_name"],
                           "cases_over_threshold_after": {str(t): [f["failure"] for f in fa if f["max_util"] >= t] for t in THRESHOLDS}}
+    out["upgrade_search"] = upgrade_search(net, R0, dem, names)
     comb = {}
     for label, n2 in (("before_upgrade", net), ("after_upgrade", net_up), ("after_upgrade_alt", net_alt)):
         f = worst.get("link_ids")
@@ -166,6 +167,103 @@ def main():
     print(json.dumps({"gate": gate["routing_equals_A"], "baseline_max": base["max_util"], "worst_n1": worst["failure"],
                       "worst_n1_max": worst["max_util"], "upgrade": out["upgrade"]["link"],
                       "te_ratio": out["te"]["lp_over_ospf_ratio"]}, indent=1))
+
+
+UPGRADE_FACTORS = (2, 4)          # ASSUMED candidate sizes: each core link pair at 2x and 4x its current capacity
+
+
+def upgrade_search(net, R0, dem, names):
+    """Every single core-link upgrade (both directions, ASSUMED sizes) against the no-failure case and every N-1 case.
+
+    OSPF routing depends on weights, not capacities, so each case's routing and per-link peak load are computed once;
+    a candidate only changes the capacities. Worst-case utilisation = max over cases, core links and steps of
+    load / capacity. Ranked by reduction of that worst case per Gbit/s added (per direction)."""
+    cases = [("no failure", R0, net)]
+    for a, b, name in E.bidirectional_pairs(net):
+        n2 = E.fail_links(net, {a, b})
+        cases.append((f"link {name}", E.routing_matrix(n2)[0], n2))
+    for v in net.nodes:
+        n2 = E.fail_node(net, v)
+        cases.append((f"router {v}", E.routing_matrix(n2)[0], n2))
+    core = net.core_mask()
+    ids = np.array([l[0] for l in net.links])[core]
+    cap0 = net.capacities()[core]
+    peak = np.stack([np.max(E.link_loads(R, dem)[:, core], 0) for _, R, _ in cases])     # (cases, core links) Mbit/s
+    labels = [c[0] for c in cases]
+
+    def worst(cap):
+        u = peak / cap
+        i, j = np.unravel_index(np.argmax(u), u.shape)
+        return float(u[i, j]), labels[i], names[int(ids[j])]
+
+    w0, case0, link0 = worst(cap0)
+    pos = {int(l): k for k, l in enumerate(ids)}
+
+    # size-free answer for the binding link pair: the smallest capacity at which it stops being the worst case
+    # (the next-worst link takes over), and the capacity that keeps it below the planning threshold
+    j0 = int(np.argmax(np.max(peak / cap0, 0)))
+    pair = next((a, b, n) for a, b, n in E.bidirectional_pairs(net) if int(ids[j0]) in (a, b))
+    jj = [pos[pair[0]], pos[pair[1]]]
+    c_inf = cap0.copy()
+    c_inf[jj] = np.inf
+    w_rest, case_rest, link_rest = worst(c_inf)
+    pk = float(peak[:, jj].max())
+    binding = {"link": pair[2], "capacity_mbps_now": float(cap0[j0]), "worst_case_peak_load_mbps": pk,
+               "next_worst_util_if_unbounded": w_rest, "next_worst_case": case_rest, "next_worst_link": link_rest,
+               "min_capacity_mbps_to_stop_binding": pk / w_rest,
+               f"min_capacity_mbps_below_{THRESHOLDS[1]:g}": pk / THRESHOLDS[1]}
+    cands = []
+    for a, b, name in E.bidirectional_pairs(net):
+        for fct in UPGRADE_FACTORS:
+            cap = cap0.copy()
+            before = float(cap[pos[a]])
+            cap[[pos[a], pos[b]]] *= fct
+            w, case, link = worst(cap)
+            added = (fct - 1) * before / 1000
+            cands.append({"link": name, "link_ids": [a, b], "capacity_mbps_before": before,
+                          "capacity_mbps_after_ASSUMED": before * fct, "gbps_added_per_direction": added,
+                          "worst_case_util_after": w, "worst_case_after": case, "worst_link_after": link,
+                          "reduction_pp": (w0 - w) * 100, "reduction_pp_per_gbps": (w0 - w) * 100 / added})
+    cands.sort(key=lambda c: (-c["reduction_pp_per_gbps"], -c["reduction_pp"]))
+    useful = [c for c in cands if c["reduction_pp"] > 1e-9]
+
+    # greedy plan: repeatedly apply the single upgrade with the best reduction per Gbit/s until the worst case is
+    # below the planning threshold (THRESHOLDS[1]) or no upgrade helps; capacities compound (ASSUMED sizes)
+    cap, plan, total = cap0.copy(), [], 0.0
+    w_now = w0
+    for _ in range(6):
+        if w_now < THRESHOLDS[1]:
+            break
+        best = None
+        for a, b, name in E.bidirectional_pairs(net):
+            for fct in UPGRADE_FACTORS:
+                c2 = cap.copy()
+                c2[[pos[a], pos[b]]] *= fct
+                w, case, link = worst(c2)
+                added = (fct - 1) * float(cap[pos[a]]) / 1000
+                score = (w_now - w) * 100 / added
+                if w < w_now - 1e-9 and (best is None or score > best[0]):
+                    best = (score, name, fct, c2, w, case, link, added, float(cap[pos[a]]))
+        if best is None:
+            break
+        score, name, fct, cap, w, case, link, added, before = best
+        total += added
+        plan.append({"step": len(plan) + 1, "link": name, "capacity_mbps_before": before,
+                     "capacity_mbps_after_ASSUMED": before * fct, "gbps_added_per_direction": added,
+                     "worst_case_util_after": w, "worst_case_after": case, "worst_link_after": link,
+                     "reduction_pp_per_gbps": score, "cumulative_gbps_added": total})
+        w_now = w
+    return {"rule": "every core link pair x ASSUMED sizes (2x, 4x current) against no failure + every N-1 link and router case; "
+                    "ranked by worst-case utilisation reduction (pp) per Gbit/s added per direction",
+            "label": "added after seeing results (search replaces the two fixed rules as the planning answer; both rules kept)",
+            "cases": len(cases), "candidates": len(cands), "capacities_ASSUMED": True,
+            "worst_case_util_before": w0, "worst_case_before": case0, "worst_link_before": link0,
+            "candidates_that_reduce_worst_case": len(useful), "binding_link": binding,
+            "best_per_gbps": useful[0] if useful else None,
+            "best_absolute": max(cands, key=lambda c: (c["reduction_pp"], -c["gbps_added_per_direction"])),
+            "greedy_plan": {"target_worst_case_util": THRESHOLDS[1], "reached": bool(w_now < THRESHOLDS[1]),
+                            "worst_case_util_final": w_now, "gbps_added_per_direction_total": total, "steps": plan},
+            "ranking": cands}
 
 
 def te_sweep(net, R, unr, dem, steps):
@@ -294,6 +392,10 @@ def store(out):
         rows.append((f"n1:{c['failure']}", "failure", {"failure": c["failure"]}, c, COMMON + " A cut link fails in both directions."))
     rows.append(("upgrade", "upgrade", {"link": out["upgrade"]["link"]}, out["upgrade"],
                  COMMON + " The new capacity is ASSUMED."))
+    us = out["upgrade_search"]
+    rows.append(("upgrade_search", "upgrade", {"factors_ASSUMED": list(UPGRADE_FACTORS), "cases": us["cases"]},
+                 {k: us[k] for k in ("worst_case_util_before", "best_per_gbps", "best_absolute", "binding_link", "greedy_plan")},
+                 COMMON + " Candidate capacities are ASSUMED (2x and 4x current)."))
     rows.append(("combined", "combined", {k: out["combined"][k] for k in ("growth_factor_ASSUMED", "failure", "upgrade")},
                  out["combined"], COMMON + " The growth factor and new capacity are ASSUMED."))
     rows.append(("te", "te", {"steps": TE_STEPS}, out["te"]["lp_over_ospf_ratio"],

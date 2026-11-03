@@ -90,3 +90,20 @@ def test_abilene_routing_reproduces_matrix_A():
     topo = abilene.load_topology()
     R, unr = E.routing_matrix(E.from_abilene(topo))
     assert unr == [] and np.array_equal(R, topo.A)
+
+
+def test_upgrade_search_finds_the_binding_link_and_sizes_it():
+    from netcap.scenario.run import upgrade_search
+    net = square(cap=100.0)
+    net = E.set_capacity(net, {lid(net, "A", "B"), lid(net, "B", "A")}, 10.0)     # one thin link pair
+    R0, _ = E.routing_matrix(net)
+    dem = np.zeros((3, len(net.nodes) ** 2))
+    dem[:, flow(net, "A", "D")] = [20.0, 40.0, 30.0]                              # ECMP: 20 Mbit/s peak on each path
+    names = {l[0]: f"{l[1]}->{l[2]}" for l in net.links}
+    s = upgrade_search(net, R0, dem, names)
+    assert s["worst_case_util_before"] == pytest.approx(4.0)                      # A-C fails: 40 on the 10 Mbit/s A->B
+    assert s["best_per_gbps"]["link"] == "A-B"
+    assert s["binding_link"]["worst_case_peak_load_mbps"] == pytest.approx(40.0)
+    assert s["binding_link"]["min_capacity_mbps_below_0.8"] == pytest.approx(50.0)
+    assert s["greedy_plan"]["reached"] and s["greedy_plan"]["worst_case_util_final"] < 0.8
+    assert all(c["capacity_mbps_after_ASSUMED"] > c["capacity_mbps_before"] for c in s["ranking"])

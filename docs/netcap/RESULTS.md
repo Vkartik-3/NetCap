@@ -61,6 +61,13 @@ the original).
   at or below 77%. Router failures strand 2.5% to 79% of traffic (their own flows).
 - Upgrade rule fixed in advance: no effect (negative result). Rule added after seeing results (ATLA–IPLS to
   9.92 Gbit/s, ASSUMED): worst N-1 case 297% → **77%**.
+- Upgrade search (added after seeing results; `upgrade_search`): every core link pair at 2x and 4x its capacity
+  (ASSUMED sizes), 30 candidates, against no failure + all 27 N-1 link and router cases, ranked by worst-case reduction
+  per Gbit/s added. **Only 2 of 30 candidates reduce the worst case at all**, both on ATLA–IPLS: it is the single
+  binding link. Best per Gbit/s: ATLA–IPLS 2.48 → 4.96 Gbit/s (297% → 149%, 59.9 pp per Gbit/s); the greedy plan to
+  get below 80% is ATLA–IPLS 2.48 → 9.92 Gbit/s (+7.44 Gbit/s per direction) → **77.3%**, the same answer as the added rule.
+- Size-free: ATLA–IPLS carries up to 7.37 Gbit/s in its worst N-1 case, so it needs **at least 9.22 Gbit/s** to stay
+  below 80%; above 9.54 Gbit/s it stops being the bottleneck and WASH→NYCM (77.3% when CHIN–IPLS fails) takes over.
 - TE bound (LP / OSPF max utilisation), hourly over all data: mean 0.704 [0.696, 0.712] normally, 0.493 [0.483,
   0.504] under the worst failure (95% day-block bootstrap); 0.51 on the 20 busiest steps.
 - Better forecasts, not better warnings: the GBM has 14% lower link-load error than persistence at 60 min but a

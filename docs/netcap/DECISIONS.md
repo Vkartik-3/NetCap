@@ -149,3 +149,12 @@ Uncertainty and significance
 - Changed after seeing the first output: a resample with no actual events and no warnings now has F1 **undefined**
   (dropped), not 0, because 0/0 was being scored as 0 (14 of 2,000 resamples). Shares "better / worse than
   persistence" are over defined resamples only (a unit test caught them counting undefined ones as ties).
+
+## Upgrade search (2026-11-03, added after seeing results)
+- Replaces the two fixed upgrade rules as the planning answer; both rules and their results are kept.
+- Candidates: every bidirectional core link pair at 2x and 4x its current capacity (ASSUMED sizes; both directions).
+  Cases: no failure, every N-1 link pair failure and every router failure (28). Worst case = max over cases, core links
+  and 5-minute steps of load / capacity. Ranked by worst-case reduction (pp) per Gbit/s added per direction.
+- Routing depends only on OSPF weights, so each case's routing is computed once (checked: a capacity change leaves the
+  routing matrix identical). Greedy plan: apply the best upgrade per Gbit/s until the worst case is below 0.8.
+- Size-free figures for the binding link: the capacity at which it stops binding, and the capacity for < 0.8.
