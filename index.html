@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<script>window.NETCAP_STATIC = {"flows": [26, 31, 86, 95, 104, 107, 133, 139, 140, 143], "methods": ["persistence", "gbm", "gbm_rule", "blend_rule", "blend_gate", "ets", "arima_dhr_sel"], "growth": [1, 1.5, 2]};</script>
+<script>window.NETCAP_STATIC = {"flows": [26, 31, 86, 95, 104, 107, 133, 139, 140, 143], "methods": ["persistence", "gbm", "gbm_rule", "blend_rule", "blend_gate", "ets", "arima_dhr_sel", "cnn_lstm_base", "cnn_lstm_seasonal", "cnn_lstm_seasonal_rule"], "growth": [1, 1.5, 2]};</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NetCap</title>
@@ -47,6 +47,7 @@
     <label>Horizon</label><select id="hz"><option value="1">5 min</option><option value="6">30 min</option><option value="12" selected>60 min</option></select>
     <label>Method</label><select id="meth"></select>
     <button class="go" onclick="drawForecast()">Show test-period forecast</button>
+    <div id="fnote" class="lbl"></div>
     <div id="fplot" class="plot"></div></div>
     <div class="card"><b>Test MAE vs persistence (original fold)</b><div id="ftable"></div></div></section>
   <section id="scenarios"><div class="card">
@@ -141,12 +142,16 @@ J("/api/forecast/summary").then(s => {
   meths.forEach(x => { h += `<tr><td>${x}</td>` + hs.map(hh => { const r = rows.find(r => r.method===x && r.horizon===hh);
     return `<td>${r ? (r.test_gain_vs_persistence_pct>=0?"+":"") + r.test_gain_vs_persistence_pct.toFixed(1) + "%" : "-"}</td>`; }).join("");
     const r12 = rows.find(r => r.method===x && r.horizon==="h12"); h += `<td>${r12 ? pct(r12.coverage90) : "-"}</td></tr>`; });
-  document.getElementById("ftable").innerHTML = h + "</table><div class='lbl'>Selected on validation: " +
+  document.getElementById("ftable").innerHTML = h + "</table><div class='lbl'>cnn_lstm_*: retrained on a GPU (3 seeds, 60 minutes only; not part of the validation choice). Selected on validation: " +
     Object.entries(s.selected_on_validation).filter(([k]) => k.startsWith("original")).map(([k,v]) => `${k.split("/")[1]}: ${v}`).join(", ") + "</div>";
   drawForecast();
 });
-function drawForecast(){ const f = document.getElementById("flow").value, h = document.getElementById("hz").value, m = document.getElementById("meth").value || "persistence";
-  J(`/api/forecast?flow=${f}&horizon=${h}&method=${m}&limit=2016`).then(d => Plotly.newPlot("fplot", [
+function drawForecast(){ const f = document.getElementById("flow").value, m = document.getElementById("meth").value || "persistence";
+  const neural = m.startsWith("cnn_lstm"), note = document.getElementById("fnote");
+  if (neural && document.getElementById("hz").value !== "12") document.getElementById("hz").value = "12";
+  note.textContent = neural ? "CNN-LSTM retrained on a GPU (A100), mean of 3 seeds; 60-minute horizon only." : "";
+  const h = document.getElementById("hz").value, panel = neural ? "&panel=abilene_neural" : "";
+  J(`/api/forecast?flow=${f}&horizon=${h}&method=${m}${panel}&limit=2016`).then(d => Plotly.newPlot("fplot", [
     {x:d.step, y:d.hi, mode:"lines", line:{width:0}, showlegend:false, hoverinfo:"skip"},
     {x:d.step, y:d.lo, mode:"lines", fill:"tonexty", line:{width:0}, name:"90% interval", fillcolor: dark ? "rgba(90,160,240,0.38)" : "rgba(42,120,214,0.25)"},
     {x:d.step, y:d.actual, mode:"lines", name:"actual", line:{color: dark ? "#ddd" : "#333", width:1}},
