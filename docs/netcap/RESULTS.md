@@ -18,7 +18,7 @@ the original).
 | 4 Anomaly detection | done (weak results) | detectors catch dropouts, rarely spikes or shifts |
 | Neural retrain | done (GPU, A100, 2026-11-03) | 3 of 3 reference numbers inside the 3-seed band; the seasonal match is weak (wide band) |
 | 5 API + dashboard | done | FastAPI + static Plotly page; TF-free (tested) |
-| 6 Engineering | done | CI written (runs on first push); Compose and kind stacks run and checked end to end |
+| 6 Engineering | done | CI runs on GitHub (10 of 10 `ci` runs succeeded); Compose and kind stacks run and checked end to end |
 | 7 Results and docs | done | this file, summary.json, RESUME_FACTS.md, INTERVIEW_NOTES.md |
 
 ## Phase 1: data layer (`phase1_summary.json`, `phase1_report.md`)
@@ -33,8 +33,8 @@ the original).
   help (235.4 ms); monthly range partitions give 71.6 ms (3.2×). Idle re-measurement: see Phase 6.
 - MAWI 2025-10-01 14:00 (real WIDE traffic): **207,302,561 IP packets reconciled exactly** across an independent pcap
   walk, softflowd's counters and the 56,523,852 decoded flow records; 0 export failures. Bounded-memory pipeline:
-  1.85 GB peak footprint, 0 system-wide swap-outs, 415.8 s to process exit, 0.09 s teardown (first version: 16.8 GB,
-  superseded).
+  1.85 GB peak footprint, 0 system-wide swap-outs, 415.8 s to process exit, 0.09 s teardown; pipeline peak RSS 1.41 GB vs 7.86 GB for the
+  superseded whole-trace-in-memory version (`phase1_mawi_202510011400.json`).
 
 ## Phase 2: forecasting (`phase2_forecast_abilene.json`, `phase2_forecast_cesnet_1h.json`, `phase2_report.md`)
 - Forecasting module reproduced on identical folds: persistence (= `metrics.csv`), blend −2.3 / −2.8 / −1.7% and the base
@@ -49,7 +49,9 @@ the original).
   not back to persistence (89.9); clipping does not rescue ridge; the GBM is at 83.0 without any fix.
 - Negative: frozen ridge (−80% to −109%), frozen SARIMA-type model (−12% to −123% on the 10 busiest flows; the
   validation-chosen order, added after seeing results, gives −13% to +5%).
-- 90% split-conformal intervals: 84.8-86.1% coverage in the original test period, 89-90% in folds A-C (GBM, 60 min).
+- 90% split-conformal intervals, original test period: 84.8-86.1% coverage for 10 of the 14 methods (GBM 85.3-85.9%);
+  lower for ridge (74.8-80.4%), ridge_clip (75.7-81.2%), ridge_basedef (83.5-85.0%) and mean7 (84.5%). Folds A-C:
+  GBM 89.3-90.3% at every horizon. The GPU-retrained CNN-LSTMs: 85.4-85.7% (`phase_neural_coverage.json`).
 - CESNET (283 institutions, hourly): GBM chosen in all 8 cases, +16.6% to +20.3% at 1 hour and +44.0% to +50.2% at
   6 hours over persistence.
 
@@ -109,6 +111,8 @@ Test MAE gain vs persistence (3-seed mean forecast; "reproduced" = reference ins
 | seasonal CNN-LSTM | +2.18% | −1.62 / +3.14 / +3.32 | [−4.00, +7.22] | +2.9% | yes (weak: wide band) |
 | seasonal + fallback rule (k = 5) | **+11.22%** | +10.18 / +10.84 / +10.93 | [+9.83, +11.47] | +10.8% | **yes** |
 
+- 90% interval coverage of the exported 3-seed mean forecasts: base 85.7%, seasonal 85.4%, rule 85.4% (GBM 85.7%,
+  persistence 86.1% on the same test period; `phase_neural_coverage.json`).
 - The rule is the clean reproduction. The seasonal band is so wide that it would contain almost any value; the base model
   barely beats persistence (band includes 0). The rule falls back to persistence on 0.29% of test points.
 - On the same test rows the GBM is better: +18.0% vs +11.2% (Phase 2), and 0.426 vs 0.446 pp link-load MAE (Phase 3).
@@ -127,15 +131,16 @@ upgrade, ASSUMED inputs labelled), the TE LP, anomalies (from Postgres), every r
 page. Static Plotly dashboard at `/` (tabs: overview with the warnings finding, network map, forecasts, scenarios,
 anomalies, limitations). Structured JSON request logs. TF-free (tested). All endpoints return 200 on the real results.
 
-## Phase 6: engineering quality (`phase6_quality.json`, `phase6_idle_*.json`)
-- Tests: **48 passed, 0 failed, 0 skipped** (re-run with Docker up: same) (with the raw data present; in CI, tests that need raw data are skipped).
-- Coverage 44.3% overall (45.1% before the stack-check script was added); by package: store 100%, db 85.7%, data 80.0%, netcap_app 77.6%, scenario 46.5%,
-  forecast 43.1%, anomaly 42.7%, pipeline 9.1%, bench / ops / report 0% (CLIs exercised only by the recorded runs).
-  Not padded.
+## Phase 6: engineering quality (`phase6_quality.json`, `phase6_ci_runs.json`, `phase6_idle_*.json`)
+- Tests: **55 passed, 0 failed, 0 skipped** with the raw data present, Docker up (`phase6_quality.json`, commit `ae9c4dd`;
+  in CI, tests that need raw data are skipped). Earlier runs had 48 (`phase6_quality_run2_48_tests.json`, superseded).
+- Coverage, same run: **46.1%** overall; by package: store 100%, db 85.7%, netcap_app 86.5%, data 80.0%, scenario 63.5%,
+  netcap (root modules) 62.8%, forecast 43.1%, anomaly 42.7%, pipeline 9.1%, bench / ops / report 0% (CLIs exercised
+  only by the recorded runs). Not padded.
 - ruff, yamllint, kubeconform (7/7 resources valid, strict), kustomize build, `docker compose config`: all pass.
 - **Docker Compose (Postgres, API, Prometheus, ingest job) and Kubernetes on kind (Postgres StatefulSet, 2 API replicas, ingest Job, NodePort) were run and checked end to end: every endpoint 200, database reachable, Prometheus scraping the API, ingest re-run changes nothing (`phase6_stack_compose.json`, `phase6_stack_kind.json`).** Docker 28.3.2, kind; image 1.59 GB. Two bugs found and fixed by running it: provenance needed `git` (absent in the image), and `POST /api/te` rejected a JSON body (422).
 - CI (`.github/workflows/ci.yml`): lint, tests with a Postgres service and coverage, image build, compose config,
-  kubeconform. Not run yet (no remote).
+  kubeconform. Runs on every push to GitHub: 10 of 10 `ci` runs succeeded, latest on `1e70b0a` (`phase6_ci_runs.json`).
 
 Benchmarks re-run after all other jobs (load average recorded; macOS's Storage scan kept the 5-minute load just
 above 4 for three of them, so they are labelled "upper bound, measured under CPU contention"):
@@ -145,7 +150,7 @@ above 4 for three of them, so they are labelled "upper bound, measured under CPU
 | MAWI trace, chunked pipeline (`phase6_idle_mawi_process.json`) | 411.3 s to exit, 0.07 s teardown, peak footprint 1.63 GB, packets reconciled exactly again | idle |
 | MAWI swap-outs in that run | 69,364 system-wide (the earlier identical run had 0; not attributable, see caveat) | idle |
 | CESNET → Parquet, 12,405,074 rows | 6.5 s, 1.90M rows/s | upper bound, under contention |
-| CESNET → Postgres re-upsert, 12,405,074 rows | 60.4 s, 205k rows/s, 0 rows changed | upper bound, under contention |
+| CESNET → Postgres re-upsert, 12,405,074 rows | 60.4 s, 205k rows/s, 0 rows changed | idle (load 3.49 at save) |
 | Query latency (Postgres, indexed / partitioned) | Q1 0.39 / 0.39 ms, Q2 236.9 / 74.1 ms, Q3 3.83 / 4.01 ms (heap 187.7 / 234.7 / 198.6 ms) | upper bound, under contention |
 | Forecasting, Abilene 60 min (2,341,440 forecasts) | GBM fit 6.4 s, predict 6.8 s (342k forecasts/s); ETS select + forecast 0.78 s | upper bound, under contention |
 | Forecasting, CESNET 1 h (743,121 forecasts) | GBM fit 6.9 s, predict 1.9 s (384k forecasts/s) | upper bound, under contention |

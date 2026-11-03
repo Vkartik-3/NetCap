@@ -77,7 +77,8 @@ flowchart LR
   `ON CONFLICT … WHERE IS DISTINCT FROM`). A re-run changes 0 rows and 0 files, verified with row checksums.
 - **CESNET-TimeSeries24** institutions: 10,446,225 rows at 10 minutes (12,405,074 over three aggregations).
 - **MAWI packet trace → flow records**: softflowd exporting IPFIX over TCP to a custom collector and numpy decoder, then
-  chunked aggregation with DuckDB spill. Peak memory went from 16.8 GB to **1.85 GB**.
+  chunked aggregation with DuckDB spill. Pipeline peak RSS went from 7.86 GB to **1.41 GB** (1.85 GB peak footprint
+  including softflowd), with 0 swap-outs in that run.
 - **Query tuning** on the 10.4M-row table: a composite B-tree takes a one-institution, one-week query from **186 ms
   to 0.37 ms**. For a month-wide aggregate the index is useless and monthly range partitions win (230 → 72 ms).
 

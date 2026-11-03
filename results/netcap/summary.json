@@ -1,18 +1,18 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 2.95751953125,
+  "load_average_1min": 2.7236328125,
   "cpu_count": 8,
   "timing_label": "measured on an otherwise idle machine"
  },
  "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/report/summary.py",
- "date": "2026-11-03T18:30:10+00:00",
+ "date": "2026-11-03T18:49:51+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "eb08fa0acfa982ccc1f1322b4c2642db2110be72",
-  "dirty": true,
-  "netcap_source_sha256": "b6a92581221c691f463648160d5959cf17501ea01c73ad37d8480f81ce6e1116",
+  "netcap_commit": "ae9c4ddd9ee5fda16c2f8a5b851b8b013bca499c",
+  "dirty": false,
+  "netcap_source_sha256": "44ae85c8fdbf5523350b5f4f13fd19897b84490faf8a1472436b85dd346eb31b",
   "project_release": "1.0"
  },
  "data_version": {
@@ -2567,14 +2567,14 @@
  "phase6": {
   "tests": {
    "value": {
-    "passed": 48,
+    "passed": 55,
     "skipped": 0,
     "failed": 0
    },
    "source": "phase6_quality.json: tests"
   },
   "coverage_total_percent": {
-   "value": 44.3,
+   "value": 46.1,
    "source": "phase6_quality.json: coverage_total_percent"
   },
   "coverage_by_package": {
@@ -2611,7 +2611,7 @@
     },
     "netcap/ops": {
      "covered": 0,
-     "statements": 188,
+     "statements": 207,
      "percent": 0.0
     },
     "netcap/pipeline": {
@@ -2621,13 +2621,13 @@
     },
     "netcap/report": {
      "covered": 0,
-     "statements": 90,
+     "statements": 188,
      "percent": 0.0
     },
     "netcap/scenario": {
-     "covered": 165,
-     "statements": 355,
-     "percent": 46.5
+     "covered": 299,
+     "statements": 471,
+     "percent": 63.5
     },
     "netcap/store": {
      "covered": 45,
@@ -2635,9 +2635,9 @@
      "percent": 100.0
     },
     "netcap_app": {
-     "covered": 138,
-     "statements": 175,
-     "percent": 78.9
+     "covered": 167,
+     "statements": 193,
+     "percent": 86.5
     }
    },
    "source": "phase6_quality.json: coverage_by_package"

@@ -103,9 +103,10 @@ Uncertainty and significance
 
 | File | Superseded by | Reason |
 |---|---|---|
-| `phase1_mawi_202510011400.json`, `phase1_mawi_202510011400_rerun.json` | `phase1_mawi_202510011400_chunked_lowmem*.json` | whole trace held in memory (16.8 GB peak); memory and timing numbers not used |
+| `phase1_mawi_202510011400.json`, `phase1_mawi_202510011400_rerun.json` | `phase1_mawi_202510011400_chunked_lowmem*.json` | whole trace held in memory (peak RSS 7.86 GB); memory and timing numbers not used |
 | `phase1_mawi_202510011400_chunked*.json` (attempt 1) | `..._chunked_lowmem*.json` | system-wide swap-outs during the run (92,796) while an idle control had 0 |
 | `phase2_forecast_abilene_quickcheck_primary_h12.json` | `phase2_forecast_abilene.json` | one fold and horizon, no ARIMA: a functional check before the full run |
+| `phase6_quality_run2_48_tests.json` | `phase6_quality.json` | 48 tests, before the tests added on 2026-11-03; re-run so tests and coverage come from one run |
 | `phase2_forecast_abilene_run1_frozen_arima_only.json` | `phase2_forecast_abilene.json` | before the post-hoc `arima_dhr_sel` variant (2.5) existed; every other number is identical in both (the run is seeded and deterministic; checked) |
 
 ## Timing labels and the neural retrain (user decision, 2026-11-02)
@@ -166,3 +167,15 @@ Uncertainty and significance
   overload above 0.8 (sum over core links of max(0, worst-case utilisation − 0.8)) per Gbit/s": at factor 1.2 two
   mirror links tie at 92.8%, so no single upgrade lowers the maximum and the max-only plan stopped early. A link exactly
   at 0.8 counts as overloaded (a test caught the zero-overload stall). At factor 1.0 both objectives give the same plan.
+
+## Fixes recorded after the fact (2026-11-03)
+- **API units bug** (commit `cae69ef`): `/api/forecast` chose its unit conversion with `panel == "abilene"`, so the new
+  `panel=abilene_neural` would have been converted with CESNET's factor (bytes per hour) instead of Abilene's (100 bytes
+  per 5 minutes). Changed to `panel.startswith("abilene")`; a regression test checks that both panels return the same
+  Mbit/s for the same flow and steps. Caught before the neural forecasts were served; no result file changed.
+- **Private Postgres port**: started without a port, the local cluster (`data_netcap/pgdata`) tried 5432, which the system
+  Postgres already uses, and failed ("could not create any TCP/IP sockets"); `netcap.scenario.run` then could not store
+  its rows. Start it with `pg_ctl -D data_netcap/pgdata -l data_netcap/pg.log -o "-p 5433" start` (the default
+  `NETCAP_DATABASE_URL` uses 5433). No result changed.
+- Neural forecast interval coverage is now saved (`phase_neural_coverage.json`, `netcap.report.neural_coverage`) instead
+  of being computed only by the API; GitHub Actions runs are recorded in `phase6_ci_runs.json` (`netcap.ops.ci_status`).

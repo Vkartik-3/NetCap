@@ -1,0 +1,49 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 5.07470703125,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/report/neural_coverage.py",
+ "date": "2026-11-03T18:48:23+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "ae9c4ddd9ee5fda16c2f8a5b851b8b013bca499c",
+  "dirty": false,
+  "netcap_source_sha256": "44ae85c8fdbf5523350b5f4f13fd19897b84490faf8a1472436b85dd346eb31b",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "forecasts": "data_netcap/forecasts/panel=abilene_neural/h=12 (from phase_neural_retrain.json)"
+ },
+ "level": 0.9,
+ "horizon_minutes": 60,
+ "fold": "original",
+ "methods": {
+  "cnn_lstm_base": {
+   "coverage_two_sided": 0.856750228890802,
+   "coverage_upper": 0.8997979270009155,
+   "mean_width_mbps": 19.55293402930513,
+   "cells": 1170864
+  },
+  "cnn_lstm_seasonal": {
+   "coverage_two_sided": 0.8536918036595198,
+   "coverage_upper": 0.8940568674073163,
+   "mean_width_mbps": 17.406493080649927,
+   "cells": 1170864
+  },
+  "cnn_lstm_seasonal_rule": {
+   "coverage_two_sided": 0.8537387775181404,
+   "coverage_upper": 0.8942464709821124,
+   "mean_width_mbps": 17.40453099545641,
+   "cells": 1170864
+  }
+ },
+ "reference_coverage_two_sided_phase2": {
+  "persistence": 0.8611392954262835,
+  "gbm": 0.8565623334563195
+ },
+ "note": "split-conformal 90% intervals, per-flow margins from validation errors of the 3-seed mean forecast"
+}

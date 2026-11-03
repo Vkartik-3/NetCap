@@ -1,26 +1,26 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 3.3212890625,
+  "load_average_1min": 4.53515625,
   "cpu_count": 8,
-  "timing_label": "measured on an otherwise idle machine"
+  "timing_label": "upper bound, measured under CPU contention"
  },
- "command": "python <repo>/netcap/ops/quality.py",
- "date": "2026-11-03T04:57:52+00:00",
+ "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/ops/quality.py",
+ "date": "2026-11-03T18:48:45+00:00",
  "seed": 42,
  "python": "3.13.13",
  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
  "code": {
-  "netcap_commit": "project-release-1.0",
-  "dirty": true,
-  "netcap_source_sha256": "26c84c6e2c849c1ff261475be575575cc6b476094a0b60b6f5a9cb42e4433c92",
+  "netcap_commit": "ae9c4ddd9ee5fda16c2f8a5b851b8b013bca499c",
+  "dirty": false,
+  "netcap_source_sha256": "44ae85c8fdbf5523350b5f4f13fd19897b84490faf8a1472436b85dd346eb31b",
   "project_release": "1.0"
  },
  "data_version": "n/a",
  "tests": {
-  "cmd": "<repo>/.venv/bin/python -m pytest -q -ra --cov=netcap --cov=netcap_app --cov-report=json:coverage.json --cov-report=term",
+  "cmd": "/Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/.venv/bin/python -m pytest -q -ra --cov=netcap --cov=netcap_app --cov-report=json:coverage.json --cov-report=term",
   "returncode": 0,
-  "tail": "h/query_latency.py           124    124     0%\nnetcap/config.py                         11      0   100%\nnetcap/data/__init__.py                   0      0   100%\nnetcap/data/abilene.py                  119      2    98%\nnetcap/data/cesnet.py                    32      1    97%\nnetcap/data/ipfix.py                     98     16    84%\nnetcap/data/mawi.py                     192     34    82%\nnetcap/data/pcapcount.py                 44     44     0%\nnetcap/db/__init__.py                     0      0   100%\nnetcap/db/load.py                        56      8    86%\nnetcap/forecast/__init__.py               0      0   100%\nnetcap/forecast/evaluate.py              57     20    65%\nnetcap/forecast/methods.py              230     85    63%\nnetcap/forecast/panel.py                 91     26    71%\nnetcap/forecast/run.py                  195    195     0%\nnetcap/logs.py                           24      1    96%\nnetcap/ops/__init__.py                    0      0   100%\nnetcap/ops/cleanup.py                    44     44     0%\nnetcap/ops/label_timings.py              18     18     0%\nnetcap/ops/measure.py                    32     32     0%\nnetcap/ops/quality.py                    46     46     0%\nnetcap/ops/stack_check.py                48     48     0%\nnetcap/pipeline/__init__.py               0      0   100%\nnetcap/pipeline/ingest.py                65     65     0%\nnetcap/pipeline/mawi_ingest.py          106    106     0%\nnetcap/pipeline/phase1_summary.py        25     25     0%\nnetcap/pipeline/to_parquet.py            64     38    41%\nnetcap/pipeline/to_postgres.py           27     27     0%\nnetcap/provenance.py                     50     31    38%\nnetcap/report/__init__.py                 0      0   100%\nnetcap/report/summary.py                 90     90     0%\nnetcap/scenario/__init__.py               0      0   100%\nnetcap/scenario/engine.py               115      8    93%\nnetcap/scenario/run.py                  174    174     0%\nnetcap/scenario/store.py                 28      6    79%\nnetcap/scenario/te.py                    38      2    95%\nnetcap/store/__init__.py                  0      0   100%\nnetcap/store/parquet.py                  45      0   100%\nnetcap_app/__init__.py                    0      0   100%\nnetcap_app/api.py                       175     37    79%\n---------------------------------------------------------\nTOTAL                                  2725   1517    44%\nCoverage JSON written to file coverage.json\n48 passed, 1 warning in 21.07s\n",
-  "passed": 48,
+  "tail": "/abilene.py                  119      2    98%\nnetcap/data/cesnet.py                    32      1    97%\nnetcap/data/ipfix.py                     98     16    84%\nnetcap/data/mawi.py                     192     34    82%\nnetcap/data/pcapcount.py                 44     44     0%\nnetcap/db/__init__.py                     0      0   100%\nnetcap/db/load.py                        56      8    86%\nnetcap/forecast/__init__.py               0      0   100%\nnetcap/forecast/evaluate.py              57     20    65%\nnetcap/forecast/methods.py              230     85    63%\nnetcap/forecast/panel.py                 91     26    71%\nnetcap/forecast/run.py                  195    195     0%\nnetcap/logs.py                           24      1    96%\nnetcap/ops/__init__.py                    0      0   100%\nnetcap/ops/ci_status.py                  19     19     0%\nnetcap/ops/cleanup.py                    44     44     0%\nnetcap/ops/label_timings.py              18     18     0%\nnetcap/ops/measure.py                    32     32     0%\nnetcap/ops/quality.py                    46     46     0%\nnetcap/ops/stack_check.py                48     48     0%\nnetcap/pipeline/__init__.py               0      0   100%\nnetcap/pipeline/ingest.py                65     65     0%\nnetcap/pipeline/mawi_ingest.py          106    106     0%\nnetcap/pipeline/phase1_summary.py        25     25     0%\nnetcap/pipeline/to_parquet.py            64     38    41%\nnetcap/pipeline/to_postgres.py           27     27     0%\nnetcap/provenance.py                     50     31    38%\nnetcap/report/__init__.py                 0      0   100%\nnetcap/report/neural_coverage.py         20     20     0%\nnetcap/report/static_site.py             73     73     0%\nnetcap/report/summary.py                 95     95     0%\nnetcap/scenario/__init__.py               0      0   100%\nnetcap/scenario/engine.py               115      1    99%\nnetcap/scenario/run.py                  290    163    44%\nnetcap/scenario/store.py                 28      6    79%\nnetcap/scenario/te.py                    38      2    95%\nnetcap/store/__init__.py                  0      0   100%\nnetcap/store/parquet.py                  45      0   100%\nnetcap_app/__init__.py                    0      0   100%\nnetcap_app/api.py                       193     26    87%\n---------------------------------------------------------\nTOTAL                                  2976   1605    46%\nCoverage JSON written to file coverage.json\n55 passed, 1 warning in 20.19s\n",
+  "passed": 55,
   "skipped": 0,
   "failed": 0
  },
@@ -57,7 +57,7 @@
   },
   "netcap/ops": {
    "covered": 0,
-   "statements": 188,
+   "statements": 207,
    "percent": 0.0
   },
   "netcap/pipeline": {
@@ -67,13 +67,13 @@
   },
   "netcap/report": {
    "covered": 0,
-   "statements": 90,
+   "statements": 188,
    "percent": 0.0
   },
   "netcap/scenario": {
-   "covered": 165,
-   "statements": 355,
-   "percent": 46.5
+   "covered": 299,
+   "statements": 471,
+   "percent": 63.5
   },
   "netcap/store": {
    "covered": 45,
@@ -81,19 +81,19 @@
    "percent": 100.0
   },
   "netcap_app": {
-   "covered": 138,
-   "statements": 175,
-   "percent": 78.9
+   "covered": 167,
+   "statements": 193,
+   "percent": 86.5
   }
  },
- "coverage_total_percent": 44.3,
+ "coverage_total_percent": 46.1,
  "ruff": {
-  "cmd": "<repo>/.venv/bin/python -m ruff check netcap netcap_app tests_netcap",
+  "cmd": "/Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/.venv/bin/python -m ruff check netcap netcap_app tests_netcap",
   "returncode": 0,
   "tail": "All checks passed!\n"
  },
  "yamllint": {
-  "cmd": "<repo>/.venv/bin/python -m yamllint docker-compose.yml infra .github",
+  "cmd": "/Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/.venv/bin/python -m yamllint docker-compose.yml infra .github",
   "returncode": 0,
   "tail": ""
  },

@@ -1,0 +1,180 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 5.07470703125,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python /Users/kartikvadhawana/Desktop/apple new post project power infra/netcap/netcap/ops/ci_status.py",
+ "date": "2026-11-03T18:48:23+00:00",
+ "seed": 42,
+ "python": "3.13.13",
+ "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "code": {
+  "netcap_commit": "ae9c4ddd9ee5fda16c2f8a5b851b8b013bca499c",
+  "dirty": false,
+  "netcap_source_sha256": "44ae85c8fdbf5523350b5f4f13fd19897b84490faf8a1472436b85dd346eb31b",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "source": "https://api.github.com/repos/Vkartik-3/NetCap/actions/runs?per_page=20"
+ },
+ "repository": "Vkartik-3/NetCap",
+ "total_runs_reported": 16,
+ "runs": [
+  {
+   "commit": "5bb5387",
+   "workflow": "pages build and deployment",
+   "event": "dynamic",
+   "branch": "gh-pages",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T18:30:37Z"
+  },
+  {
+   "commit": "1e70b0a",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T18:30:26Z"
+  },
+  {
+   "commit": "4a92baf",
+   "workflow": "pages build and deployment",
+   "event": "dynamic",
+   "branch": "gh-pages",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:52:26Z"
+  },
+  {
+   "commit": "eb08fa0",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:52:12Z"
+  },
+  {
+   "commit": "e4af150",
+   "workflow": "pages build and deployment",
+   "event": "dynamic",
+   "branch": "gh-pages",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:48:44Z"
+  },
+  {
+   "commit": "4301e36",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:48:33Z"
+  },
+  {
+   "commit": "010b5dc",
+   "workflow": "pages build and deployment",
+   "event": "dynamic",
+   "branch": "gh-pages",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:46:42Z"
+  },
+  {
+   "commit": "bcd8bab",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:46:28Z"
+  },
+  {
+   "commit": "d45ba4b",
+   "workflow": "pages build and deployment",
+   "event": "dynamic",
+   "branch": "gh-pages",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:35:18Z"
+  },
+  {
+   "commit": "cae69ef",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:34:54Z"
+  },
+  {
+   "commit": "e365bfb",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T17:28:36Z"
+  },
+  {
+   "commit": "25f076d",
+   "workflow": "pages build and deployment",
+   "event": "dynamic",
+   "branch": "gh-pages",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T05:49:04Z"
+  },
+  {
+   "commit": "edd6b8c",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T05:48:50Z"
+  },
+  {
+   "commit": "7ce1cdb",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T05:40:21Z"
+  },
+  {
+   "commit": "021c864",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T05:33:46Z"
+  },
+  {
+   "commit": "501c9e4",
+   "workflow": "ci",
+   "event": "push",
+   "branch": "main",
+   "status": "completed",
+   "conclusion": "success",
+   "created_at": "2026-11-03T05:29:08Z"
+  }
+ ],
+ "ci_runs": 10,
+ "ci_success": 10,
+ "latest_ci": {
+  "commit": "1e70b0a",
+  "workflow": "ci",
+  "event": "push",
+  "branch": "main",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-11-03T18:30:26Z"
+ }
+}

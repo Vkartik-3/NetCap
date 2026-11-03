@@ -53,8 +53,10 @@ as reversion to the training level on two flows whose level shifted. Added varia
 validation: −13.2% to +5.3% (original fold +5.1 / +5.3 / +0.4%). The GBM is better than both on these flows.
 
 ## Intervals
-Split-conformal 90% (per-flow margins from validation): test coverage 84.8-86.1% in the original fold for every method
-(the test period is burstier than validation, as the forecasting module found), 89-90% in folds A-C (GBM, 60 min).
+Split-conformal 90% (per-flow margins from validation): test coverage 84.8-86.1% in the original fold for 10 of the 14
+methods (GBM 85.3-85.9%; the test period is burstier than validation, as the forecasting module found). Lower for
+ridge (74.8-80.4%), ridge_clip (75.7-81.2%), ridge_basedef (83.5-85.0%) and mean7 (84.5%). Folds A-C: GBM 89.3-90.3%
+at every horizon.
 
 ## CESNET (283 institutions, 1-hour bytes; method chosen on validation)
 GBM or GBM + rule selected in all 8 cases: +16.6% to +20.3% at 1 hour, +44.0% to +50.2% at 6 hours over persistence

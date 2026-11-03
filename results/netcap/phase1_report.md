@@ -49,10 +49,13 @@ Memory follow-up (bounded-memory rewrite; only these re-measured numbers are use
 
 | Run | Chunk / DuckDB limit | Process wall to exit | Teardown | Peak footprint | Pipeline peak RSS | softflowd etc. peak RSS | System-wide swap-outs |
 |---|---|---|---|---|---|---|---|
-| Phase 1 original (superseded) | whole trace in memory | 1,465 s | ≈ 900 s | 16.8 GB | – | – | not measured |
+| Phase 1 original (superseded) | whole trace in memory | 1,465 s* | ≈ 900 s* | 16.8 GB* | 7.86 GB | – | not measured |
 | attempt 1 | 4M records / 3 GB | 440.7 s | 0.10 s | 3.77 GB | 2.77 GB | 1.55 GB | **92,796** |
 | attempt 2 (used) | 1M records / 1 GB | **415.8 s** | **0.09 s** | **1.85 GB** | 1.41 GB | 1.56 GB | **0** |
 | idle control (`sleep 440`) | – | 440.2 s | – | – | – | – | 0 |
+
+\* Not recorded in any result file (how they were measured is not documented); `phase1_mawi_202510011400.json` records the pipeline's
+peak RSS (7,861,927,936 bytes) and 566.0 s in-process wall time. Comparisons use peak RSS: 7.86 GB → 1.41 GB.
 
 Throughput of the used run: softflowd 193.0 s for the trace (1.08M pcap records/s), decode + aggregation 206.2 s
 (57 chunks, 412 MB of temporary spill files, deleted). Aggregates equal Phase 1's: three tables byte-identical;
