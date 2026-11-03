@@ -39,6 +39,8 @@ htmlcov/
 RESUME_FACTS.md
 INTERVIEW_NOTES.md
 NEXT_STEPS.md
+GPU_RETRAIN_LOG.md
+results/netcap/gpu_run_logs/
 NetCap_Project_Explanation_Guide.pdf
 docs/presentation/
 .vscode/

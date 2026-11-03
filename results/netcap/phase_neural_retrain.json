@@ -1,42 +1,125 @@
 {
  "cpu_at_save": {
-  "load_average_1min": 19.90771484375,
+  "load_average_1min": 66.01708984375,
   "cpu_count": 8,
   "timing_label": "upper bound, measured under CPU contention"
  },
- "command": "python <repo>/netcap/neural/retrain.py --record-not-run",
- "date": "2026-11-03T03:49:56+00:00",
+ "command": "python /home/ubuntu/netcap/netcap/neural/retrain.py",
+ "date": "2026-11-03T17:22:58+00:00",
  "seed": 42,
- "python": "3.13.13",
- "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+ "python": "3.12.13",
+ "platform": "Linux-6.8.0-134-generic-x86_64-with-glibc2.35",
  "code": {
-  "netcap_commit": "project-release-1.0",
-  "dirty": true,
-  "netcap_source_sha256": "0b47f49ab84f0059383b9d50eee0b92bb25af035a78f0daac18706dc18daae5a",
+  "netcap_commit": "bb79b11710842e5fcfdaaa1d8160bfe86d8d66e7",
+  "dirty": false,
+  "netcap_source_sha256": "178a24d1b1f1ba1803142fc7a09a31cbef74df36a13038243492e9f9ef2f68ad",
   "project_release": "1.0"
  },
- "data_version": "n/a (not run)",
- "status": "not run: needs GPU (no NVIDIA GPU on this machine)",
- "decision": "user chose to skip the CPU retrain and its timing gate to save time",
- "planned": {
-  "dataset": "abilene",
-  "horizon_steps": 12,
-  "fold": "original",
-  "seeds": [
-   42,
-   43,
-   44
-  ],
-  "models": [
-   "cnn_lstm_base",
-   "cnn_lstm_seasonal (+ fallback rule)"
-  ],
-  "settings": {
-   "epochs": 200,
-   "patience": 15,
-   "lr": 0.001
+ "data_version": {
+  "abilene": "processed/h12 (common.prepare_abilene)"
+ },
+ "results": {
+  "base": {
+   "test_gain_3seed_mean_forecast_pct": 0.7926043297172836,
+   "val_gain_pct": 2.344672034748607,
+   "test_gain_per_seed_pct": [
+    0.05251838621104232,
+    0.9143479322206272,
+    0.6895141287121098
+   ],
+   "seed_band_mean_pm_2sd": [
+    -0.3419514737506639,
+    1.4462051051798501
+   ],
+   "reference_pct": 1.1,
+   "reproduced": true
+  },
+  "seasonal": {
+   "test_gain_3seed_mean_forecast_pct": 2.179178569835749,
+   "val_gain_pct": 13.462448423588015,
+   "test_gain_per_seed_pct": [
+    -1.6246454428894275,
+    3.136880809846454,
+    3.3241831549563505
+   ],
+   "seed_band_mean_pm_2sd": [
+    -3.997264436956338,
+    7.221543451565256
+   ],
+   "reference_pct": 2.9,
+   "reproduced": true
+  },
+  "rule": {
+   "test_gain_3seed_mean_forecast_pct": 11.21919967816586,
+   "val_gain_pct": 13.471296350063355,
+   "test_gain_per_seed_pct": [
+    10.182943749113814,
+    10.841245707525292,
+    10.934493344938279
+   ],
+   "seed_band_mean_pm_2sd": [
+    9.833592375207418,
+    11.472196159177505
+   ],
+   "reference_pct": 10.8,
+   "reproduced": true
   }
  },
- "gpu_command": "python -m venv .venv-tf && .venv-tf/bin/pip install -r requirements-gpu.txt polars==2.1.0 pyarrow==26.0.0 && .venv-tf/bin/python -m netcap.neural.retrain --time-one-epoch && .venv-tf/bin/python -m netcap.neural.retrain",
- "claims": "none: the forecasting module's neural results are not claimed by NetCap"
+ "rule_k": 5,
+ "rule_val_gain_by_k": {
+  "3": 11.812051873032592,
+  "4": 12.759238527316318,
+  "5": 13.471296350063355,
+  "6": 13.416096507402486,
+  "8": 13.45351717550487
+ },
+ "rule_share_test": 0.0029046926030691866,
+ "persistence_test_mae_raw": 2308856.0804984416,
+ "fits": {
+  "netcap_retrain_abilene_h12_base_s42": {
+   "epochs": 47,
+   "best_val_loss": 0.20699980854988098,
+   "wall_s": 1.427854711189866
+  },
+  "netcap_retrain_abilene_h12_base_s43": {
+   "epochs": 17,
+   "best_val_loss": 0.20738084614276886,
+   "wall_s": 0.1395227238535881
+  },
+  "netcap_retrain_abilene_h12_base_s44": {
+   "epochs": 17,
+   "best_val_loss": 0.2073388546705246,
+   "wall_s": 0.1780222225934267
+  },
+  "netcap_retrain_abilene_h12_seasonal_s42": {
+   "epochs": 35,
+   "best_val_loss": 0.1839625984430313,
+   "wall_s": 0.14877214469015598
+  },
+  "netcap_retrain_abilene_h12_seasonal_s43": {
+   "epochs": 25,
+   "best_val_loss": 0.18447215855121613,
+   "wall_s": 0.14892576076090336
+  },
+  "netcap_retrain_abilene_h12_seasonal_s44": {
+   "epochs": 23,
+   "best_val_loss": 0.18435172736644745,
+   "wall_s": 0.15098543465137482
+  }
+ },
+ "reference_results": {
+  "base": 1.1,
+  "seasonal": 2.9,
+  "rule": 10.8,
+  "source": "docs/NETCAP_RESEARCH_LOG.md section 21.3 (GPU, 3-seed mean)"
+ },
+ "devices": [
+  "CPU",
+  "GPU"
+ ],
+ "gpu_names": [
+  "NVIDIA A100-SXM4-80GB"
+ ],
+ "tensorflow": "2.21.0",
+ "note": "GPU retrain; the reference numbers use GPU models (section 20.1: GPU and CPU differ slightly)"
 }

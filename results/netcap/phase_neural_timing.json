@@ -1,0 +1,33 @@
+{
+ "cpu_at_save": {
+  "load_average_1min": 77.36474609375,
+  "cpu_count": 8,
+  "timing_label": "upper bound, measured under CPU contention"
+ },
+ "command": "python /home/ubuntu/netcap/netcap/neural/retrain.py --time-one-epoch",
+ "date": "2026-11-03T17:12:29+00:00",
+ "seed": 42,
+ "python": "3.12.13",
+ "platform": "Linux-6.8.0-134-generic-x86_64-with-glibc2.35",
+ "code": {
+  "netcap_commit": "e6b58a5dceb23a40b7e434a760ffff583a469ee1",
+  "dirty": false,
+  "netcap_source_sha256": "abd564c922bfd1342664fda41fb4d09a22b098fe2bbf8a18458f3679627028b9",
+  "project_release": "1.0"
+ },
+ "data_version": {
+  "abilene": "processed/h12 (common.prepare_abilene)"
+ },
+ "seconds_one_epoch_incl_compile": 8.171784698963165,
+ "train_samples": 24388,
+ "max_epochs": 200,
+ "models": 6,
+ "projected_upper_bound_s": 9806.141638755798,
+ "budget_s": 10800,
+ "gate_passed": true,
+ "device": [
+  "CPU",
+  "GPU"
+ ],
+ "tensorflow": "2.21.0"
+}
