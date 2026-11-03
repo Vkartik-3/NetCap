@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>window.NETCAP_STATIC = {"flows": [26, 31, 86, 95, 104, 107, 133, 139, 140, 143], "methods": ["persistence", "gbm", "gbm_rule", "blend_rule", "blend_gate", "ets", "arima_dhr_sel"], "growth": [1, 1.5, 2]};</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NetCap</title>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+<style>
+  :root { --bg:#f7f7f5; --fg:#1d1d1f; --muted:#6b6b70; --card:#fff; --line:#dedee3; --accent:#2a78d6; --warn:#b4541a; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141416; --fg:#ececf0; --muted:#9a9aa3; --card:#1d1d21; --line:#2e2e35; --accent:#5aa0f0; --warn:#f09a5a; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
+  header { padding:16px 20px; border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; }
+  header h1 { font-size:20px; margin:0; }
+  header span { color:var(--muted); font-size:13px; }
+  nav { display:flex; gap:4px; padding:8px 16px; flex-wrap:wrap; border-bottom:1px solid var(--line); }
+  nav button { background:none; border:1px solid transparent; color:var(--fg); padding:6px 12px; border-radius:6px; cursor:pointer; font:inherit; }
+  nav button.on { border-color:var(--line); background:var(--card); }
+  main { padding:16px; max-width:1200px; margin:0 auto; }
+  section { display:none; } section.on { display:block; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:14px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
+  .k { font-size:24px; font-weight:600; } .lbl { color:var(--muted); font-size:13px; }
+  .note { color:var(--warn); font-size:13px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; } th, td { border-bottom:1px solid var(--line); padding:4px 6px; text-align:right; }
+  th:first-child, td:first-child { text-align:left; }
+  label { display:block; margin:6px 0 2px; color:var(--muted); font-size:13px; }
+  input, select { font:inherit; padding:4px 6px; background:var(--bg); color:var(--fg); border:1px solid var(--line); border-radius:4px; width:100%; max-width:320px; }
+  button.go { margin-top:10px; background:var(--accent); color:#fff; border:0; padding:6px 14px; border-radius:6px; cursor:pointer; font:inherit; }
+  pre { white-space:pre-wrap; font:13px/1.45 ui-monospace, Menlo, monospace; }
+  .plot { width:100%; min-height:360px; }
+</style>
+</head>
+<body>
+<header><h1>NetCap</h1><span>Backbone capacity planning on real Abilene traffic (2004). Every number is read from results/netcap/*.json.</span><span id="mode"></span></header>
+<nav id="tabs"></nav>
+<main>
+  <section id="overview"><div class="grid" id="kpis"></div>
+    <div class="card"><b>Finding: better forecasts did not give better congestion warnings.</b>
+      <div id="warn"></div></div></section>
+  <section id="network"><div class="card"><div id="map" class="plot"></div>
+    <div class="lbl">Link colour: peak 5-minute utilisation over all kept steps (blue &lt; 25%, amber 25-50%, red &ge; 50%); dotted = 2.48 Gbit/s link (all others 9.92 Gbit/s). Measured demand, OSPF routing.</div></div>
+    <div class="card"><label>Core link</label><select id="linksel"></select><div id="linkplot" class="plot"></div></div></section>
+  <section id="forecasts"><div class="card">
+    <label>Flow (0-143; 86 = LOSA to CHIN)</label><input id="flow" type="number" value="86" min="0" max="143">
+    <label>Horizon</label><select id="hz"><option value="1">5 min</option><option value="6">30 min</option><option value="12" selected>60 min</option></select>
+    <label>Method</label><select id="meth"></select>
+    <button class="go" onclick="drawForecast()">Show test-period forecast</button>
+    <div id="fplot" class="plot"></div></div>
+    <div class="card"><b>Test MAE vs persistence (original fold)</b><div id="ftable"></div></div></section>
+  <section id="scenarios"><div class="card">
+    <label>Growth factor (ASSUMED)</label><input id="g" type="number" value="1" step="0.1" min="0.1">
+    <label>Fail a link pair</label><select id="fl"><option value="">none</option></select>
+    <label>Fail a router</label><select id="fn"><option value="">none</option></select>
+    <label>Threshold (fraction of capacity)</label><input id="thr" type="number" value="0.5" step="0.05">
+    <button class="go" onclick="runScenario()">Evaluate on measured demand</button>
+    <div id="ssum"></div><div id="splot" class="plot"></div><pre id="sres"></pre></div></section>
+  <section id="anomalies"><div class="card"><label>Dataset</label><select id="ads"><option value="abilene">abilene</option><option value="cesnet_1h">cesnet_1h</option></select>
+    <label>Detector</label><select id="adt"><option>stl</option><option>iforest</option><option>threshold</option></select>
+    <button class="go" onclick="drawAnoms()">Top flagged test cells</button>
+    <div class="note">These evaluation runs contain INJECTED synthetic anomalies.</div><div id="atable"></div></div>
+    <div class="card" id="aeval"></div></section>
+  <section id="limits"><div class="card"><pre id="lim"></pre></div></section>
+</main>
+<script>
+const STATIC = window.NETCAP_STATIC || null;       // set in the GitHub Pages export: precomputed files, no API
+const TABS = [["overview","Overview"],["network","Network"],["forecasts","Forecasts"],["scenarios","Scenarios"],["anomalies","Anomalies"],["limits","Limitations"]];
+const nav = document.getElementById("tabs");
+function show(id){ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on", s.id===id));
+  nav.querySelectorAll("button").forEach(b=>b.classList.toggle("on", b.dataset.id===id));
+  try { localStorage.setItem("netcap-tab", id); } catch(e) {} }
+TABS.forEach(([id, t]) => { const b = document.createElement("button"); b.textContent = t; b.dataset.id = id; b.onclick = () => show(id); nav.appendChild(b); });
+let start = "overview"; try { start = localStorage.getItem("netcap-tab") || start; } catch(e) {}
+if (location.hash && TABS.some(([id]) => id === location.hash.slice(1))) start = location.hash.slice(1);
+show(start);
+if (STATIC) document.getElementById("mode").textContent = `Static demo: precomputed scenarios (growth ${STATIC.growth.join(" / ")}, threshold 0.5) and forecasts for flows ${STATIC.flows.join(", ")}.`;
+const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+const lay = (o) => Object.assign({paper_bgcolor:"rgba(0,0,0,0)", plot_bgcolor:"rgba(0,0,0,0)", font:{color: dark ? "#ececf0" : "#1d1d1f"}, margin:{l:50,r:20,t:30,b:40}}, o);
+function staticPath(u, o) {
+  const [path, q] = u.split("?"), qs = new URLSearchParams(q || "");
+  if (path === "/api/topology") return "data/topology.json";
+  if (path.startsWith("/api/link/")) return `data/link_${path.split("/")[3]}.json`;
+  if (path === "/api/forecast/summary") return "data/forecast_summary.json";
+  if (path === "/api/forecast") return `data/forecast_${qs.get("flow")}_${qs.get("horizon")}_${qs.get("method")}.json`;
+  if (path.startsWith("/api/results/")) return `data/results_${path.split("/")[3]}.json`;
+  if (path === "/api/anomalies") return `data/anomalies_${qs.get("dataset")}_${qs.get("detector")}.json`;
+  if (path === "/api/scenario") { const b = JSON.parse(o.body);
+    return `data/scenario_${(b.fail_links || []).join("-") || "none"}_${b.fail_node || "none"}_${b.growth_factor}.json`; }
+  if (path === "/api/limitations") return "data/limitations.md";
+  return null;
+}
+const MISSING = "Not precomputed in this static demo (GitHub Pages). Run the API locally for any input: uvicorn netcap_app.api:app";
+const J = (u, o) => {
+  const url = STATIC ? staticPath(u, o) : u;
+  if (!url) return Promise.reject(MISSING);
+  return fetch(url, STATIC ? undefined : o).then(r => r.ok ? r.json() : (STATIC ? Promise.reject(MISSING) : r.text().then(t => Promise.reject(t))));
+};
+const pct = (x, d=1) => (x*100).toFixed(d) + "%";
+function kpi(label, value, sub){ return `<div class="card"><div class="lbl">${label}</div><div class="k">${value}</div><div class="lbl">${sub||""}</div></div>`; }
+
+J("/api/results/summary").then(s => {
+  document.getElementById("kpis").innerHTML = (s.kpis || []).map(k => kpi(k.label, k.value, k.source)).join("");
+  document.getElementById("warn").innerHTML = s.warnings_finding_html || "";
+}).catch(() => { document.getElementById("kpis").innerHTML = kpi("summary.json", "not produced yet", "run Phase 7"); });
+
+J("/api/topology").then(t => {
+  const pos = Object.fromEntries(t.nodes.map(n => [n.name, n]));
+  const traces = t.links.filter(l => l.src < l.dst || !t.links.some(m => m.src===l.dst && m.dst===l.src)).map(l => {
+    const back = t.links.find(m => m.src===l.dst && m.dst===l.src);
+    const u = Math.max(l.max_util, back ? back.max_util : 0), p95 = Math.max(l.p95_util, back ? back.p95_util : 0);
+    const col = u >= 0.5 ? "#e5533d" : u >= 0.25 ? "#eda100" : "#2a78d6";
+    return {type:"scattergeo", mode:"lines", lon:[pos[l.src].lon, pos[l.dst].lon], lat:[pos[l.src].lat, pos[l.dst].lat],
+      line:{width: l.capacity_mbps < 9920 ? 2 : 2 + 6*u, color: col, dash: l.capacity_mbps < 9920 ? "dot" : "solid"}, hoverinfo:"text",
+      text:`${l.src}-${l.dst}: peak ${pct(u)}, p95 ${pct(p95)}, ${l.capacity_mbps} Mbit/s`, showlegend:false}; });
+  traces.push({type:"scattergeo", mode:"markers+text", lon:t.nodes.map(n=>n.lon), lat:t.nodes.map(n=>n.lat), text:t.nodes.map(n=>n.name),
+    textposition:"top center", marker:{size:6}, showlegend:false});
+  Plotly.newPlot("map", traces, lay({geo:{scope:"usa", bgcolor:"rgba(0,0,0,0)"}, height:420}), {responsive:true});
+  const sel = document.getElementById("linksel");
+  [...t.links].sort((a, b) => b.max_util - a.max_util).forEach(l => { const o = document.createElement("option"); o.value = l.link_id; o.textContent = `${l.src} -> ${l.dst} (peak ${pct(l.max_util)}, p95 ${pct(l.p95_util)})`; sel.appendChild(o); });
+  sel.onchange = drawLink; drawLink();
+  const fl = document.getElementById("fl"), fn = document.getElementById("fn");
+  t.links.filter(l => l.src < l.dst).forEach(l => { const b = t.links.find(m => m.src===l.dst && m.dst===l.src);
+    const o = document.createElement("option"); o.value = [l.link_id, b ? b.link_id : ""].join(","); o.textContent = `${l.src} - ${l.dst}`; fl.appendChild(o); });
+  t.nodes.forEach(n => { const o = document.createElement("option"); o.value = n.name; o.textContent = n.name; fn.appendChild(o); });
+  const qs = new URLSearchParams(location.search);
+  if (qs.get("fail")) { const want = qs.get("fail"); [...fl.options].forEach(o => { if (o.value === want) fl.value = want; }); }
+  if (qs.get("growth")) document.getElementById("g").value = qs.get("growth");
+  runScenario();
+});
+function drawLink(){ const id = document.getElementById("linksel").value;
+  J(`/api/link/${id}/utilisation?every=12`).then(d => Plotly.newPlot("linkplot", [{x:d.ts_assumed, y:d.utilisation, mode:"lines", name:d.link}],
+    lay({yaxis:{title:"utilisation", tickformat:".1%"}, title:{text:d.link + " (timestamps assumed)", font:{size:13}}}), {responsive:true})); }
+
+J("/api/forecast/summary").then(s => {
+  const rows = s.rows.filter(r => r.fold === "original");
+  const meths = [...new Set(rows.map(r => r.method))]; const hs = ["h1","h6","h12"];
+  const m = document.getElementById("meth"); meths.forEach(x => { const o = document.createElement("option"); o.textContent = x; m.appendChild(o); });
+  const best = (s.selected_on_validation["original/h12"] || "persistence"); if (meths.includes(best)) m.value = best;
+  let h = "<table><tr><th>method</th>" + hs.map(x => `<th>${({h1:"5",h6:"30",h12:"60"})[x]} min</th>`).join("") + "<th>90% coverage (60 min)</th></tr>";
+  meths.forEach(x => { h += `<tr><td>${x}</td>` + hs.map(hh => { const r = rows.find(r => r.method===x && r.horizon===hh);
+    return `<td>${r ? (r.test_gain_vs_persistence_pct>=0?"+":"") + r.test_gain_vs_persistence_pct.toFixed(1) + "%" : "-"}</td>`; }).join("");
+    const r12 = rows.find(r => r.method===x && r.horizon==="h12"); h += `<td>${r12 ? pct(r12.coverage90) : "-"}</td></tr>`; });
+  document.getElementById("ftable").innerHTML = h + "</table><div class='lbl'>Selected on validation: " +
+    Object.entries(s.selected_on_validation).filter(([k]) => k.startsWith("original")).map(([k,v]) => `${k.split("/")[1]}: ${v}`).join(", ") + "</div>";
+  drawForecast();
+});
+function drawForecast(){ const f = document.getElementById("flow").value, h = document.getElementById("hz").value, m = document.getElementById("meth").value || "persistence";
+  J(`/api/forecast?flow=${f}&horizon=${h}&method=${m}&limit=2016`).then(d => Plotly.newPlot("fplot", [
+    {x:d.step, y:d.hi, mode:"lines", line:{width:0}, showlegend:false, hoverinfo:"skip"},
+    {x:d.step, y:d.lo, mode:"lines", fill:"tonexty", line:{width:0}, name:"90% interval", fillcolor: dark ? "rgba(90,160,240,0.38)" : "rgba(42,120,214,0.25)"},
+    {x:d.step, y:d.actual, mode:"lines", name:"actual", line:{color: dark ? "#ddd" : "#333", width:1}},
+    {x:d.step, y:d.point, mode:"lines", name:m, line:{color:"#2a78d6", width:1.5}}],
+    lay({yaxis:{title:"Mbit/s"}, xaxis:{title:"Abilene step"}, title:{text:`flow ${f}, ${m}, first ${d.step.length.toLocaleString()} test steps (5-min) of the test period`, font:{size:13}}}), {responsive:true}))
+    .catch(e => { document.getElementById("fplot").textContent = e; }); }
+function runScenario(){ const fl = document.getElementById("fl").value;
+  const body = {growth_factor: +document.getElementById("g").value, threshold: +document.getElementById("thr").value,
+    fail_links: fl ? fl.split(",").filter(Boolean).map(Number) : [], fail_node: document.getElementById("fn").value || null};
+  J("/api/scenario", {method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify(body)}).then(r => {
+    const rows = [["kind", r.kind], ["peak utilisation (any core link)", pct(r.max_util)], ["worst link", r.worst_link_name],
+      ["worst link p95", pct(r.p95_util_worst)], [`links with peak ≥ ${pct(r.threshold, 0)}`, r.links_over_threshold_max],
+      [`5-min steps with any link ≥ ${pct(r.threshold, 0)}`, r.steps_any_link_over_threshold.toLocaleString()],
+      ["unroutable flows", r.unroutable_flows], ["largest share of traffic dropped", pct(r.dropped_traffic_share_max)]];
+    document.getElementById("ssum").innerHTML = "<table>" + rows.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("") + "</table>";
+    const links = Object.entries(r.per_link).sort((a, b) => b[1].max - a[1].max);
+    Plotly.newPlot("splot", [{type:"bar", x: links.map(l => l[0]), y: links.map(l => l[1].max), name:"peak",
+      marker:{color: links.map(l => l[1].max >= 1 ? "#e5533d" : l[1].max >= r.threshold ? "#eda100" : "#2a78d6")}},
+      {type:"bar", x: links.map(l => l[0]), y: links.map(l => l[1].p95), name:"p95", marker:{color:"#7a7a85"}}],
+      lay({barmode:"group", yaxis:{title:"utilisation", tickformat:".0%"}, xaxis:{tickangle:-45, automargin:true}, height:440, margin:{l:60,r:20,t:40,b:120},
+           title:{text:"Per-link utilisation under this scenario (measured demand, OSPF rerouting)", font:{size:13}},
+           shapes:[{type:"line", xref:"paper", x0:0, x1:1, y0:1, y1:1, line:{color:"#e5533d", dash:"dash", width:1}}]}), {responsive:true});
+    document.getElementById("sres").textContent = r.assumptions; })
+    .catch(e => document.getElementById("sres").textContent = e); }
+function drawAnoms(){ const ds = document.getElementById("ads").value, dt = document.getElementById("adt").value;
+  J(`/api/anomalies?dataset=${ds}&detector=${dt}&limit=50`).then(d => {
+    document.getElementById("atable").innerHTML = "<table><tr><th>series</th><th>step</th><th>score</th></tr>" +
+      d.rows.map(r => `<tr><td>${r.entity_id}</td><td>${r.step}</td><td>${r.score.toFixed(2)}</td></tr>`).join("") + "</table>"; })
+    .catch(e => document.getElementById("atable").textContent = e); }
+J("/api/results/phase4_anomaly").then(r => { let h = "<b>Evaluation (test period, threshold chosen on validation)</b><table><tr><th>case</th><th>detector</th><th>F1</th><th>avg precision</th></tr>";
+  for (const [c, v] of Object.entries(r.results)) for (const [d, x] of Object.entries(v.detectors))
+    h += `<tr><td>${c}</td><td>${d}</td><td>${x.test ? x.test.f1.toFixed(3) : "-"}</td><td>${(x.test_average_precision ?? x.average_precision_all_rows ?? 0).toFixed(3)}</td></tr>`;
+  document.getElementById("aeval").innerHTML = h + "</table>"; }).catch(() => {});
+drawAnoms();
+fetch(STATIC ? "data/limitations.md" : "/api/limitations").then(r => r.text()).then(t => document.getElementById("lim").textContent = t);
+</script>
+</body>
+</html>
